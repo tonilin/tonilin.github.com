@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[jQuerify : jQuery Bookmarklets]]></title>
+    <link href="http://blog.roachking.net/blog/2013/03/07/jquery-bookmarklets/"/>
+    <updated>2013-03-07T23:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/03/07/jquery-bookmarklets</id>
+    <content type="html"><![CDATA[<p>在開發不需要使用到 jQuery 的專案時，有時候需要在 console 下一些指令，來進行測試，這時如果沒有 jQuery selector 是很不方便的。這裡寫了一個 Bookmarklets，可以按一下就把 jQuery 包進來：</p>
+
+<p><a href="javascript:void((function(){var jq = document.createElement('script');jq.type = 'text/javascript';jq.src = 'http://code.jquery.com/jquery-latest.min.js';document.getElementsByTagName('head')[0].appendChild(jq);})());">jQuerify</a> &ndash; Drag this link to bookmarks bar.</p>
+
+<p>將上面連結拖放到書籤列，在沒有支援 jQuery 的網站中按一下按鈕，就可以使用 jQuery。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不支援 JavaScript 時的 CSS]]></title>
+    <link href="http://blog.roachking.net/blog/2013/02/15/noscript-css/"/>
+    <updated>2013-02-15T22:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/02/15/noscript-css</id>
+    <content type="html"><![CDATA[<p>最近面試時，被問到一個不錯的問題，如何確保在不能執行 JavaScript 的環境下，網頁依然能正常運作？</p>
+
+<p>因為以前做的專案幾乎都是功能性為主，很少會去考慮到這個問題，但是如果網站是內容導向網站，這個問題就非常重要了。</p>
+
+<!--more-->
+
+
+<h2>Situation</h2>
+
+<p>在很多情況下，我們會把畫面用 CSS 隱藏起來，等待 JavaScript 觸發時才讓畫面顯示。
+如果要做到非 JavaScript 的瀏覽器可以正常顯示，最直接的辦法就是：支援 JavaScript 時不顯示，不支援 JavaScript 時顯示。</p>
+
+<h2>Anti-pattern</h2>
+
+<p>於是上網看看，大家是怎麼解決這個問題的，發現不少寫法是這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>noscript<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>style type=&quot;text/css&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/style<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/noscript<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>但是如果對 style 這個標籤稍微有點認識，會發現其實這樣寫是錯誤的，根據 <a href="http://www.w3.org/TR/html4/present/styles.html">HTML 的規範</a>，style 只能出現在 head 裡，所以稍微修正一下：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>noscript<span class="ni">&amp;gt;</span>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>style type=&quot;text/css&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ni">&amp;lt;</span>/style<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/noscript<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>但是，noscript 在 head 中出現是正確的嗎？<br/>
+在 HTML4 noscript 只能出現在 body，而在 HTML5 出現在 head 和 body 中都是合法的。</p>
+
+<h2>Modernizr &amp; HTML5 Boilerplate</h2>
+
+<p>如何避免這個尷尬的情況呢？ 我們來看看 <strong>modernizr</strong> 和 <strong>HTML5 Boilerplate</strong> 的解法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">&quot;no-js&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script src=&quot;http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>我們在 html 標籤裡加入一個 no-js 的 class，接著讀入 modernizr，modernizr 會把瀏覽器支援的東西寫入 html 的 class，
+於是就會出現兩種情況：</p>
+
+<ul>
+<li>不支援 JavaScript 的瀏覽器，不會執行 modernizr，html 就會有一開始設定的 no-js class。</li>
+<li>支援 JavaScript 的瀏覽器，執行 modernizr，html 不會有 no-js class，而多出了 js 的 class。</li>
+</ul>
+
+
+<p>我們用有支援 JavaScript 的瀏覽器跑看看結果：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">&quot; js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths&quot;</span> <span class="na">style=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script src=&quot;http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>結果是我們想要的！接下來就可以很輕鬆得用 CSS 來控制不支援 JavaScript 的顯示方式：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">&quot;no-js&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script src=&quot;http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>style type=&quot;text/css&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>  .hide-me {
+</span><span class='line'>    display: none;
+</span><span class='line'>  }
+</span><span class='line'>  .no-js .hide-me {
+</span><span class='line'>    display: block;
+</span><span class='line'>  }
+</span><span class='line'><span class="ni">&amp;lt;</span>/style<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果不想用 modernizr，也可以用一行輕鬆寫出來：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!doctype html&gt;
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">class=</span><span class="s">&quot;no-js&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>(function(H){H.className=H.className.replace(/\bno-js\b/,&#39;js&#39;)})(document.documentElement)<span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bower JavaScript 套件管理器]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/17/introduce-bower/"/>
+    <updated>2013-01-17T21:42:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/17/introduce-bower</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/938/SqDDFzpOShmkZLQa45DU_bower.png" alt="Bower" /></p>
+
+<p>Bower Official Site : <a href="http://twitter.github.com/bower/">http://twitter.github.com/bower/</a></p>
+
+<h2>什麼是 Bower ?</h2>
+
+<p>Bower 是一個 JavaScript Package Manager，類似 node.js 的 npm 、 PHP 的 composer。</p>
+
+<p>在開發 Web 前端時，常常需要很多套件來輔助開發，例如需要 jQuery、Backbone、Bootstrap 和 Require.js 等等，
+在沒有套件管理的情況下，通常有幾種方式：</p>
+
+<ul>
+<li>從舊專案複製，但常常這樣做的話，會一直使用舊版本的 Library，如果新版的有修正一些 Bug，常常無法 follow 到。</li>
+<li>到官網抓，不過一個專案需要很多 Library，一個一個找連結會花非常多時間。</li>
+<li>使用 Git，同上，如果沒有 Repository 位置的話，一樣很花時間。</li>
+</ul>
+
+
+<p>不管用上面哪種方法，如果想要更新套件，一樣的事情又得重做一次。如果需要特定版本的套件，又要花時間找。</p>
+
+<p>而 Bower 就是用來解決這個問題的，只要列好所需的 Library 就可以一個指令全部抓回來，更新的時候也一樣快速。</p>
+
+<!--more-->
+
+
+<h2>安裝 Bower</h2>
+
+<p>安裝 Bower 需要使用 Node 和 npm</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install bower -g
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>下載套件</h2>
+
+<p>首先我們先將目錄移到專案目錄，並下一個安裝 jQuery 的指令</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower install jquery
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>等指令跑完就會看到 jQuery 已經出現在 <strong> ./components/jquery </strong></p>
+
+<h2>Bower 設定檔</h2>
+
+<p>上面我們會發現，Bower 幫我放置的路徑，並不是我想要的路徑，沒關係，只需要在設定檔裡面指定路徑即可。</p>
+
+<p>在專案根目錄新增一個檔案 <strong>.bowerrc</strong>，並指明路徑：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>.bowerrc </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;directory&amp;rdquo;</span> <span class="err">:</span> <span class="err">&amp;ldquo;./public/js/vendor&amp;rdquo;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重新下一次安裝 jQuery 的指令，就會發現已經安裝在 <strong>./public/js/vendor/jquery</strong></p>
+
+<h2>搜尋套件</h2>
+
+<p>當不確定套件是否存在，或是想尋找套件相關的 plugin，可以使用 search 來尋找關鍵字相關的套件：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower search backbone
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>可以看到結果：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Search results:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;backbone git://github.com/documentcloud/backbone.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-amd git://github.com/amdjs/backbone&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.eventbinder git://github.com/marionettejs/backbone.eventbinder.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-deep-model git://github.com/powmedia/backbone-deep-model.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.localStorage git://github.com/jeromegn/Backbone.localStorage.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-relational git://github.com/PaulUithol/Backbone-relational.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.stickit git://github.com/NYTimes/backbone.stickit.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-validation git://github.com/thedersen/backbone.validation.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.paginator git://github.com/addyosmani/backbone.paginator.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-amd-lodash git://github.com/nibblebot/backbone.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.wreqr git://github.com/marionettejs/backbone.wreqr.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-forms git://github.com/powmedia/backbone-forms
+</span><span class='line'>&amp;hellip;
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+
+
+<h2>使用 <strong>component.json</strong> 建立套件清單</h2>
+
+<p>上面的方法都是一次安裝一個套件，我們可以在根目錄建立 component.json ，把專案需要用到的套件都列進去，就可以一次安裝：
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>component.json </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;name&amp;rdquo;:</span> <span class="err">&amp;ldquo;PackageName&amp;rdquo;,</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;version&amp;rdquo;:</span> <span class="err">&amp;ldquo;1.0.0&amp;rdquo;,</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;dependencies&amp;rdquo;:</span> <span class="err">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;pre&gt;&lt;code&gt;</span><span class="nt">&quot;jquery&quot;</span><span class="p">:</span> <span class="s2">&quot;1.8.3&quot;</span><span class="p">,</span>   <span class="err">//</span> <span class="err">指定安裝</span> <span class="err">1.8.3</span> <span class="err">版</span>
+</span><span class='line'><span class="nt">&quot;backbone-amd&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>   <span class="err">//</span> <span class="err">指定安裝最新版本</span>
+</span><span class='line'><span class="nt">&quot;underscore-amd&quot;</span><span class="p">:</span> <span class="s2">&quot;&amp;gt;= 1.4.3&quot;</span><span class="p">,</span>   <span class="err">//指定安裝大於等於</span> <span class="err">1.4.3</span> <span class="err">的版本</span>
+</span><span class='line'><span class="nt">&quot;requirejs&quot;</span><span class="p">:</span> <span class="kc">null</span>
+</span><span class='line'><span class="err">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;p&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<em>上面的內容如果需要使用，請記得把註解拿掉</em></p>
+
+<p>接著下 install 指令就會自動安裝了：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower install
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>其他指令</h2>
+
+<p>升級套件
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower update
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>反安裝套件
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower uninstall
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>小結</h2>
+
+<p>Web 的開發上，一直不斷有新的工具來解決現存的問題，可惜台灣在這方面的資訊一直不太發達，最近跑了十幾家公司面試，
+沒有人知道 Web 開發在流行什麼技術，一直 HTML5 、CSS3、Cloud 掛在嘴邊，公司還是一樣只用 LAMP 就解決所有問題。</p>
+
+<p>這些技術不是開發產品的唯一途徑，但是卻是可以改善開發流程和速度的利器。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一年前的小作品 - XP 踩地雷]]></title>
+    <link href="http://blog.roachking.net/blog/2012/12/15/winmine/"/>
+    <updated>2012-12-15T12:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/12/15/winmine</id>
+    <content type="html"><![CDATA[<iframe src="http://tonilin.github.io/portfolio/winmine/index.htm" scrolling="no" frameborder="0"  height="316" width="497" allowtransparency="true"></iframe>
+
+
+<p>上面這張，不是圖片XD，可以直接玩！</p>
+
+<p>這是一年前的作品，因為那時候剛當完兵，腦袋被重灌，只好寫一些東西來回復記憶。而當時我最想學的東西是 JavaScript 和 HTML5 ，所以就從這邊開始下手！
+使用的技術是 HTML5 的 Canvas，用 JavaScript 來控制各種行為和畫面的呈現。</p>
+
+<p>本來的目標是做得跟原本的 XP版 一模一樣，後來的成果差了左右鍵同時按，和一些自訂功能，大概花了兩天的時間完成。</p>
+
+<p>因為是恢復記憶用的作品，所以原始碼非常可怕，如果想要學習的千萬不要XD。</p>
+
+<p>下面這張是真的踩地雷，可以看到實際遊戲的部分，跟做出來的成品，一個 Pixel 都不差</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/935/D3UaF7fTqCnLhjF1knmW_winmine.gif" alt="winmine" /></p>
+]]></content>
+  </entry>
+  
+</feed>

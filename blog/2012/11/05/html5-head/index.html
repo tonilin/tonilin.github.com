@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>HTML 裡的 <head> 到底該放什麼、怎麼放？ - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="HTML 裡的 &lt;head&gt; 以前一直讓我很困惑，從小時候開始學 HTML，
+坊間的書和中文的教學網站，在這邊通常都是草草帶過，
+而小時候又不求甚解，反正瀏覽器容錯性這麼高，寫錯還是跑得出來。
+然而，長大以後，對一些小細節就會特別去注意，也比較看得懂原文的網站，
+所以在這邊整理一些 & &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/11/05/html5-head">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">HTML 裡的 <head> 到底該放什麼、怎麼放？</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-05T19:00:00+08:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>HTML 裡的 &lt;head&gt; 以前一直讓我很困惑，從小時候開始學 HTML，
+坊間的書和中文的教學網站，在這邊通常都是草草帶過，
+而小時候又不求甚解，反正瀏覽器容錯性這麼高，寫錯還是跑得出來。
+然而，長大以後，對一些小細節就會特別去注意，也比較看得懂原文的網站，
+所以在這邊整理一些 &lt;head&gt;「該放什麼東西，以及順序該怎麼排」。</p>
+
+<!--more-->
+
+
+<h2>&lt;title&gt;</h2>
+
+<p>&lt;head&gt; 裡面有一個必要的標籤，那就是&lt;title&gt;</p>
+
+<p>所以一開始看起來應該會像這樣：</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果不打 &lt;title&gt; 呢？ 瀏覽器不會跟你說你錯了，但是會自動幫你填入&lt;title&gt;，
+至於填入什麼，不同的瀏覽器有不同的填法。但是因為這行是必要的，
+所以送到 W3C HTML validation，它會跟你說你錯了。</p>
+
+<h2>Encoding</h2>
+
+<p>一般不指定 Encoding 時，瀏覽器會根據伺服器送過來的 header 或是用其他方法來判定。
+但是這個判定不一定會是正確的，所以我們會在 &lt;head&gt; 告訴瀏覽器，我們使用的 Encoding 方式。</p>
+
+<p>至於要用什麼編碼方式，在以往 UTF-8 還沒出現的時候，網路上的編碼非常亂，
+甚至現在有一些比較老牌的網站還是在用那些 Encoding，
+可是一旦網頁上如果出現其他語言，就非常可能變成亂碼。
+所以在現代的網頁裡，幾乎都是使用 UTF-8。</p>
+
+<p>那位置要放在哪呢？為了避免 <a href="http://code.google.com/p/doctype-mirror/wiki/ArticleUtf7">IE 的安全性因素</a>，編碼必須出現在最前面的<strong>1024 bytes</strong>。
+所以我們把它放在最前面。</p>
+
+<p>所以看起來應該會像：</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>P.S.1:如果你的編碼選擇 UTF-8 ，那你的文件在存檔的時候，記得存成 UTF-8 without BOM</em><br/>
+<em>P.S.2:你可能看過各式各樣的寫法，但是在 HTML5 裡面，你只需要像上面這樣簡潔有力就可以了！</em></p>
+
+<h2>X-UA-Compatible</h2>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>為了萬惡 IE ，我們加了這行，這行做了兩件事情：</p>
+
+<ul>
+<li>告訴 IE 要用最新的版本！</li>
+<li>如果用戶有安裝 <strong>Google Chrome Frame</strong>，就使用 Google Chrome Frame！這是一個 IE 外掛，可以讓 IE 使用 Chrome 的 render 引擎。</li>
+</ul>
+
+
+<p>不過加上這行可能會在一些需要認證的網站出現錯誤，所以建議讓伺服器用 header 的方式來送出。</p>
+
+<p>如果你不介意，那加上去會是這樣：</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Description</h2>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這是一個描述這個網站的標籤，搜尋引擎或是一些 spider 會用到這個資訊。</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Viewport</h2>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由於現在行動裝置盛行，為了讓使用者瀏覽方便，所以在瀏覽器的預設寬度，
+會讓沒有支援行動裝置的網站看起來比較舒服，
+如果你的網站有做 Responsive Design ，記得加上這行。</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Favicon</h2>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;icon&quot;</span> <span class="na">href=</span><span class="s">&quot;/favicon.ico&quot;</span> <span class="na">type=</span><span class="s">&quot;image/x-icon&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著我們會放入 Favicon ，也就是網址列上面那個小 icon 。
+一般瀏覽器就算你不寫這行，瀏覽器還是會去根目錄下尋找 favicon.ico 。
+而且不管有沒有找到，瀏覽器通常不會再找第二次。</p>
+
+<p>所以如果你有更新 Favicon ，記得加上這行，並改檔名，讓每個瀏覽器都能抓到最新版本。</p>
+
+<p>在這裡你還可以放一些專屬於 APPLE 裝置的 icon。</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;icon&quot;</span> <span class="na">href=</span><span class="s">&quot;/favicon.ico&quot;</span> <span class="na">type=</span><span class="s">&quot;image/x-icon&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Javascript 和 CSS</h2>
+
+<p>接著我們會告訴瀏覽器要載入那些 CSS 和 Javascript 檔案。</p>
+
+<p>先載入 CSS 還是先載入 Javascript？<br/>
+由於 &lt;script&gt; 標籤如果沒加上 async 屬性的話，會 block 住瀏覽器，瀏覽器得讀完這個 script 才會繼續下一個動作，
+而 &lt;link&gt; 標籤則沒有這個問題，所以<strong>先讀 CSS 再讀 Javascript</strong>，就可以讓瀏覽器同時下載 CSS 和 Javascript！</p>
+
+<figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;title&gt;</span>Hello World!<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;icon&quot;</span> <span class="na">href=</span><span class="s">&quot;/favicon.ico&quot;</span> <span class="na">type=</span><span class="s">&quot;image/x-icon&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;css/normalize.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;css/your-style.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/your-script.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/head&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果要讓 Script 同步下載呢？ <br/>
+async 雖然可以讓 script 同步下載，但是如果沒管理好相依性是很可怕的！
+譬如說：你寫了一段 script 用到 jquery 的 ready 方法，但是因為加了 async ，而瀏覽器還沒把 jquery.js 讀進來，
+這個時候就會出錯了！</p>
+
+<p>解決的方法就是使用一些延後讀取 Javascript 的套件，像 <a href="http://headjs.com/">head.js</a> 或是 <a href="http://requirejs.org/">require.js</a>。</p>
+
+<h2>小結</h2>
+
+<p>以上，基本的 &lt;head&gt; 就完成了。網路上有太多奇奇怪怪的 &lt;head&gt; ，相信看完這篇，</p>
+
+<p>可以稍微了解 &lt;head&gt; 倒底該塞什麼？ 順序該如何放？</p>
+
+<p>參考資料：</p>
+
+<p><a href="http://html5boilerplate.com/">HTML5 ★ BOILERPLATE</a><br/>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html">The HTML5 spec</a><br/>
+<a href="https://developers.google.com/speed/pagespeed/">Google Page Speed</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-05T19:00:00+08:00" pubdate data-updated="true">Nov 5<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/html5/'>HTML5</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/11/05/html5-head/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/11/05/html5-head/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/03/Normalize-css/" title="Previous Post: Normalize.css">&laquo; Normalize.css</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/07/postman-restful-client/" title="Next Post: Postman - 測試 API 的好工具">Postman - 測試 API 的好工具 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/11/05/html5-head/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/11/05/html5-head/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

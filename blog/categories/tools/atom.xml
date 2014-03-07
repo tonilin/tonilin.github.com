@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Tools | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/tools/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Localtunnel - 分享 Localhost Web Server]]></title>
+    <link href="http://blog.roachking.net/blog/2013/05/01/localtunnel/"/>
+    <updated>2013-05-01T13:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/05/01/localtunnel</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
+
+<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
+
+<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
+或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
+
+<p>localtunnel 可以建立一個通道，並產生一個網址，
+客戶就可以用這個網址，連到內網的 Web Server。</p>
+
+<!--more-->
+
+
+<h2>安裝 localtunnel</h2>
+
+<p>Localtunnel 需要使用 Gem 安裝:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你是使用 rvm，則不需要加上 sudo：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>打開你的 Web Server</h2>
+
+<p>他開你的 Web Server 並記下 Port，這裡以 8080 為例。</p>
+
+<h2>開始使用 localtunnel</h2>
+
+<p>第一次使用，必須附上 Public SSH key：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel -k ~/.ssh/id_rsa.pub 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>以後，則只需要打上 Web Server 的 Port</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著就會看到</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Port 8080 is now publicly accessible from &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://4mec.localtunnel.com&quot;</span>&gt;http://4mec.localtunnel.com&lt;/a&gt; &amp;hellip;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>後面那串網址就是 localtunnel 幫你產生的，使用者就可以透過這個網址看到內網的 Web Server 了！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 OptiPNG 最佳化 PNG]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/"/>
+    <updated>2013-01-30T14:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng</id>
+    <content type="html"><![CDATA[<p>OptiPNG Official Site : <a href="http://optipng.sourceforge.net/">http://optipng.sourceforge.net/</a></p>
+
+<p>OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。</p>
+
+<!--more-->
+
+
+<h2>安裝 OptiPNG</h2>
+
+<p>如果你是 MAC 的使用者，可以使用 brew 安裝：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install optipng
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>其他作業系統也有相對應的套件庫，例如 CentOS 可以使用 yum：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>yum install optipng
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果都沒有，可以到官網下載 tar 回來自己編譯。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://prdownloads.sourceforge.net/optipng/optipng-0.7.4.tar.gz&quot;</span>&gt;http://prdownloads.sourceforge.net/optipng/optipng-0.7.4.tar.gz&lt;/a&gt;
+</span><span class='line'><span class="nv">$ </span>tar -xzvf optipng-0.7.4.tar.gz
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>optipng-0.7.4
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>make &amp;amp;&amp;amp; make install
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>使用 OptiPNG</h2>
+
+<p>使用 OptiPNG 很簡單：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng fat.png&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;1920x1080 pixels, 4x8 bits/pixel, RGB+alpha
+</span><span class='line'>Reducing image to 3x8 bits/pixel, RGB
+</span><span class='line'>Input IDAT <span class="nv">size</span> <span class="o">=</span> 1969511 bytes
+</span><span class='line'>Input file <span class="nv">size</span> <span class="o">=</span> 1969633 bytes&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Trying:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 5     IDAT <span class="nv">size</span> <span class="o">=</span> 1765809
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 5     IDAT <span class="nv">size</span> <span class="o">=</span> 1728639
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 5     IDAT <span class="nv">size</span> <span class="o">=</span> 1635304&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Selecting parameters:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 5     IDAT <span class="nv">size</span> <span class="o">=</span> 1635304&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Output IDAT <span class="nv">size</span> <span class="o">=</span> 1635304 bytes <span class="o">(</span>334207 bytes decrease<span class="o">)</span>
+</span><span class='line'>Output file <span class="nv">size</span> <span class="o">=</span> 1635426 bytes <span class="o">(</span>334207 <span class="nv">bytes</span> <span class="o">=</span> 16.97% decrease<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>隨便拿一張未壓縮的 PNG 來測試，可以看到檔案大小少了約 17% 。</p>
+
+<p>可以加入參數，做最高等級的最佳化，但是最佳化的速度最慢：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -o7 fat.png&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;920x1080 pixels, 4x8 bits/pixel, RGB+alpha
+</span><span class='line'>Reducing image to 3x8 bits/pixel, RGB
+</span><span class='line'>Input IDAT <span class="nv">size</span> <span class="o">=</span> 1969511 bytes
+</span><span class='line'>Input file <span class="nv">size</span> <span class="o">=</span> 1969633 bytes&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Trying:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 1     IDAT <span class="nv">size</span> <span class="o">=</span> 1806167
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 1     IDAT <span class="nv">size</span> <span class="o">=</span> 1772590
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 2     IDAT <span class="nv">size</span> <span class="o">=</span> 1756210
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 2     IDAT <span class="nv">size</span> <span class="o">=</span> 1730041
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 2     IDAT <span class="nv">size</span> <span class="o">=</span> 1693082
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 3     IDAT <span class="nv">size</span> <span class="o">=</span> 1679603
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 3     IDAT <span class="nv">size</span> <span class="o">=</span> 1653177
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 3     IDAT <span class="nv">size</span> <span class="o">=</span> 1569035&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Selecting parameters:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 3     IDAT <span class="nv">size</span> <span class="o">=</span> 1569035&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Output IDAT <span class="nv">size</span> <span class="o">=</span> 1569035 bytes <span class="o">(</span>400476 bytes decrease<span class="o">)</span>
+</span><span class='line'>Output file <span class="nv">size</span> <span class="o">=</span> 1569157 bytes <span class="o">(</span>400476 <span class="nv">bytes</span> <span class="o">=</span> 20.33% decrease<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>可以看到比上一個例子又少了 3% 的大小，但是也多花了 3 分鐘來做最佳化。</p>
+
+<p>也可以把圖片的 metadata　一併去除掉，減少檔案大小的同時，也可以避免一些 code injection：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -strip all *.png
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>當然如果需要整個目錄內的 PNG 都最佳化，可以下達：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng *.png
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果怕最佳化的時候出錯，可以加一個 -k ，optiPNG 會自動備份原本的檔案。如果你本來就有在做版本控管，就不需要這個了。
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -k *.png
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>更多資訊</h2>
+
+<p>OptiPNG 並不是唯一解，還有其他最佳化工具，壓縮的比例也都不同，網路上都可以找到評比，有需要的話可以自行 Google。</p>
+
+<p>如果想要更了解 PNG 和壓縮原理可以參考：<a href="http://optipng.sourceforge.net/pngtech/optipng.html">A guide to PNG optimization</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[VirtualBox Apache Sendfile]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile/"/>
+    <updated>2013-01-26T19:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile</id>
+    <content type="html"><![CDATA[<p>之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
+但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。</p>
+
+<p>這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
+發現是 Apache 的 sendfile 在做怪，這是一個利用 Kernel 的 sendfile 來加速靜態檔案發送的功能。</p>
+
+<p>但是 sendfile 在目錄是網路掛載的情況下會出問題，所以在開發環境，把這個功能關掉，才不會出現檔案沒更新的錯誤。</p>
+
+<p>打開 <strong>httpd.conf</strong>，找到 EnableSendfile ，並設成 off：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>httpd.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='apacheconf'><span class='line'><span class="c">#&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="err">EnableSendfile:</span> <span class="nb">Control</span> whether the sendfile kernel support is&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="nb">used</span> to deliver files (assuming that the <span class="k">OS</span> supports it).&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="nb">The</span> default is <span class="k">on</span>; turn this <span class="k">off</span> if you serve from NFS-mounted&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="err">filesystems</span>. <span class="nb">Please</span> see&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;&lt;a</span> <span class="s">href=&quot;http://httpd.apache.org/docs/2.2/mod/core.html#enablesendfile&quot;</span><span class="nt">&gt;</span><span class="err">http://httpd</span>.<span class="err">apache</span>.<span class="err">org/docs/2</span>.<span class="err">2/mod/core</span>.<span class="err">html</span><span class="c">#enablesendfile&lt;/a&gt;&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span><span class="c">#</span>
+</span><span class='line'><span class="nb">EnableSendfile</span> <span class="k">off</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>更多有關 Apache Sendfile 可以參考：<a href="http://httpd.apache.org/docs/2.0/mod/core.html#enablesendfile">Apache Documentation</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bower JavaScript 套件管理器]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/17/introduce-bower/"/>
+    <updated>2013-01-17T21:42:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/17/introduce-bower</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/938/SqDDFzpOShmkZLQa45DU_bower.png" alt="Bower" /></p>
+
+<p>Bower Official Site : <a href="http://twitter.github.com/bower/">http://twitter.github.com/bower/</a></p>
+
+<h2>什麼是 Bower ?</h2>
+
+<p>Bower 是一個 JavaScript Package Manager，類似 node.js 的 npm 、 PHP 的 composer。</p>
+
+<p>在開發 Web 前端時，常常需要很多套件來輔助開發，例如需要 jQuery、Backbone、Bootstrap 和 Require.js 等等，
+在沒有套件管理的情況下，通常有幾種方式：</p>
+
+<ul>
+<li>從舊專案複製，但常常這樣做的話，會一直使用舊版本的 Library，如果新版的有修正一些 Bug，常常無法 follow 到。</li>
+<li>到官網抓，不過一個專案需要很多 Library，一個一個找連結會花非常多時間。</li>
+<li>使用 Git，同上，如果沒有 Repository 位置的話，一樣很花時間。</li>
+</ul>
+
+
+<p>不管用上面哪種方法，如果想要更新套件，一樣的事情又得重做一次。如果需要特定版本的套件，又要花時間找。</p>
+
+<p>而 Bower 就是用來解決這個問題的，只要列好所需的 Library 就可以一個指令全部抓回來，更新的時候也一樣快速。</p>
+
+<!--more-->
+
+
+<h2>安裝 Bower</h2>
+
+<p>安裝 Bower 需要使用 Node 和 npm</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>npm install bower -g
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>下載套件</h2>
+
+<p>首先我們先將目錄移到專案目錄，並下一個安裝 jQuery 的指令</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower install jquery
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>等指令跑完就會看到 jQuery 已經出現在 <strong> ./components/jquery </strong></p>
+
+<h2>Bower 設定檔</h2>
+
+<p>上面我們會發現，Bower 幫我放置的路徑，並不是我想要的路徑，沒關係，只需要在設定檔裡面指定路徑即可。</p>
+
+<p>在專案根目錄新增一個檔案 <strong>.bowerrc</strong>，並指明路徑：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>.bowerrc </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;directory&amp;rdquo;</span> <span class="err">:</span> <span class="err">&amp;ldquo;./public/js/vendor&amp;rdquo;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重新下一次安裝 jQuery 的指令，就會發現已經安裝在 <strong>./public/js/vendor/jquery</strong></p>
+
+<h2>搜尋套件</h2>
+
+<p>當不確定套件是否存在，或是想尋找套件相關的 plugin，可以使用 search 來尋找關鍵字相關的套件：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower search backbone
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>可以看到結果：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Search results:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;ul&gt;
+</span><span class='line'>&lt;li&gt;backbone git://github.com/documentcloud/backbone.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-amd git://github.com/amdjs/backbone&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.eventbinder git://github.com/marionettejs/backbone.eventbinder.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-deep-model git://github.com/powmedia/backbone-deep-model.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.localStorage git://github.com/jeromegn/Backbone.localStorage.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-relational git://github.com/PaulUithol/Backbone-relational.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.stickit git://github.com/NYTimes/backbone.stickit.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-validation git://github.com/thedersen/backbone.validation.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.paginator git://github.com/addyosmani/backbone.paginator.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-amd-lodash git://github.com/nibblebot/backbone.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone.wreqr git://github.com/marionettejs/backbone.wreqr.git&lt;/li&gt;
+</span><span class='line'>&lt;li&gt;backbone-forms git://github.com/powmedia/backbone-forms
+</span><span class='line'>&amp;hellip;
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+
+
+<h2>使用 <strong>component.json</strong> 建立套件清單</h2>
+
+<p>上面的方法都是一次安裝一個套件，我們可以在根目錄建立 component.json ，把專案需要用到的套件都列進去，就可以一次安裝：
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>component.json </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;name&amp;rdquo;:</span> <span class="err">&amp;ldquo;PackageName&amp;rdquo;,</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;version&amp;rdquo;:</span> <span class="err">&amp;ldquo;1.0.0&amp;rdquo;,</span>
+</span><span class='line'>  <span class="err">&amp;ldquo;dependencies&amp;rdquo;:</span> <span class="err">{&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;pre&gt;&lt;code&gt;</span><span class="nt">&quot;jquery&quot;</span><span class="p">:</span> <span class="s2">&quot;1.8.3&quot;</span><span class="p">,</span>   <span class="err">//</span> <span class="err">指定安裝</span> <span class="err">1.8.3</span> <span class="err">版</span>
+</span><span class='line'><span class="nt">&quot;backbone-amd&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>   <span class="err">//</span> <span class="err">指定安裝最新版本</span>
+</span><span class='line'><span class="nt">&quot;underscore-amd&quot;</span><span class="p">:</span> <span class="s2">&quot;&amp;gt;= 1.4.3&quot;</span><span class="p">,</span>   <span class="err">//指定安裝大於等於</span> <span class="err">1.4.3</span> <span class="err">的版本</span>
+</span><span class='line'><span class="nt">&quot;requirejs&quot;</span><span class="p">:</span> <span class="kc">null</span>
+</span><span class='line'><span class="err">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;p&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<em>上面的內容如果需要使用，請記得把註解拿掉</em></p>
+
+<p>接著下 install 指令就會自動安裝了：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower install
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>其他指令</h2>
+
+<p>升級套件
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower update
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>反安裝套件
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bower uninstall
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>小結</h2>
+
+<p>Web 的開發上，一直不斷有新的工具來解決現存的問題，可惜台灣在這方面的資訊一直不太發達，最近跑了十幾家公司面試，
+沒有人知道 Web 開發在流行什麼技術，一直 HTML5 、CSS3、Cloud 掛在嘴邊，公司還是一樣只用 LAMP 就解決所有問題。</p>
+
+<p>這些技術不是開發產品的唯一途徑，但是卻是可以改善開發流程和速度的利器。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Vagrant 管理虛擬機器]]></title>
+    <link href="http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/"/>
+    <updated>2012-12-28T21:42:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/12/28/introduce-vagrant</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/937/LSQ4lpQRWJKvY2x4LRLA_vagrant.png" alt="Vagrant" /></p>
+
+<p>Vagrant Official Site : <a href="http://vagrantup.com/">http://vagrantup.com/</a></p>
+
+<h2>什麼是 Vagrant ?</h2>
+
+<p>以往在建立 VM 的時候，就算 Guest Machine 都已經安裝好了，在部屬 Share Folder 、 Port Forwarding
+時也會花非常多的時間，如果是在一個團隊裡，要求大家開發的環境都一樣，而 Server 內要有
+Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想到這些就令人頭痛。</p>
+
+<p>而 Vagrant 就是用來解決這個問題的，它能將你配置好的 VM 封裝起來，以後，如果其他開發者進來，
+只要一個指令，就可以把開發環境建立起來，開發環境一起來，馬上就能進入狀況，可以節省非常多的時間成本！</p>
+
+<!--more-->
+
+
+<h2>開始使用 Vagrant</h2>
+
+<p>Vagrant 是使用 Ruby 寫的，我們可以用 gem 來安裝：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install vagrant
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著到 <a href="http://www.vagrantbox.es/">Vagrantbox.es</a> ，選擇一個已經封裝好的 Vagrant Box，
+像我習慣使用 CentOS x64，所以下面以 CentOS x64 做範例。</p>
+
+<p>將 Box 加進 Vagrant 裡：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant box add centos &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box&quot;</span>&gt;https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box&lt;/a&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>建立一個專案資料夾：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir ~/vagrant_project
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> ~/vagrant_project
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>使用剛剛加進來的 box 初始化環境：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant init centos
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著就可以啟動 VM 了：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant up
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>使用 SSH 進入 VM</h2>
+
+<p>以往建立 VM 以後，要手動設定網路和 Port Forwarding，現在只需要在 VM 啟動以後，
+使用一個指令就可以用 SSH 進入 VM：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant ssh
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><em>( 如果需要 root 權限，密碼是 vagrant )</em></p>
+
+<h2>分享資料夾</h2>
+
+<p>Vagrant 在部屬好以後，已經自動幫我們配置好 Share Folder 了。</p>
+
+<ul>
+<li>在 Host Machine 的位置在 Vagrant 專案的資料夾，以先前的例子是在 ~/vagrant_project/ 。</li>
+<li>在 Guest Machine 中，則是在 /vagrant。</li>
+</ul>
+
+
+<p>到這裡，你應該就可以知道，只要把 apache 的 Document Path 指到 /vagrant，就可以在 Host Machine
+開發了！</p>
+
+<h2>設定 Port Forwarding</h2>
+
+<p>設定 Port Forwarding ，我們才能輕鬆得從 Host Machine 連到 Guest 建立起來的伺服器。
+在 vagrant 專案的資料夾下，會看到一個 Vagrantfile，這是 Vagrant 自動幫我們建立的。</p>
+
+<p>一開始它可能看起來會像這樣：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> &amp;ldquo;base&amp;rdquo;
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>現在我們要將 Host 的 8080，轉發到 Guest 的 80：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> &amp;ldquo;base&amp;rdquo;
+</span><span class='line'>  config.vm.forward_port &amp;ldquo;http&amp;rdquo;, 80, 8080
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重新啟動 VM：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant reload
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你已經用 SSH 將 Apache 安裝好，現在在瀏覽器輸入 <a href="http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82">http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82</a></p>
+
+<h2>關閉 VM</h2>
+
+<p>在系統重開機之前，千萬要記得先關掉 VM，不正常關閉 VM，可能會造成一些系統錯誤。</p>
+
+<p>關閉 VM 只需要一個指令：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant halt
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>封裝 VM</h2>
+
+<p>如果你已經將所有東西配置好，打算將這個 VM 封裝起來使用，你只需要輸入：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant package
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此就可以在目錄下看到一個 package.box，其他使用者只需要使用 vagrant box add，就可以立即部屬一個
+你建立好的環境。</p>
+
+<h2>小結</h2>
+
+<p>開始使用 Vagrant 後，第一個想法就是，這一定可以幫團隊節省非常多的成本，每個剛進來的工程師，
+都可以使用簡單的幾個指令，就建置好環境，而且馬上就可以成為戰力！</p>
+
+<p>Vagrant 還有更多便利的功能，可以在官網找到，可以讓建立開發環境更自動化，有興趣的可以參考官方網站。</p>
+]]></content>
+  </entry>
+  
+</feed>

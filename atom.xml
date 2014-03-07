@@ -1,0 +1,2278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[201402 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2014/02/12/201402-link-collection/"/>
+    <updated>2014-02-12T02:38:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/02/12/201402-link-collection</id>
+    <content type="html"><![CDATA[<h2>Ruby</h2>
+
+<p><a href="https://github.com/documentcloud/docsplit">docsplit</a></p>
+
+<blockquote><p>Break Apart Documents into Images, Text, Pages and PDFs</p></blockquote>
+
+<p><a href="https://github.com/CanCanCommunity/cancancan">CanCanCan</a></p>
+
+<blockquote><p>Continuation of CanCan, the authorization Gem for Ruby on Rails.</p></blockquote>
+
+<p><a href="https://github.com/floere/phony">Phony</a></p>
+
+<blockquote><p>E164 international phone number normalizing, splitting, formatting.</p></blockquote>
+
+<p><a href="https://github.com/GCorbel/activeform-rails">activeform-rails</a></p>
+
+<blockquote><p>Form Objects for ActiveModel</p></blockquote>
+
+<!-- more -->
+
+
+<h2>Javascript</h2>
+
+<p><a href="https://github.com/sindresorhus/pageres">pageres</a></p>
+
+<blockquote><p>Get screenshots of the websites in different resolutions</p></blockquote>
+
+<p><a href="https://github.com/sofish/pen">pen</a></p>
+
+<blockquote><p>enjoy live editing (+markdown)</p></blockquote>
+
+<p><a href="https://github.com/Puffant/paste.js">paste.js</a></p>
+
+<blockquote><p>read from clipboard data in different browsers</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="http://stackicons.com/">StackIcons</a></p>
+
+<blockquote><p>Doing More with Icon Fonts</p></blockquote>
+
+<h2>Development</h2>
+
+<p><a href="https://github.com/thoughtbot/gitsh">gitsh</a></p>
+
+<blockquote><p>An interactive shell for git</p></blockquote>
+
+<p><a href="https://github.com/LuRsT/hr">hr</a></p>
+
+<blockquote><p><code>&lt;hr /&gt;</code> for your terminal</p></blockquote>
+
+<h2>Startup</h2>
+
+<p><a href="http://pullup.io/">PullUp</a></p>
+
+<blockquote><p>A website you join via pull request</p></blockquote>
+
+<h2>Tools</h2>
+
+<p><a href="http://recordit.co/">Recordit</a></p>
+
+<blockquote><p>For Mac users who would like to create screencasts super quickly.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我的 Rails Template]]></title>
+    <link href="http://blog.roachking.net/blog/2014/02/01/my-rails-template/"/>
+    <updated>2014-02-01T06:21:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/02/01/my-rails-template</id>
+    <content type="html"><![CDATA[<p>Github 上有非常多的 Rails template，例如 <a href="https://github.com/RailsApps/rails-composer">Rails Composer</a>, <a href="https://github.com/nicoschuele/railsbricks/">RailsBricks</a>, <a href="https://github.com/xdite/bootstrappers">Bootstrappers</a>，這些都是很好的 Template，有他們自己很棒的 Practice，但是不管這些 Template 有多好，生成出來的東西，有些還是不符合自己的需求，還是需要砍掉部分不需要的，加入一些自己習慣用的。</p>
+
+<p>有鑑於每次產生出來以後還要做很多事情，所以，最近用了 <a href="https://github.com/RailsApps/rails_apps_composer">Rails Apps Composer</a> 製作了自己的 Rails template，可以一行指令就產生我自己常用的 Gems, Settings, Views&hellip;等等：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails new project_name -m https://raw.github.com/tonilin/rails_recipe/master/template.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>( <code>project_name</code> 可以換成你想要的專案名稱。)</p>
+
+<h2>需求</h2>
+
+<ul>
+<li>Rails 4.0</li>
+<li>Ruby 2.1.0</li>
+<li>RVM</li>
+<li>Mysql</li>
+<li>使用 capistrano deploy</li>
+<li>Server side 使用 Unicorn 當 Server</li>
+</ul>
+
+
+<p>因為是自己的 Best Practice 所以就裡面只會問你資料庫帳號密碼，其他一律是用我習慣使用的，不會用一堆命令行問你資料庫想用哪種，要不要裝 Devise 之類的。如果不是你習慣用的可以 fork <a href="https://github.com/tonilin/rails-recipe">tonilin / rails-recipe</a> 回去改，或是用比較有彈性的 <a href="https://github.com/RailsApps/rails-composer">Rails Composer</a> 或 <a href="https://github.com/nicoschuele/railsbricks/">RailsBricks</a>。</p>
+
+<p>有興趣自己寫 template 的，改天會開一篇文章教大家如何用 <a href="https://github.com/RailsApps/rails_apps_composer">Rails Apps Composer</a> 產生自己習慣的 Rails template。</p>
+
+<h2>內容</h2>
+
+<p>使用 Rails Apps Composer 可以讓 recipe 看起來很乾淨，看 code 就可以知道包含了什麼，所以參考 <a href="https://github.com/tonilin/rails-recipe/blob/master/roachking.rb%EF%BC%8C%E5%A4%A7%E6%A6%82%E5%8F%AF%E4%BB%A5%E7%9F%A5%E9%81%93%E5%8C%85%E4%BA%86%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF%E9%80%B2%E5%8E%BB%E3%80%82">https://github.com/tonilin/rails-recipe/blob/master/roachking.rb%EF%BC%8C%E5%A4%A7%E6%A6%82%E5%8F%AF%E4%BB%A5%E7%9F%A5%E9%81%93%E5%8C%85%E4%BA%86%E4%BB%80%E9%BA%BC%E6%9D%B1%E8%A5%BF%E9%80%B2%E5%8E%BB%E3%80%82</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不要使用 INT 來儲存 Facebook ID 或 Twitter ID]]></title>
+    <link href="http://blog.roachking.net/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/"/>
+    <updated>2014-01-20T03:15:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id</id>
+    <content type="html"><![CDATA[<p>今天在修一個使用者回報的 Facebook Binding 登入到錯誤帳號的問題，於是就開啟資料庫來看，發現一堆 Binding 都是綁到 Facebook 的 2147483647 這個 UID。 靠！好熟悉的數字，這不是天堂金幣的上限嗎？</p>
+
+<p>這麼熟悉的數字一看就知道溢位了 Orz ，用 mysql 的話把欄位改成 BIGINT 就沒問題了，Rails 的修改方式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ModifyUidToBigIntToAuthorizations</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">change_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:facebook_id</span><span class="p">,</span> <span class="ss">:integer</span><span class="p">,</span> <span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">8</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>至於為什麼是 limit 8，</p>
+
+<p>Mysql：</p>
+
+<figure class='code'><figcaption><span>active_record/connection_adapters/abstract_mysql_adapter.rb</span><a href='https://github.com/rails/rails/blob/c28d0f2031d31aeb5289b73acbb5c1adb7bd71d4/activerecord/lib/active_record/connection_adapters/abstract_mysql_adapter.rb#L109'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">extract_limit</span><span class="p">(</span><span class="n">sql_type</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">sql_type</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^enum\((.+)\)/i</span>
+</span><span class='line'>    <span class="vg">$1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">enum</span><span class="o">|</span> <span class="n">enum</span><span class="o">.</span><span class="n">strip</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">}</span><span class="o">.</span><span class="n">max</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/blob|text/i</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">sql_type</span>
+</span><span class='line'>    <span class="k">when</span> <span class="sr">/tiny/i</span>
+</span><span class='line'>      <span class="mi">255</span>
+</span><span class='line'>    <span class="k">when</span> <span class="sr">/medium/i</span>
+</span><span class='line'>      <span class="mi">16777215</span>
+</span><span class='line'>    <span class="k">when</span> <span class="sr">/long/i</span>
+</span><span class='line'>      <span class="mi">2147483647</span> <span class="c1"># mysql only allows 2^31-1, not 2^32-1, somewhat inconsistently with the tiny/medium/normal cases</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="k">super</span> <span class="c1"># we could return 65535 here, but we leave it undecorated by default</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^bigint/i</span><span class="p">;</span>    <span class="mi">8</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^int/i</span><span class="p">;</span>       <span class="mi">4</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^mediumint/i</span><span class="p">;</span> <span class="mi">3</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^smallint/i</span><span class="p">;</span>  <span class="mi">2</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^tinyint/i</span><span class="p">;</span>   <span class="mi">1</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="k">super</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Postgresql：</p>
+
+<figure class='code'><figcaption><span>active_record/connection_adapters/abstract_mysql_adapter.rb</span><a href='https://github.com/rails/rails/blob/1543863548bcd7515fac7b7b1931b6e23fedf80f/activerecord/lib/active_record/connection_adapters/postgresql_adapter.rb#L169'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">extract_limit</span><span class="p">(</span><span class="n">sql_type</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">sql_type</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^bigint/i</span><span class="p">;</span>    <span class="mi">8</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^smallint/i</span><span class="p">;</span>  <span class="mi">2</span>
+</span><span class='line'>  <span class="k">when</span> <span class="sr">/^timestamp/i</span><span class="p">;</span> <span class="kp">nil</span>
+</span><span class='line'>  <span class="k">else</span> <span class="k">super</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Babosa 配合 Friendly_id 解決中文網址問題]]></title>
+    <link href="http://blog.roachking.net/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/"/>
+    <updated>2014-01-17T07:01:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/norman/friendly_id">FriendlyId</a> 是用來讓 ActiveRecord 產生 Slug 的 Gem，一般 Rails App 通常是用資料庫的 id，以 SQL 資料庫來說就會是一個遞增的整數 <code>http://example.com/users/1</code>，這樣的網址沒有意義，會讓競爭對手知道你有多少 Record，而且要寫爬蟲也非常簡單，一直遞增數字就可以把整個網站爬完了。</p>
+
+<p>為了解決這個問題，通常會產生 Slug 來當做 record 的識別，一般的用法是這樣：</p>
+
+<figure class='code'><figcaption><span>user.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="no">FriendlyId</span>
+</span><span class='line'>  <span class="n">friendly_id</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">use</span><span class="p">:</span> <span class="ss">:slugged</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果 slug 是唯一的，就可以用 <code>http://example.com/users/roach-king</code> 來讀取到唯一的 record，而不會有醜醜的網址：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create!</span> <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Roach King&quot;</span>
+</span><span class='line'><span class="n">user</span><span class="o">.</span><span class="n">to_param</span> <span class="c1">#=&gt; &quot;roach-king&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># In UserController#show</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">user</span><span class="o">.</span><span class="n">friendly</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">parmas</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可是這個 Gem 的設計會使用 ActiveSupport 的 <a href="http://apidock.com/rails/ActiveSupport/Inflector/parameterize">parameterize</a>，把非 <code>a-z,0-9,-</code> 的字元全部變成 <code>-</code>，於是中文字就會被吃掉了：</p>
+
+<figure class='code'><figcaption><span>friendly_id/lib/friendly_id/slugged.rb</span><a href='https://github.com/norman/friendly_id/blob/5768abaa426078cc25a651fa9fed9145721f780e/lib/friendly_id/slugged.rb#L274'>link</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">normalize_friendly_id</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">value</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">parameterize</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>為了解決這個問題，可以用另外一個 Gem <a href="https://github.com/norman/babosa">babosa</a> 來配合，他可以把 UTF-8 字元處理好，而不是都消滅：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="s2">&quot;蟑 &amp; 螂  窩&quot;</span><span class="o">.</span><span class="n">to_slug</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">to_s</span> <span class="c1">#=&gt; &quot;蟑螂窩&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>跟 FriendlyId 配合只要把 <code>normalize_friendly_id</code> override 就可以了：</p>
+
+<figure class='code'><figcaption><span>user.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="kp">extend</span> <span class="no">FriendlyId</span>
+</span><span class='line'>  <span class="n">friendly_id</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">use</span><span class="p">:</span> <span class="ss">:slugged</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">normalize_friendly_id</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">input</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">to_slug</span><span class="o">.</span><span class="n">normalize</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[201401 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2014/01/17/201401-link-collection/"/>
+    <updated>2014-01-17T04:20:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/01/17/201401-link-collection</id>
+    <content type="html"><![CDATA[<h2>Javascript</h2>
+
+<p><a href="https://github.com/josh/jquery-selector-set">jQuery SelectorSet patch</a></p>
+
+<blockquote><p>Speeds up jQuery event delegation by using SelectorSet for matching event targets.</p></blockquote>
+
+<p><a href="http://serkanyersen.github.io/ifvisible.js/">Ifvisible.js</a></p>
+
+<blockquote><p><a href="http://serkanyersen.github.io/ifvisible.js/">http://serkanyersen.github.io/ifvisible.js/</a></p></blockquote>
+
+<p><a href="http://googlemapbuilder.mynameisdonald.com/">Google Map Builder</a></p>
+
+<blockquote><p>Build a Google Map for your website in just a few clicks.</p></blockquote>
+
+<!-- more -->
+
+
+<p><a href="http://fronteed.com/iCheck/">iCheck</a></p>
+
+<blockquote><p>SUPER CUSTOMIZED CHECKBOXES AND RADIO BUTTONS FOR JQUERY &amp; ZEPTO</p></blockquote>
+
+<p><a href="https://github.com/HubSpot/tether">tether</a></p>
+
+<blockquote><p>A positioning engine to make overlays, tooltips and dropdowns faster</p></blockquote>
+
+<p><a href="http://github.hubspot.com/drop/docs/welcome/">Drop</a></p>
+
+<blockquote><p>A library for creating elements for use with Tether</p></blockquote>
+
+<p><a href="https://github.com/wangjohn/creditly">Creditly.js</a></p>
+
+<blockquote><p>An intuitive credit card form</p></blockquote>
+
+<p><a href="https://github.com/HubSpot/shepherd">shepherd</a></p>
+
+<blockquote><p>Guide your users through a tour of your app</p></blockquote>
+
+<p><a href="http://customelements.io/">Custom Elements</a></p>
+
+<blockquote><p>a web components gallery for modern web apps</p></blockquote>
+
+<p><a href="http://pixelscommander.com/polygon/propeller/">Propeller.js</a></p>
+
+<blockquote><p>JavaScript library to rotate elements by mouse or touch gestures.</p></blockquote>
+
+<h2>Ruby</h2>
+
+<p><a href="http://instructure.github.io/blog/2014/01/07/faster-ruby-i18n-backend-written-in-c/?utm_source=rubyweekly&amp;utm_medium=email">Faster I18n Backend for Ruby Written in C</a></p>
+
+<blockquote><p>Faster I18n Backend for Ruby Written in C</p></blockquote>
+
+<p><a href="https://github.com/orgsync/active_interaction">ActiveInteraction</a></p>
+
+<blockquote><p>Manage application specific business logic.</p></blockquote>
+
+<p><a href="https://github.com/lassebunk/dish">Dish!</a></p>
+
+<blockquote><p>Super simple conversion of hashes into plain Ruby objects.</p></blockquote>
+
+<p><a href="https://github.com/avdi/naught">Naught</a></p>
+
+<blockquote><p>A toolkit for building Null Object classes in Ruby</p></blockquote>
+
+<h2>Startup</h2>
+
+<p><a href="http://www.squarespace.com/logo">Squarespace Logo</a></p>
+
+<blockquote><p>Logos made simple</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[201312 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2014/01/13/201312-link-collection/"/>
+    <updated>2014-01-13T06:20:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/01/13/201312-link-collection</id>
+    <content type="html"><![CDATA[<h2>Ruby</h2>
+
+<p><a href="https://github.com/schneems/sprockets_better_errors">Sprockets Better Errors</a></p>
+
+<blockquote><p>Errors, more of them, and better. For sprockets, specifically sprockets-rails.</p></blockquote>
+
+<p><a href="http://rubylove.io/ruby/core/2013/12/14/a-deeper-look-at-rubys-enumerable-1/">A Deeper Look at Ruby&rsquo;s Enumerable</a></p>
+
+<blockquote><p>Ruby&rsquo;s Enumerable module gives you a way of iterating over collections in a lazy manner, loading only what you need, when you need it. But it gives us so much more than that.</p></blockquote>
+
+<p><a href="https://github.com/jonbuda/miro">Miro</a></p>
+
+<blockquote><p>A Ruby gem to help extract the dominant colors from an image.</p></blockquote>
+
+<!-- more -->
+
+
+<h2>Javascript</h2>
+
+<p><a href="http://wicky.nillia.ms/headroom.js/">Headroom.js</a></p>
+
+<blockquote><p>Give your pages some headroom. Hide your header until you need it.</p></blockquote>
+
+<p><a href="https://github.com/shakyShane/browser-sync">browser-sync</a></p>
+
+<blockquote><p>Keep multiple browsers &amp; devices in sync when building websites.</p></blockquote>
+
+<p><a href="http://yyx990803.github.io/zoomerang/">Zoomerang.js</a></p>
+
+<blockquote><p>drop in zoom anything</p></blockquote>
+
+<p><a href="http://perfectionkills.com/exploring-canvas-drawing-techniques/">Exploring canvas drawing techniques</a></p>
+
+<blockquote><p>Learn about canvas drawing techniques in this interactive tutorial by Juriy Zaytsev.</p></blockquote>
+
+<p><a href="http://briangonzalez.github.io/jquery.adaptive-backgrounds.js/">jquery.adaptive-background.js</a></p>
+
+<blockquote><p>A jQuery plugin for extracting dominant colors from images and applying it to its parent.</p></blockquote>
+
+<p><a href="https://github.com/stripe/jquery.payment">jQuery.payment</a></p>
+
+<blockquote><p>A general purpose library for building credit card forms, validating inputs and formatting numbers.</p></blockquote>
+
+<p><a href="http://unslider.com/">Unslider</a></p>
+
+<blockquote><p>The jQuery slider that just slides.</p></blockquote>
+
+<p><a href="http://heelhook.github.io/chardin.js/">Chardin.js</a></p>
+
+<blockquote><p>Simple overlay instructions for your apps.</p></blockquote>
+
+<p><a href="http://aishek.github.io/jquery-animateNumber/">jquery.animateNumber</a></p>
+
+<blockquote><p>jQuery animate number plugin</p></blockquote>
+
+<p><a href="http://mark-rolich.github.io/Magnifier.js/">Magnifier.js</a></p>
+
+<blockquote><p><a href="http://mark-rolich.github.io/Magnifier.js/">http://mark-rolich.github.io/Magnifier.js/</a></p></blockquote>
+
+<p><a href="https://github.com/auduno/clmtrackr">clmtrackr</a></p>
+
+<blockquote><p>Javascript library for precise tracking of facial features via Constrained Local Models</p></blockquote>
+
+<p><a href="http://andrew-hoyer.com/andrewhoyer/experiments/tumbler/">The tumbler</a></p>
+
+<blockquote><p>A simple physics simulation/meditation/relaxation experiment.</p></blockquote>
+
+<h2>Web</h2>
+
+<p><a href="http://christmasexperiments.com/">Christmas experiments </a></p>
+
+<blockquote><p>Unveil one fantastic creation each day this month in this second edition of the fabulous Christmas experiments.</p></blockquote>
+
+<p><a href="http://rupl.github.io/unfold/">Unfolding the Box Model</a></p>
+
+<blockquote><p>interactive slides exploring CSS 3D Transforms</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="http://css-tricks.com/svg-tabs-using-svg-shape-template/">SVG Tabs (Using an SVG Shape as Template)</a></p>
+
+<blockquote><p>In this great tutorial, Chris Coyier shows how to use SVG tabs on your website.</p></blockquote>
+
+<p><a href="http://designmodo.com/startup/">STARTUP DESIGN FRAMEWORK</a></p>
+
+<blockquote><p>Startup Design Framework contains components and complex blocks which can easily be integrated into almost any design.</p></blockquote>
+
+<p><a href="https://github.com/leemunroe/html-email-template">Really Simple Responsive HTML Email </a></p>
+
+<blockquote><p>When all you need is a really simple HTML email template.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bundle Install Parallel]]></title>
+    <link href="http://blog.roachking.net/blog/2013/12/30/bundle-install-parallel/"/>
+    <updated>2013-12-30T15:25:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/12/30/bundle-install-parallel</id>
+    <content type="html"><![CDATA[<p>Bundler 在 v1.4 以後新增了 parallel install 的功能，可以增快 <code>bundle install</code> 的速度。</p>
+
+<p>根據 <a href="https://github.com/bundler/bundler/pull/2481">https://github.com/bundler/bundler/pull/2481</a> 這個 pull requst 來看，在 gem 的數量很多的時候，速度是相差非常大的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle --path sequential  183.03s user 45.13s system 38% cpu 9:55.48 total
+</span><span class='line'>bundle --path parallel -j4  234.85s user 50.14s system 77% cpu 6:05.52 total</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>事先準備</h2>
+
+<p>首先要確定自己的 bundler 版本是不是大於 1.4:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle --version
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果不是的話請先升級 bundler:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install bundler -v <span class="s2">&quot;&gt;=1.5.1&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>確認自己 cpu 有幾個核心(以 osx 為範例)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sysctl -n hw.ncpu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我是用 macbook air，是四核，下面都以 4 核為範例。</p>
+
+<h2>使用 parallel install</h2>
+
+<p>升級 bundler 後就可以使用 parallel 了，只要在後面加上 -j4，4 代表 4 個 jobs：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle install -j4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以 global 更改預設的 jobs 數：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle config --global <span class="nb">jobs </span>4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就不用每次都打 <code>-j4</code> 。</p>
+
+<h2>使用在 capistrano 上</h2>
+
+<p>如果在 capistrano 的 <code>deploy.rb</code> 是使用 <code>require "bundler/capistrano"</code>，只要在 <code>deploy.rb</code> 裡面加上：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span> :bundle_flags,    <span class="s2">&quot;--deployment --quiet -j4&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣在跑 <code>cap deploy</code> 的時候， <code>bundle install</code> 就會加上 <code>-j4</code> 了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Devise Create User Hook]]></title>
+    <link href="http://blog.roachking.net/blog/2013/12/10/devise-create-user-hook/"/>
+    <updated>2013-12-10T08:36:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/12/10/devise-create-user-hook</id>
+    <content type="html"><![CDATA[<p>今天做案子時，需要在 Devise user create 前後做一些事情，但是又不想污染 User model，以往的方法就是寫一個 <code>Users::RegistrationsController</code> 去繼承 <code>Devise::RegistrationsController</code>，然後把整個 method copy 過來一次：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">RegistrationsController</span> <span class="o">&lt;</span> <span class="ss">Devise</span><span class="p">:</span><span class="ss">:RegistrationsController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="c1"># 在這裡加入 before hook</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">build_resource</span><span class="p">(</span><span class="n">sign_up_params</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="n">resource</span><span class="o">.</span><span class="n">save</span>
+</span><span class='line'>      <span class="c1"># 在這裡加入 after hook</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">if</span> <span class="n">resource</span><span class="o">.</span><span class="n">active_for_authentication?</span>
+</span><span class='line'>        <span class="n">set_flash_message</span> <span class="ss">:notice</span><span class="p">,</span> <span class="ss">:signed_up</span> <span class="k">if</span> <span class="n">is_navigational_format?</span>
+</span><span class='line'>        <span class="n">sign_up</span><span class="p">(</span><span class="n">resource_name</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">respond_with</span> <span class="n">resource</span><span class="p">,</span> <span class="ss">:location</span> <span class="o">=&gt;</span> <span class="n">after_sign_up_path_for</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="n">set_flash_message</span> <span class="ss">:notice</span><span class="p">,</span> <span class="ss">:&quot;signed_up_but_</span><span class="si">#{</span><span class="n">resource</span><span class="o">.</span><span class="n">inactive_message</span><span class="si">}</span><span class="ss">&quot;</span> <span class="k">if</span> <span class="n">is_navigational_format?</span>
+</span><span class='line'>        <span class="n">expire_session_data_after_sign_in!</span>
+</span><span class='line'>        <span class="n">respond_with</span> <span class="n">resource</span><span class="p">,</span> <span class="ss">:location</span> <span class="o">=&gt;</span> <span class="n">after_inactive_sign_up_path_for</span><span class="p">(</span><span class="n">resource</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="n">clean_up_passwords</span> <span class="n">resource</span>
+</span><span class='line'>      <span class="n">respond_with</span> <span class="n">resource</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是這樣的寫法非常髒，而且如果 devise 有什麼修改，這邊有可能會壞掉。</p>
+
+<p>今天在翻 <a href="https://github.com/plataformatec/devise/blob/master/app/controllers/devise/registrations_controller.rb">Devise registrations_controller</a> 的時候發現，在 <code>3.2.1</code> 版以後，create action 裡面多了一行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">yield</span> <span class="n">resource</span> <span class="k">if</span> <span class="nb">block_given?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>於是，如果想要在 create user 的前後做一些事情，只需要：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Users</span><span class="o">::</span><span class="no">RegistrationsController</span> <span class="o">&lt;</span> <span class="ss">Devise</span><span class="p">:</span><span class="ss">:RegistrationsController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">create</span>
+</span><span class='line'>    <span class="c1"># 在這裡加入 before hook</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">super</span> <span class="k">do</span> <span class="o">|</span><span class="n">resource</span><span class="o">|</span>
+</span><span class='line'>      <span class="c1"># 在這裡加入 after hook</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>仔細看會發現 update、destroy 也有這一行，所以也可以如法炮製用在 update、destroy user 上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[201311 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2013/11/29/201311-link-collection/"/>
+    <updated>2013-11-29T06:11:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/11/29/201311-link-collection</id>
+    <content type="html"><![CDATA[<p>201311 連結收集</p>
+
+<!--more-->
+
+
+<h2>Ruby</h2>
+
+<p><a href="https://github.com/gree/observed">Observed</a></p>
+
+<blockquote><p>Observed is a framework for polling various applications/middlewares/services running locally or on remote servers like ones in your production environment. It is designed with extensibility in mind.</p></blockquote>
+
+<p><a href="https://github.com/continuum/espinita">Espinita</a></p>
+
+<blockquote><p>Audit activerecord models like a boss</p></blockquote>
+
+<p><a href="http://artoo.io/">Artoo</a></p>
+
+<blockquote><p>Artoo makes robotics Simple and Extensible.</p></blockquote>
+
+<p><a href="https://github.com/lomba/schema_plus">SchemaPlus</a></p>
+
+<blockquote><p>SchemaPlus provides ActiveRecord support for foreign keys, database defined validations and associations.</p></blockquote>
+
+<p><a href="https://github.com/jonleighton/spring">Spring</a></p>
+
+<blockquote><p>Rails application preloader</p></blockquote>
+
+<p><a href="https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md#-2">ruby-style-guide</a></p>
+
+<blockquote><p>The Ruby Style Guide</p></blockquote>
+
+<p><a href="https://github.com/lassebunk/gretel">Gretel</a></p>
+
+<blockquote><p>Flexible Ruby on Rails breadcrumbs plugin.</p></blockquote>
+
+<p><a href="https://github.com/twg/active_link_to">active_link_to</a></p>
+
+<blockquote><p>Easy method to handle logic behind active links</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="https://github.com/zurb/ink">Ink</a></p>
+
+<blockquote><p>Quickly create responsive HTML emails that work on any device &amp; client. Even Outlook.
+<a href="http://zurb.com/ink">http://zurb.com/ink</a></p></blockquote>
+
+<p><a href="http://pattle.github.io/simpsons-in-css/">The Simpsons in CSS</a></p>
+
+<blockquote><p>Simpsons characters in pure CSS</p></blockquote>
+
+<p><a href="https://github.com/paulirish/browser-logos">High Resolution Browser Logos</a></p>
+
+<blockquote><p>Collection of high resolution web browser logos with transparent backgrounds</p></blockquote>
+
+<p><a href="http://getuikit.com/">UIkit</a></p>
+
+<blockquote><p>A lightweight and modular front-end framework for developing fast and powerful web interfaces.</p></blockquote>
+
+<p><a href="http://type-scale.com/">type-scale</a></p>
+
+<blockquote><p>A Visual Type Scale Calculator</p></blockquote>
+
+<h2>Javascript</h2>
+
+<p><a href="https://github.com/HubSpot/offline">Offline</a></p>
+
+<blockquote><p>Automatically display online/offline indication to your users.</p></blockquote>
+
+<p><a href="http://zurb.com/playground/pizza-pie-charts">Pizza Pie Charts</a></p>
+
+<blockquote><p>Creating responsive pie charts for any device is a piece of pie.</p></blockquote>
+
+<p><a href="http://eightmedia.github.io/hammer.js/">Hammer.js</a></p>
+
+<blockquote><p>A javascript library for multi-touch gestures.</p></blockquote>
+
+<p><a href="https://github.com/airbnb/javascript">airbnb/javascript</a></p>
+
+<blockquote><p>JavaScript Style Guide</p></blockquote>
+
+<p><a href="https://coderwall.com/p/duapqq">Use a Google Spreadsheet as your JSON backend</a></p>
+
+<blockquote><p>Use a Google Spreadsheet as your JSON backend</p></blockquote>
+
+<p><a href="https://github.com/getify/You-Dont-Know-JS">You Don&rsquo;t Know JS</a></p>
+
+<blockquote><p>A JavaScript book series born from Kickstarter</p></blockquote>
+
+<p><a href="http://geedmo.github.io/yamm3/#">Yamm</a></p>
+
+<blockquote><p>Yet another megamenu for Bootstrap 3</p></blockquote>
+
+<p><a href="https://github.com/atmb4u/AutoJS">AutoJS</a></p>
+
+<blockquote><p>Auto complete plugin from dictionary with no external dependencies</p></blockquote>
+
+<p><a href="http://maroslaw.github.io/rainyday.js/">rainyday.js</a></p>
+
+<blockquote><p>Simulating raindrops falling on a window</p></blockquote>
+
+<p><a href="https://github.com/stevepapa/neatshowjs">neatShow.js</a></p>
+
+<blockquote><p>A jQuery plugin to fade in images beautifully on your website</p></blockquote>
+
+<h2>WEB</h2>
+
+<p><a href="https://github.com/w3c/webcomponents">WebApps WG &mdash; Web Components</a></p>
+
+<blockquote><p>Web Components specifications</p></blockquote>
+
+<p><a href="http://resume.github.io/">MY GITHUB RÉSUMÉ</a></p>
+
+<blockquote><p>Resumes generated using the GitHub informations</p></blockquote>
+
+<p><a href="http://ionicframework.com/">Ionic</a></p>
+
+<blockquote><p>Advanced HTML5 Hybrid Mobile App Framework</p></blockquote>
+
+<p><a href="https://www.getlantern.org/">Lantern</a></p>
+
+<blockquote><p>Defeat censorship. Give or get access to the open internet with people around the world through your social network.</p></blockquote>
+
+<p><a href="http://weih.github.io/symbolinenglish/">Keyboard symbols in English Chinese Japanese</a></p>
+
+<blockquote><p>How to say ~!@#$%^*;&ldquo;&hellip; in English, Chinese and Japanese?</p></blockquote>
+
+<p><a href="http://24pullrequests.com/">24 PULL REQUESTS</a></p>
+
+<blockquote><p>GIVING BACK LITTLE GIFTS OF CODE FOR CHRISTMAS</p></blockquote>
+
+<h2>Startup</h2>
+
+<p><a href="http://startupnotes.org/">Startup Notes: The Book</a></p>
+
+<blockquote><p>Doodles from Startup School 2013</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[神祕的 Rails CRUD 陷阱]]></title>
+    <link href="http://blog.roachking.net/blog/2013/11/04/mysterious-rails-crud-trap/"/>
+    <updated>2013-11-04T03:25:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/11/04/mysterious-rails-crud-trap</id>
+    <content type="html"><![CDATA[<p>最近做專案的時候，要把一個由 Form 送出去的 DELETE，變成用 Ajax 送出去，發生了很危險而且意料之外的事情。</p>
+
+<h2>情境</h2>
+
+<p>先來重現一下一開始的情境：</p>
+
+<p>一開始先有一個 comment 的 Controller，裡面有一個 Destroy 的 Action，在使用者送 DELETE 到 <code>/posts/1/comments/1</code>時，會刪除 ID 為 1 的 Comment，接著 redirect 到 <code>/posts/1</code>。</p>
+
+<figure class='code'><figcaption><span>comments_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CommentsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">destroy</span>
+</span><span class='line'>    <span class="vi">@comment</span> <span class="o">=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@comment</span><span class="o">.</span><span class="n">destroy</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="n">post_url</span><span class="p">(</span><span class="vi">@post</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著使用 jQuery ujs，送出 DELETE Form 到 post_comment_path(1, 1)：</p>
+
+<figure class='code'><figcaption><span>destroy_comment.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="s2">&quot;Delete comment&quot;</span><span class="p">,</span> <span class="n">post_comment_path</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>狀況</h2>
+
+<p>這個時候覺得每次刪除 comment，都會重新刷新畫面，太擾人了，想改用 Ajax 來完成，於是我們把 HTML 多了一個， <code>:remote =&gt; true</code>：</p>
+
+<figure class='code'><figcaption><span>destroy_comment.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="s2">&quot;Delete comment&quot;</span><span class="p">,</span> <span class="n">post_comment_path</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Controller 則是維持不變。</p>
+
+<p>這樣會發生什麼事情呢？如果你也覺得只會刪除 comment 那就掉入陷阱了。</p>
+
+<h2>實際情況</h2>
+
+<p>按下 Delete comment 會發生什麼事情呢？首先會刪除 comment，這應該沒有什麼問題。那接下來遇到的 redirect 會發生什麼事情呢？</p>
+
+<p>如果送過來的不是 ajax，他會直接 redirect 到 <code>/post/1</code> 也就是 post_controller 的 show action，很理所當然的 show 出 post 內容。</p>
+
+<p>但如果是 Ajax 呢？他一樣會 redirect 到 <code>/post/1</code>，但是卻會用 <code>DELETE</code>，所以是丟到 post_controller 的 destroy action，於是你的 post 就會被刪除了XDDD</p>
+
+<p>為什麼會這樣呢？我也不知道XDDD，改天有空研究再另外 PO 一篇。</p>
+
+<h2>解決方法</h2>
+
+<p>其實只要依照不同的要求，回應不同的處理方法就好：</p>
+
+<figure class='code'><figcaption><span>comments_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CommentsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">destroy</span>
+</span><span class='line'>    <span class="vi">@comment</span> <span class="o">=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@comment</span><span class="o">.</span><span class="n">destroy</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">redirect_to</span> <span class="n">post_url</span><span class="p">(</span><span class="vi">@post</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">js</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">head</span> <span class="ss">:no_content</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是如果非常有自信得只改前端，肯定會掉入陷阱。第一次掉進去的時候，還真的嚇到我了，還好是在開發環境，沒刪到什麼重要資料，學了 Rails 半年多，到現在還是能給我驚奇 >////&lt;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gem Button_link_to]]></title>
+    <link href="http://blog.roachking.net/blog/2013/10/17/gem-button-link-to/"/>
+    <updated>2013-10-17T15:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/10/17/gem-button-link-to</id>
+    <content type="html"><![CDATA[<p>前陣子寫了一篇 <a href="http://blog.roachking.net/blog/2013/10/02/jquery-ujs-remote-true-issue">jQuery-ujs link_to issue</a>，裡面我寫了一個 <code>button_link_to</code> helper 來解決 <code>button_to</code> 和 <code>link_to</code> 的問題。</p>
+
+<p>寫完以後發現不同專案要用到這個 method，我都要複製一次太麻煩了XD，於是就把它包成 Gem 了。</p>
+
+<p>Github: <a href="https://github.com/tonilin/button_link_to">https://github.com/tonilin/button_link_to</a></p>
+
+<p>如果想要看 Demo 可以到這: <a href="http://button-link-to.herokuapp.com/">http://button-link-to.herokuapp.com/</a></p>
+
+<!--more-->
+
+
+<h2>安裝</h2>
+
+<p>把下面這行加入 <code>Gemfile</code></p>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;button_link_to&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把下面這兩行加入 <code>app/assets/javascript/application.js</code></p>
+
+<figure class='code'><figcaption><span>app/assets/javascript/application.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">//= require jquery_ujs</span>
+</span><span class='line'><span class="c1">//= require button_link_to</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用方式</h2>
+
+<p>就跟 link_to 一樣用法，詳細可以參考 <a href="http://button-link-to.herokuapp.com/">http://button-link-to.herokuapp.com/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[201310 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2013/10/17/201310-link-collection/"/>
+    <updated>2013-10-17T03:02:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/10/17/201310-link-collection</id>
+    <content type="html"><![CDATA[<p>201310 連結收集</p>
+
+<h2>Web</h2>
+
+<p><a href="https://www.google.com/webdesigner/">Google Webdesigner</a></p>
+
+<blockquote><p>Create engaging, interactive HTML5-based designs and motion graphics that can run on any device.</p></blockquote>
+
+<p><a href="http://mario.ign.com/">The Museum of Mario</a></p>
+
+<blockquote><p>An interactive experience exploring the many eras of Mario. Turn on the audio and click around to find hidden interactions!</p></blockquote>
+
+<!-- more -->
+
+
+<h2>Ruby</h2>
+
+<p><a href="https://github.com/mattsears/nyan-cat-formatter">Nyan Cat RSpec Formatter</a></p>
+
+<blockquote><p>Nyan Cat inspired RSpec formatter!</p></blockquote>
+
+<p><a href="https://github.com/JacksonGariety/bitch">Bitch</a></p>
+
+<blockquote><p>A Ruby logger that uses OS X notifications.</p></blockquote>
+
+<p><a href="https://github.com/amatsuda/rfd">rfd</a></p>
+
+<blockquote><p>Ruby on Files &amp; Directories</p></blockquote>
+
+<p><a href="https://github.com/fcambus/ansiweather">ansiweather</a></p>
+
+<blockquote><p>Weather in your terminal, with ANSI colors and Unicode symbols</p></blockquote>
+
+<h2>Javascript</h2>
+
+<p><a href="https://github.com/densitydesign/raw">Raw</a></p>
+
+<blockquote><p>The missing link between spreadsheets and vector graphics.</p></blockquote>
+
+<p><a href="https://github.com/mozilla/shumway">Shumway</a></p>
+
+<blockquote><p>Shumway is an HTML5 technology experiment that explores building a faithful and efficient renderer for the SWF file format without native code assistance.</p></blockquote>
+
+<p><a href="https://github.com/ThrivingKings/animo.js">animo.js</a></p>
+
+<blockquote><p>A powerful little tool for managing CSS animations</p></blockquote>
+
+<p><a href="http://dixso.github.io/custombox/">jQuery Custombox</a></p>
+
+<blockquote><p><a href="http://dixso.github.io/custombox/">http://dixso.github.io/custombox/</a></p></blockquote>
+
+<p><a href="http://gummibearlab.github.io/Yummi-loader/">Yummi-loader</a></p>
+
+<blockquote><p>Less//Css classes for fancy page load</p></blockquote>
+
+<p><a href="https://github.com/enyo/dropzone">Dropzone</a></p>
+
+<blockquote><p>Dropzone is an easy to use drag&#8217;n&#8217;drop library. It supports image previews and shows nice progress bars.</p></blockquote>
+
+<p><a href="http://www.fullscreenmario.com/">FullScreenMario</a></p>
+
+<blockquote><p>An HTML5 remake of the original Super Mario Brothers &ndash; expanded for wide screens.</p></blockquote>
+
+<p><a href="http://github.hubspot.com/odometer/">Odometer</a></p>
+
+<blockquote><p>Transition numbers with ease</p></blockquote>
+
+<p><a href="http://dmauro.github.io/Keypress/">Keypress</a></p>
+
+<blockquote><p>A robust Javascript library for capturing keyboard input</p></blockquote>
+
+<p><a href="https://github.com/mailru/FileAPI">FileAPI</a></p>
+
+<blockquote><p>A set of javascript tools for working with files. Multiupload, drag&#8217;n&#8217;drop and chunked file upload. Images: crop, resize and auto orientation by EXIF</p></blockquote>
+
+<p><a href="http://davidstutz.github.io/bootstrap-multiselect/">Bootstrap Multiselect</a></p>
+
+<blockquote><p>Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present</p></blockquote>
+
+<p><a href="http://ichord.github.io/At.js/">At.js</a></p>
+
+<blockquote><p>Add Github like mentions autocomplete to your application.</p></blockquote>
+
+<p><a href="http://ichord.github.io/Caret.js/">Caret.js</a></p>
+
+<blockquote><p>Get caret postion and offset from inputor</p></blockquote>
+
+<p><a href="http://madebymany.github.io/sir-trevor-js/">Sir Trevor JS</a></p>
+
+<blockquote><p>Sir Trevor is rich content editing entirely re-imagined for the web: an intuitive editor for web content which does not presuppose anything about how it will be rendered.</p></blockquote>
+
+<p><a href="http://github.hubspot.com/offline/">Offline</a></p>
+
+<blockquote><p>Automatically detect when a browser is offline</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="https://www.youtube.com/watch?v=vV3h5OetmSI">Intro to CSS Masking</a></p>
+
+<blockquote><p>Quick introduction to masking and clip paths in CSS.</p></blockquote>
+
+<p><a href="http://gcss.info/">GCSS</a></p>
+
+<blockquote><p>擬人化CSS リファレンスサイト</p></blockquote>
+
+<p><a href="http://tympanus.net/Development/AnimatedCheckboxes/">Animated Checkboxes and Radio Buttons with SVG</a></p>
+
+<blockquote><p>Proof-of-concept for adding some fancy &ldquo;check&rdquo; animations to form inputs</p></blockquote>
+
+<p><a href="http://fontawesome.pro/">Font Awesome Pro/</a></p>
+
+<blockquote><p>If you work with Font Awesome, you can train you knowledge about each icon&rsquo;s name with this nice game and also help provide feedback for icon naming.</p></blockquote>
+
+<h2>System</h2>
+
+<p><a href="http://spectacleapp.com/">Spectacle</a></p>
+
+<blockquote><p>Window control with simple, customizable keyboard shortcuts.</p></blockquote>
+
+<h1>App</h1>
+
+<p><a href="http://seene.co/">Seene</a></p>
+
+<blockquote><p>Seene lets you capture, share and discover 3D photos easily and instantly, all on your iPhone.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery-ujs Link_to Issue]]></title>
+    <link href="http://blog.roachking.net/blog/2013/10/02/jquery-ujs-remote-true-issue/"/>
+    <updated>2013-10-02T10:34:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/10/02/jquery-ujs-remote-true-issue</id>
+    <content type="html"><![CDATA[<p>在 Rails 中，常常會使用 <code>remote =&gt; true</code> 的方式，使連結變成 Ajax 的方式送出去：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">link_to</span> <span class="s2">&quot;Delete Comment&quot;</span><span class="p">,</span> <span class="n">comment_path</span><span class="p">(</span><span class="vi">@comment</span><span class="p">),</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣的好處是不用另外寫 Ajax ，就可以輕鬆得送出 Ajax。</p>
+
+<p>如果不指定 <code>remote =&gt; true</code> 只有指定 <code>method</code>，在點擊連結以後 jquery-ujs 會幫你產生一個表單，這個表單會放在 <code>&lt;body&gt;</code> 裡面，而且馬上送出去，如此，可以讓連結不只有 GET ，更可以做到 RESTful的效果。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">link_to</span> <span class="s2">&quot;Delete Comment&quot;</span><span class="p">,</span> <span class="n">comment_path</span><span class="p">(</span><span class="vi">@comment</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是這樣的方法卻會產生一些 issue。</p>
+
+<!--more-->
+
+
+<h2>Issue</h2>
+
+<p>以上兩個方法產生出來的 HTML 是一般的 <code>&lt;a&gt;</code> tag：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/comments&quot;</span> <span class="na">data-remote=</span><span class="s">&quot;true&quot;</span> <span class="na">data-method=</span><span class="s">&quot;delete&quot;</span><span class="nt">&gt;</span>Delete Comment<span class="nt">&lt;/a&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣看起來似乎不會有什麼問題，但如果使用者對連結做了開新視窗的動作：</p>
+
+<ol>
+<li>按滑鼠中鍵點連結</li>
+<li>按右鍵 &ndash;> 選擇開新視窗</li>
+<li>按住 <code>CMD</code>，再點連結</li>
+</ol>
+
+
+<p>相當於：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/comments&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span><span class="nt">&gt;</span>Delete Comment<span class="nt">&lt;/a&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣的行為是發出 <code>GET</code> 到 CommentsController 的 index action，跟原本的發 <code>DELETE</code> 到 destroy action 是不相同的，使用者達不到刪除的效果，而且如果 index 沒東西，那就會造成 500。</p>
+
+<h2>button_to solution</h2>
+
+<p>在 Rails 有一個 button_to 的 helper：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">button_to</span> <span class="s2">&quot;Delete Comment&quot;</span><span class="p">,</span> <span class="n">comment_path</span><span class="p">(</span><span class="vi">@comment</span><span class="p">),</span> <span class="ss">:remote</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>用 button_to 雖然可以解決部份的問題，但仔細看一下他產生的 html：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;/comments&quot;</span> <span class="na">class=</span><span class="s">&quot;button_to&quot;</span> <span class="na">data-remote=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;_method&quot;</span> <span class="na">value=</span><span class="s">&quot;delete&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">value=</span><span class="s">&quot;Delete Comment&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;authenticity_token&quot;</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">value=</span><span class="s">&quot;xxxxxxx&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/form&gt;</span>&quot;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣的 HTML 會產生幾個問題：</p>
+
+<ol>
+<li>因為產生的是 <code>&lt;form&gt;</code> 所以不能在 <code>&lt;form&gt;</code> 裡面使用，HTML 是不允許 nested form 的。</li>
+<li><code>&lt;form&gt;</code> 預設是 <code>display:block</code>，跟原本的 <code>&lt;a&gt;</code>，表現方式不一樣，需要 overide style。</li>
+<li><code>&lt;input&gt;</code> value 裡面不能塞 HTML，所以如果這個按鈕有 icon 之類的 tag 就無法放進去(這個問題在 Rails 4.0有修正)。</li>
+</ol>
+
+
+<h2>Solution</h2>
+
+<p>這個問題真的很惱人，原本很好用的小技巧，變成天天被 Airbrake 轟炸的原兇，所以就寫了一個 button_link_to helper：</p>
+
+<figure class='code'><figcaption><span>application_helper.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">button_link_to</span><span class="p">(</span><span class="nb">name</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">html_options</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">html_options</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">options</span><span class="p">,</span> <span class="nb">name</span> <span class="k">if</span> <span class="nb">block_given?</span>
+</span><span class='line'>    <span class="n">options</span> <span class="o">||=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="n">html_options</span> <span class="o">=</span> <span class="n">convert_options_to_data_attributes</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">html_options</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">url</span> <span class="o">=</span> <span class="n">url_for</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">html_options</span><span class="o">.</span><span class="n">merge!</span><span class="p">({</span><span class="s2">&quot;data-url&quot;</span> <span class="o">=&gt;</span> <span class="n">url</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="s2">&quot;button&quot;</span><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">content_tag</span><span class="p">(</span><span class="ss">:button</span><span class="p">,</span> <span class="nb">name</span> <span class="o">||</span> <span class="n">url</span><span class="p">,</span> <span class="n">html_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這個方法跟 <code>link_to</code> 使用的方式一模一樣，產生出來的是 <code>&lt;button&gt;</code> tag，而且是單純的 tag，不會有 <code>&lt;form&gt;</code> 包在外面：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">button_link_to</span> <span class="s2">&quot;Delete Comment&quot;</span><span class="p">,</span> <span class="s2">&quot;/comments&quot;</span><span class="p">,</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;button</span> <span class="na">data-url=</span><span class="s">&quot;/comments&quot;</span> <span class="na">data-remote=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Delete Comment<span class="nt">&lt;/button&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>預設的 jquery-ujs，按到這個 button，就已經會自動發 ajax 出去，但是這邊應該要讓按中鍵也會跟按左鍵有一樣的效果，於是要加上下面的 js：</p>
+
+<figure class='code'><figcaption><span>application.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-remote]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// middle button click</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是如果沒有 <code>:remote =&gt; true</code>，只有指定 <code>method</code>，照原本的規則應該在 <code>&lt;body&gt;</code> 裡面塞 form，並自動送出去，所以要再加入：</p>
+
+<figure class='code'><figcaption><span>application.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-method]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">button</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;remote&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">allowAction</span><span class="p">(</span><span class="nx">button</span><span class="p">))</span> <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">stopEverything</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">handleMethod</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">handleMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">method</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">target</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">csrf_token</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;meta[name=csrf-token]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">csrf_param</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;meta[name=csrf-param]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;form method=&quot;post&quot; action=&quot;&#39;</span> <span class="o">+</span> <span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;/form&gt;&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">metadata_input</span> <span class="o">=</span> <span class="s1">&#39;&lt;input name=&quot;_method&quot; value=&quot;&#39;</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;&quot; type=&quot;hidden&quot; /&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">csrf_param</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">csrf_token</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">metadata_input</span> <span class="o">+=</span> <span class="s1">&#39;&lt;input name=&quot;&#39;</span> <span class="o">+</span> <span class="nx">csrf_param</span> <span class="o">+</span> <span class="s1">&#39;&quot; value=&quot;&#39;</span> <span class="o">+</span> <span class="nx">csrf_token</span> <span class="o">+</span> <span class="s1">&#39;&quot; type=&quot;hidden&quot; /&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span> <span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">form</span><span class="p">.</span><span class="nx">hide</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">metadata_input</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣一來 button_link_to 就可以做到 ajax send 和 form submit 的功能了！</p>
+
+<h2>Style</h2>
+
+<p>原本的 <code>&lt;a&gt;</code> 和 <code>&lt;button&gt;</code> 樣式是不一樣的，一個是文字，一個是按鈕。</p>
+
+<p>這時候只要加上 Twitter Bootstrap 的 <code>btn-link</code> class 就好了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">button_link_to</span> <span class="s2">&quot;Delete Comment&quot;</span><span class="p">,</span> <span class="s2">&quot;/comments&quot;</span><span class="p">,</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:class</span> <span class="o">=&gt;</span> <span class="s2">&quot;btn-link&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>HTML button</h2>
+
+<p>因為使用的是 button 而不是 input，所以也可以塞 HTML 進去，Icon 就可以正常運作了，使用跟 link_to 一樣的方式丟入 block：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>button_link_to , &quot;/comments&quot;, :remote =&gt; true, :class =&gt; &quot;btn-link&quot; do
+</span><span class='line'>  <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon-remove&quot;</span><span class="nt">&gt;&lt;/i&gt;</span>  Delete Comment
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>實現 Confirm message</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-method]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">button</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;remote&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">allowAction</span><span class="p">(</span><span class="nx">button</span><span class="p">))</span> <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">stopEverything</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">handleMethod</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>實現 data-disabled-with</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-method]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">button</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;disable-with&#39;</span><span class="p">))</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">disableElement</span><span class="p">(</span><span class="nx">button</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;remote&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">allowAction</span><span class="p">(</span><span class="nx">button</span><span class="p">))</span> <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">stopEverything</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">handleMethod</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ajax:complete&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-disable-with]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">enableElement</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Code</h2>
+
+<p>這邊我把會用到的 code 總結起來，把這些 code 貼到 <code>application_helper.rb</code> 和 <code>application.js</code> 裡面，接著把 link_to 改成 button_link_to，再修一下 style 就可以了！</p>
+
+<figure class='code'><figcaption><span>application_helper.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">ApplicationHelper</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">button_link_to</span><span class="p">(</span><span class="nb">name</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">html_options</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">html_options</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="n">options</span><span class="p">,</span> <span class="nb">name</span> <span class="k">if</span> <span class="nb">block_given?</span>
+</span><span class='line'>    <span class="n">options</span> <span class="o">||=</span> <span class="p">{}</span>
+</span><span class='line'>    <span class="n">html_options</span> <span class="o">=</span> <span class="n">convert_options_to_data_attributes</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">html_options</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">url</span> <span class="o">=</span> <span class="n">url_for</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">html_options</span><span class="o">.</span><span class="n">merge!</span><span class="p">({</span><span class="s2">&quot;data-url&quot;</span> <span class="o">=&gt;</span> <span class="n">url</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="s2">&quot;button&quot;</span><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">content_tag</span><span class="p">(</span><span class="ss">:button</span><span class="p">,</span> <span class="nb">name</span> <span class="o">||</span> <span class="n">url</span><span class="p">,</span> <span class="n">html_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>application.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$document</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;mouseup&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-remote]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// middle button click</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">which</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$document</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click.rails&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-method]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">button</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;disable-with&#39;</span><span class="p">))</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">disableElement</span><span class="p">(</span><span class="nx">button</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;remote&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">allowAction</span><span class="p">(</span><span class="nx">button</span><span class="p">))</span> <span class="k">return</span> <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">stopEverything</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">handleMethod</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$document</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ajax:complete&quot;</span><span class="p">,</span> <span class="s2">&quot;button[data-disable-with]&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$</span><span class="p">.</span><span class="nx">rails</span><span class="p">.</span><span class="nx">enableElement</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">handleMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">button</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">method</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;method&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">target</span> <span class="o">=</span> <span class="nx">button</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">csrf_token</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;meta[name=csrf-token]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">csrf_param</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;meta[name=csrf-param]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;form method=&quot;post&quot; action=&quot;&#39;</span> <span class="o">+</span> <span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;&quot;&gt;&lt;/form&gt;&#39;</span><span class="p">),</span>
+</span><span class='line'>      <span class="nx">metadata_input</span> <span class="o">=</span> <span class="s1">&#39;&lt;input name=&quot;_method&quot; value=&quot;&#39;</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="s1">&#39;&quot; type=&quot;hidden&quot; /&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">csrf_param</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">csrf_token</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">metadata_input</span> <span class="o">+=</span> <span class="s1">&#39;&lt;input name=&quot;&#39;</span> <span class="o">+</span> <span class="nx">csrf_param</span> <span class="o">+</span> <span class="s1">&#39;&quot; value=&quot;&#39;</span> <span class="o">+</span> <span class="nx">csrf_token</span> <span class="o">+</span> <span class="s1">&#39;&quot; type=&quot;hidden&quot; /&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span> <span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="p">);</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">form</span><span class="p">.</span><span class="nx">hide</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="nx">metadata_input</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="p">})();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Filepicker.io Security in Ruby]]></title>
+    <link href="http://blog.roachking.net/blog/2013/09/04/filepickerio-security-in-ruby/"/>
+    <updated>2013-09-04T12:40:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/09/04/filepickerio-security-in-ruby</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/hHoFBaZCSyOVjjw8KDF9_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-09-04%20%E4%B8%8B%E5%8D%887.46.01.png" alt="螢幕快照 2013-09-04 下午7.46.01.png" /></p>
+
+<p>Filepicker 是一個非常好用的 File upload service，它可以讓你用簡單的 Javascript，就能做出超好用的圖片上傳，Backend 完全不用寫 Code，就可以讓使用者把圖片傳到 S3 上，詳細的介紹可以參考<a href="https://www.inkfilepicker.com/">官網</a>，這篇主要介紹 Filepicker 安全性問題。</p>
+
+<!--more-->
+
+
+<h2>簡單的 Pick &amp; Store</h2>
+
+<p>Filepicker 只要簡單的一小段 code，就可以讓使用者挑選檔案，並傳到 S3：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">1024</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但如果稍微想一下，就會發現 maxSize 和 path 都寫在前端，那如果稍微懂點 Javascript 的使用者，把這兩個變數塞別的數值進去，那他就可以傳任意大小的檔案到任意的路徑。</p>
+
+<h2>Filepicker 安全機制</h2>
+
+<p>Filepicker 提供一個 Security 機制，可以避免這個問題，流程如下：</p>
+
+<ol>
+<li>跟 Filepicker 申請一個 <code>App Secret</code></li>
+<li>在 Server Backend 定義 <code>policy</code>，並用 Base64 加密。</li>
+<li>在 Server Backend 使用 <code>App Secret</code> 加密 <code>policy</code>，產生出 <code>signature</code></li>
+<li>Javascript 在呼叫 API 的時候，送出 <code>policy</code> 和 <code>signature</code> 做驗證。</li>
+</ol>
+
+
+<p>但是官網提供的 <a href="https://developers.inkfilepicker.com/docs/security/">Security文件</a> 是用 python 做範例，這邊我們用 ruby 來一步一步教學。</p>
+
+<h2>申請 <code>App Secret</code></h2>
+
+<p>到官網後台的左邊選單 <code>App Secret</code> 處，就可以申請一個 Secret：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/bPjkFPwXSXyI77n8vDU6_Ink_File_Picker___Developer_Portal_-_logdown_rocodev.com.jpeg" alt="Ink_File_Picker___Developer_Portal_-_logdown_rocodev.com.jpeg" /></p>
+
+<p>注意，上面的 <code>Use Security</code> 勾選以後，前端送出的 request 就全部都要送 policy 和 signature，不然會失敗。</p>
+
+<h2>定義 <code>policy</code></h2>
+
+<p>Policy 就是定義使用者可以用哪些功能、上傳多大的檔案、上傳路徑為何 &hellip;，詳細的 options 可以參考官網文件。</p>
+
+<p>用 Ruby 先定義簡單的 policy:</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">policy</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;expiry&quot;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span>  <span class="o">+</span> <span class="mi">3</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span>   <span class="c1"># 這組 Policy產生出來的 signature，只能在三天內使用</span>
+</span><span class='line'>  <span class="s2">&quot;maxSize&quot;</span> <span class="o">=&gt;</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="c1"># 10mb         # 最大只能上傳 10mb</span>
+</span><span class='line'>  <span class="s2">&quot;call&quot;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;pick&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="o">]</span><span class="p">,</span>              <span class="c1"># 只能使用pick , store</span>
+</span><span class='line'>  <span class="s2">&quot;path&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;.*&quot;</span>                                <span class="c1"># Path 的 Regular Expression</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著用 Base64 幫 policy 加密：</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">json_policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'><span class="n">encoded_policy</span> <span class="o">=</span> <span class="no">Base64</span><span class="o">.</span><span class="n">urlsafe_encode64</span><span class="p">(</span><span class="n">json_policy</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>產生 signature</h2>
+
+<p>有了 encoded_policy 和 app secret 就能產生 signature</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">app_secret</span> <span class="o">=</span> <span class="s2">&quot;your secret&quot;</span>
+</span><span class='line'><span class="n">signature</span> <span class="o">=</span> <span class="ss">OpenSSL</span><span class="p">:</span><span class="ss">:HMAC</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="n">file_picker_secret</span><span class="p">,</span> <span class="n">encoded_policy</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Filepicker 會檢查加密後的 policy 和 Signature 是否一致，而且只有我們和 Filepicker 才知道 <code>App Secret</code> 是什麼，第三方如果沒有 App Secret 是沒辦法產生出 Signature 的。</p>
+
+<h2>使用 Security 機制</h2>
+
+<p>接著就可以把產生出來的 signature 和 encoded_policy 塞進 Javascript：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">policy</span><span class="o">:</span> <span class="nx">encoded_policy</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">signature</span><span class="o">:</span> <span class="nx">signature</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>簡單測試</h2>
+
+<p>我們把 Server side Policy 的 maxSize 設成 1kb：</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">policy</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;expiry&quot;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span>  <span class="o">+</span> <span class="mi">3</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;maxSize&quot;</span> <span class="o">=&gt;</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1"># 1kb</span>
+</span><span class='line'>  <span class="s2">&quot;call&quot;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;pick&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 Javascript 那邊假裝惡意使用者，把 maxSize 設成 10mb：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// 10mb,</span>
+</span><span class='line'>  <span class="nx">policy</span><span class="o">:</span> <span class="nx">encoded_policy</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">signature</span><span class="o">:</span> <span class="nx">signature</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著上傳一個超過 1kb 的檔案，可以看到錯誤訊息：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/zT9LEJmESQmqBhhwz02p_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-09-04%20%E4%B8%8B%E5%8D%888.28.57.png" alt="螢幕快照 2013-09-04 下午8.28.57.png" /></p>
+
+<h2>小結</h2>
+
+<p>用了 Security 以後，就可以對網站不一樣的使用者，做不一樣的權限控管，未付費會員不能上傳檔案，因此就不產生 signature 給他，以及各種 User 檔案上傳大小限制之類的。不會因為是寫在 Javascript，而被輕鬆破解。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[201309 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2013/09/01/link-collection/"/>
+    <updated>2013-09-01T06:05:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/09/01/link-collection</id>
+    <content type="html"><![CDATA[<p>201309 連結收集</p>
+
+<h1>Rails</h1>
+
+<ul>
+<li><a href="https://github.com/pandurang90/feature_flags">FeatureFlags</a></li>
+</ul>
+
+
+<blockquote><p>Manage (turn on/off) different features in your rails app.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/applicake/doorkeeper">Doorkeeper</a></li>
+</ul>
+
+
+<blockquote><p>Doorkeeper is an OAuth 2 provider for Rails. <a href="https://github.com/applicake/doorkeeper">https://github.com/applicake/doorkeeper</a></p></blockquote>
+
+<ul>
+<li><a href="https://github.com/rails/web-console">Web Console</a></li>
+</ul>
+
+
+<blockquote><p>Rails Console on the Browser.</p></blockquote>
+
+<!-- more -->
+
+
+<h1>Web</h1>
+
+<ul>
+<li><a href="http://randomuser.me/">Random User Generator</a></li>
+</ul>
+
+
+<blockquote><p>Like Lorem Ipsum, but for people.</p></blockquote>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98589/oqFUEUBRlGY5Pe6xN35Z_Random_User_Generator.jpeg" alt="Random_User_Generator" /></p>
+
+<ul>
+<li><a href="http://browserdiet.com/">HOW TO LOSE WEIGHT in the browser</a></li>
+</ul>
+
+
+<blockquote><p>The definitive front-end performance guide
+<img src="http://user-image.logdown.io/user/7/blog/530/post/98589/q6vgrDuyRoOT19KacG2k_How_to_lose_weight__in_the_browser_.jpeg" alt="How_to_lose_weight__in_the_browser_.jpeg" /></p></blockquote>
+
+<p><a href="https://github.com/andreineculau/know-your-http-well">KNOW YOUR HTTP * WELL</a></p>
+
+<blockquote><p>HTTP headers, media-types, methods, relations and status codes, all summarized and linking to their specification.</p></blockquote>
+
+<h1>Javascript</h1>
+
+<ul>
+<li><a href="https://github.com/wagerfield/parallax">Parallax.js</a></li>
+</ul>
+
+
+<blockquote><p>Simple, lightweight parallax engine that reacts to the orientation of a smart device
+<img src="http://user-image.logdown.io/user/7/blog/530/post/98589/ToWEYISoQSGZciK3zu2Z_parallax.js.jpeg" alt="parallax.js.jpeg" /></p></blockquote>
+
+<ul>
+<li><a href="https://github.com/rstacruz/nprogress/">NProgress</a></li>
+</ul>
+
+
+<blockquote><p>Slim progress bars for Ajax&#8217;y applications. Inspired by Google, YouTube, and Medium.</p></blockquote>
+
+<ul>
+<li><p><a href="http://buildnewgames.com/webgl-threejs/">Creating a 3D Game With Three.js and WebGL</a></p></li>
+<li><p><a href="http://intentionjs.com/">intention.js</a></p></li>
+</ul>
+
+
+<blockquote><p>Intention.js offers a light-weight and clear way to dynamically restructure HTML in a responsive manner.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/mduvall/grande.js">grande.js</a></li>
+</ul>
+
+
+<blockquote><p>This is a small Javascript library that implements features from Medium&rsquo;s editing experience.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/brianreavis/sifter.js">sifter.js</a></li>
+</ul>
+
+
+<blockquote><p>A library for textually searching arrays and hashes of objects by property (or multiple properties). Designed specifically for autocomplete.</p></blockquote>
+
+<ul>
+<li><a href="http://lab.ejci.net/favico.js/">favico.js</a></li>
+</ul>
+
+
+<blockquote><p>Make a use of your favicon with badges, images or videos</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a></li>
+</ul>
+
+
+<blockquote><p>An HTML5 saveAs() FileSaver implementation</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/mozilla/togetherjs">TogetherJS</a></li>
+</ul>
+
+
+<blockquote><p>A service for your website that makes it surprisingly easy to collaborate in real-time.</p></blockquote>
+
+<ul>
+<li><a href="http://maroslaw.github.io/rainyday.js/">rainyday.js</a></li>
+</ul>
+
+
+<blockquote><p>a simple script for simulating raindrops falling on a glass surface</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/Leimi/drawingboard.js">drawingboard.js</a></li>
+</ul>
+
+
+<blockquote><p>A canvas based drawing app that you can integrate easily on your website</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/vdw/Tabslet">Tabslet</a></li>
+</ul>
+
+
+<blockquote><p>Yet another jQuery plugin for tabs with some extra features</p></blockquote>
+
+<ul>
+<li><a href="http://www.thepetedesign.com/demos/onepage_scroll_demo.html">One Page Scroll</a></li>
+</ul>
+
+
+<blockquote><p>Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin</p></blockquote>
+
+<h1>CSS</h1>
+
+<ul>
+<li><a href="http://rriepe.github.io/1pxdeep/">1pxdeep</a></li>
+</ul>
+
+
+<blockquote><p>Bootstrap theme featuring powerful color scheme controls and a flat design</p></blockquote>
+
+<ul>
+<li><a href="http://hellohappy.org/beautiful-web-type/">Beautiful web type</a></li>
+</ul>
+
+
+<blockquote><p>A showcase of the best typefaces from the Google web fonts directory.</p></blockquote>
+
+<ul>
+<li><a href="http://dabblet.com/gist/6046779">Loading animation with CSS</a></li>
+</ul>
+
+
+<blockquote><p>A brilliant CSS trick by Lea Verou for recreating the ContextAd loading animation.</p></blockquote>
+
+<ul>
+<li><a href="http://blog.typekit.com/2013/07/25/setting-subheads-with-css/">Setting subheads with CSS</a></li>
+</ul>
+
+
+<blockquote><p>Learn how to style beautiful subheads with CSS in this tutorial by Marko Dugonjić on Typekit.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/IronSummitMedia/startbootstrap">Start Bootstrap</a></li>
+</ul>
+
+
+<blockquote><p>Better HTML Starter Templates for Twitter Bootstrap</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/jlukic/Semantic-UI">Semantic UI</a></li>
+</ul>
+
+
+<blockquote><p>Semantic empowers designers and developers by creating a shared vocabulary for UI.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/kennethcachia/Background-Check">BackgroundCheck</a></li>
+</ul>
+
+
+<blockquote><p>Automatically switch to a darker or a lighter version of an element depending on the brightness of images behind it.</p></blockquote>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=KKM71-YeJp8">CSSconf.eu 2013 &ndash; Intro.css</a></li>
+</ul>
+
+
+<blockquote><p>Jed Schmidt will make you laugh with CSS. Check out this great and funny introduction of the CSSconf 2013.</p></blockquote>
+
+<h1>System</h1>
+
+<ul>
+<li><a href="http://explainshell.com/">ExplainShell.com</a></li>
+</ul>
+
+
+<blockquote><p>write down a command-line to see the help text that matches each argument</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[搬家到 Logdown]]></title>
+    <link href="http://blog.roachking.net/blog/2013/08/30/moved-to-logdown/"/>
+    <updated>2013-08-30T16:04:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/08/30/moved-to-logdown</id>
+    <content type="html"><![CDATA[<p><img class="center" src="http://user-image.logdown.io/user/7/blog/530/post/98550/kTe0CHbHQc2vguBwp23F_logo-full.jpg" alt="logo-full.jpg"></p>
+
+<p>最近把 Blog 搬家到 <a href="http://logdown.com">Logdown</a>，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 Octopress一模一樣。</p>
+
+<!--more-->
+
+
+<h2>為什麼搬家</h2>
+
+<p>Octopress 雖然很好用，產生出來的 Blog 也非常令人滿意，但是每次寫個文章就得跑一堆指令：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;hello world&quot;</span><span class="o">]</span>
+</span><span class='line'>rake generate
+</span><span class='line'>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我只是想簡單得寫一篇文章阿！！而且因為安裝環境不方便，即使 source code 都放在 Github repo 上，換台電腦時，如果要開始寫文章，大概要花個半小時安裝環境吧&hellip;Orz</p>
+
+<p>Octopress 是使用 jekyll + compass 來產生 static files，檔案越多每次 generate 的速度就越慢，雖然我的文章沒有多到會讓我感覺很慢，但是感覺不是長久之計。</p>
+
+<h2>怎麼搬家</h2>
+
+<p>Octopress 搬家超級簡單，把所有 post 壓縮起來，就可以自動匯入了：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/mOBu5nY5Qtuw2ARPwkhF_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.39.23.png" alt="螢幕快照 2013-08-30 下午11.39.23.png" /></p>
+
+<p>其他還支援 Wordpress、Tumblr、Blogger 和 Movable Type。</p>
+
+<h2>編輯器</h2>
+
+<p>超級好用 BJ4，請自行體驗，不用打 <code>rake preview</code>，按 <code>cmd + D</code> 就可以直接看到preview真棒！</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/ygmFtSuwQJW9MNpCWub8_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.42.28.png" alt="螢幕快照 2013-08-30 下午11.42.28.png" /></p>
+
+<h2>Custom theme</h2>
+
+<p>Logdown 內建 Theme 是使用 its-compiling，如果不喜歡也可以到後台換 Theme：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/eBshQjydTCO64gTucslO_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.45.14.png" alt="螢幕快照 2013-08-30 下午11.45.14.png" /></p>
+
+<p>如果都不喜歡也可以自己編輯 Theme：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/1yCBcIPTnmb2HkZX4tVA_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.48.24.png" alt="螢幕快照 2013-08-30 下午11.48.24.png" /></p>
+
+<h2>Custom Domain</h2>
+
+<p>可以自行設定 Custom Domain，算是滿重要的功能，如果自己沒有 Domain，也可以使用 your_name.logdown.com：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/k8imH1RgRT6qKzW2wpu2_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.49.47.png" alt="螢幕快照 2013-08-30 下午11.49.47.png" /></p>
+
+<h2>Drag &amp; Drop upload Image</h2>
+
+<p>這個功能實在太棒了！！這篇文章的圖片都是這樣上傳的。以前用 octopress，或是其他 Blog 平台，上傳圖片簡直悲劇 Orz</p>
+
+<iframe width="600" height="500" src="//www.youtube.com/embed/DOOg-_KimWQ" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>小結</h2>
+
+<p>最近除了做客戶的案子的時間以外，花了非常多時間做 Logdown，裡面用到的技術，有時候連我都不太相信是我自己寫的XD，多虧了 Ruby 有非常多好用的 Gem，不然如果用 PHP 我還真的不知道要寫到什麼時候。總之歡迎來試試 Logdown，這大概是我看過目前最適合專業人員寫 Blog 的平台了(好像有點老王賣瓜？)。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Coscup 2013 Lightening Talk 投影片]]></title>
+    <link href="http://blog.roachking.net/blog/2013/08/06/coscup-2-13-lightening-talk-slides/"/>
+    <updated>2013-08-06T02:10:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/08/06/coscup-2-13-lightening-talk-slides</id>
+    <content type="html"><![CDATA[<script async class="speakerdeck-embed" data-id="339c80e0dfec0130277d76f03c70f61c" data-ratio="1.2994923857868" src="//speakerdeck.com/assets/embed.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[空中花園現況]]></title>
+    <link href="http://blog.roachking.net/blog/2013/07/07/status-of-the-hanging-garden/"/>
+    <updated>2013-07-07T20:56:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/07/07/status-of-the-hanging-garden</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/4515/k7rOAXRzSWij0wKaKIFj_2013-05-25%2011.21.53.jpg" alt="Garden" /></p>
+
+<p>繼上次發表 <a href="http://blog.roachking.net/blog/2012/11/30/garden-1-0" title="DIY 空中花園 1.0">DIY 空中花園 1.0</a> 以後，一直有人寄信問我最近花園的近況怎樣了，所以特別寫一篇文章，來放最近花園的近況。</p>
+
+<!--more-->
+
+
+<p>先從門口看出去，可以看出草皮，有些地方黃掉了，那是因為冬天春天太陽比較曬不到，現在已經好非常多了！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/nqHd2QOPT6Gl9MU5m0Ys_2013-05-25%2015.37.50.jpg" alt="Garden" /></p>
+
+<p>整體來一張！這是還沒修剪過的，可以看到草很茂密！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/gB9tDcaTIGGqeeNuUpuQ_2013-05-25%2011.21.37.jpg" alt="Garden" /></p>
+
+<p>近看，好綠！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/2kLhdMaeSoqcZBwzP8Fu_2013-05-25%2011.21.53.jpg" alt="Garden" /></p>
+
+<p>出去買了大剪刀回來修剪，修剪完整齊多了！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/DcJ98DMRAjE4df8b4dNQ_2013-05-25%2015.37.34.jpg" alt="Garden" /></p>
+
+<p>跟剛種好的比較一下，雖然沒有以前整齊，但是現在草地非常綠而且沒有醜醜的分隔線！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/OCQFho0uQGVD5Zvm1y1g_garden_24.jpg" alt="Garden" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Roadie 減輕 Email 排版的痛]]></title>
+    <link href="http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie/"/>
+    <updated>2013-06-10T23:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie</id>
+    <content type="html"><![CDATA[<p>Roadie Repo : <a href="https://github.com/Mange/roadie">https://github.com/Mange/roadie</a></p>
+
+<p>在排版 Email 時最痛苦的就是要寫 Inline Style，跟平常在排版的時候習慣大不相同，
+而且 Inline Style 非常難維護，一封信同樣的 Style 就要複製一次，不同信的同樣 Style 也要複製一次，
+哪天單純只是要改一個小樣式，所有的 Email 都要拿出來改，光用想的就很恐怖，這就是每次要排版 Email 都很痛苦的其中一個原因。</p>
+
+<p>Roadie 就是用來解決這個問題的，你可以像平常一樣用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code>，或是直接包 Assets 裡面的 CSS 進來，甚至是 SCSS 也可以，
+它會自動幫你把 CSS 轉成 Inline Style，還會幫你把 HTML 裡的圖片改成 absolute URL。</p>
+
+<!-- more -->
+
+
+<h1>安裝 Roadie</h1>
+
+<p>在 Rails 的 Gemfile 加入：</p>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;roadie&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>設定</h1>
+
+<p>在 <code>application.rb</code> 或環境設定檔裡面，依需求加入以下的設定：</p>
+
+<figure class='code'><figcaption><span>application.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">roadie</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">false</span> <span class="c1"># Roadie 是預設開啟的，可以設為 false 關閉 Roadie。  </span>
+</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">action_mailer</span><span class="o">.</span><span class="n">default_url_options</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:host</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">}</span> <span class="c1"># 有這行會自動將圖片的網址變成 Absolute。  </span>
+</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span> <span class="c1"># 預設是使用 assets pipeline 裡面的 CSS，如設為 false，則會到 `public/stylesheets` 裡面找。  </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其他還有更進階的設定，請參考 <a href="https://github.com/Mange/roadie">Roadie Repo</a>。</p>
+
+<h1>開始使用</h1>
+
+<p>先測試看看用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code> ，是否能正確轉換：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nc">.red</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>成功輸出成 Inline Style：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;color:red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>使用 Asset Pipeline</h1>
+
+<p>前面的簡介有提到，可以直接使用 Asset pipeline 裡面的 SCSS，這樣我們就可以不用每封 Email 都重寫 CSS 了。</p>
+
+<p>在 Mailer 裡面加上 <code>default :css =&gt; :email</code>，代表使用 email 這個 CSS。</p>
+
+<figure class='code'><figcaption><span>app/mailers/sample_mailer.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SampleMailer</span> <span class="o">&lt;</span> <span class="ss">ActionMailer</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">default</span> <span class="ss">:css</span> <span class="o">=&gt;</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">send_example_email</span>
+</span><span class='line'>    <span class="n">mail</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span><span class="p">,</span> <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Sample Email&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以個別在每個 method，加入 CSS：</p>
+
+<figure class='code'><figcaption><span>app/mailers/sample_mailer.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SampleMailer</span> <span class="o">&lt;</span> <span class="ss">ActionMailer</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">default</span> <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">send_example_email</span>
+</span><span class='line'>    <span class="n">mail</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span><span class="p">,</span> <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Sample Email&quot;</span><span class="p">,</span> <span class="ss">:css</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:email</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 <code>app/assets/stylesheets</code> 加入 <code>email.css.scss</code>：</p>
+
+<figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nv">$red</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.red</span> <span class="p">{</span>
+</span><span class='line'>  <span class="na">color</span><span class="o">:</span> <span class="nv">$red</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著 Email 的 HTML 就更簡潔了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>太棒了！一樣可以看到正常運作：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;color:red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>圖片自動轉換 Absolute URL</h1>
+
+<p>先隨意的加一段 Image tag：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;logo.png&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到自動變成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://example.com/logo.png&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果是 CSS 裡面的 Image：</p>
+
+<figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nc">.logo</span> <span class="p">{</span>
+</span><span class='line'>  <span class="na">background-image</span><span class="o">:</span> <span class="nf">image-url</span><span class="p">(</span><span class="s2">&quot;logo.png&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>竟然也會自動轉換：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;background-image:url(http://example.com/assets/logo.png)&quot;</span><span class="nt">&gt;</span>test<span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>小結</h1>
+
+<p>雖然 Email 排版依然很痛苦，但是已經輕鬆很多，這個 Gem 還有更多設定，可以在 <a href="https://github.com/Mange/roadie">Roadie Repo</a> 找到，
+可以更進階得去修改 Email 裡面的內容。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Localtunnel - 分享 Localhost Web Server]]></title>
+    <link href="http://blog.roachking.net/blog/2013/05/01/localtunnel/"/>
+    <updated>2013-05-01T13:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/05/01/localtunnel</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
+
+<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
+
+<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
+或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
+
+<p>localtunnel 可以建立一個通道，並產生一個網址，
+客戶就可以用這個網址，連到內網的 Web Server。</p>
+
+<!--more-->
+
+
+<h2>安裝 localtunnel</h2>
+
+<p>Localtunnel 需要使用 Gem 安裝:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo gem install localtunnel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你是使用 rvm，則不需要加上 sudo：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install localtunnel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>打開你的 Web Server</h2>
+
+<p>他開你的 Web Server 並記下 Port，這裡以 8080 為例。</p>
+
+<h2>開始使用 localtunnel</h2>
+
+<p>第一次使用，必須附上 Public SSH key：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>localtunnel -k ~/.ssh/id_rsa.pub 8080
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以後，則只需要打上 Web Server 的 Port</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>localtunnel 8080
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著就會看到</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Port 8080 is now publicly accessible from http://4mec.localtunnel.com ...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>後面那串網址就是 localtunnel 幫你產生的，使用者就可以透過這個網址看到內網的 Web Server 了！</p>
+]]></content>
+  </entry>
+  
+</feed>

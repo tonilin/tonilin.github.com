@@ -1,0 +1,1351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: HTML5 | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/html5/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一年前的小作品 - XP 踩地雷]]></title>
+    <link href="http://blog.roachking.net/blog/2012/12/15/winmine/"/>
+    <updated>2012-12-15T12:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/12/15/winmine</id>
+    <content type="html"><![CDATA[<iframe src="http://tonilin.github.io/portfolio/winmine/index.htm" scrolling="no" frameborder="0"  height="316" width="497" allowtransparency="true"></iframe>
+
+
+<p>上面這張，不是圖片XD，可以直接玩！</p>
+
+<p>這是一年前的作品，因為那時候剛當完兵，腦袋被重灌，只好寫一些東西來回復記憶。而當時我最想學的東西是 JavaScript 和 HTML5 ，所以就從這邊開始下手！
+使用的技術是 HTML5 的 Canvas，用 JavaScript 來控制各種行為和畫面的呈現。</p>
+
+<p>本來的目標是做得跟原本的 XP版 一模一樣，後來的成果差了左右鍵同時按，和一些自訂功能，大概花了兩天的時間完成。</p>
+
+<p>因為是恢復記憶用的作品，所以原始碼非常可怕，如果想要學習的千萬不要XD。</p>
+
+<p>下面這張是真的踩地雷，可以看到實際遊戲的部分，跟做出來的成品，一個 Pixel 都不差</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/935/D3UaF7fTqCnLhjF1knmW_winmine.gif" alt="winmine" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HTML 裡的 <head> 到底該放什麼、怎麼放？]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/05/html5-head/"/>
+    <updated>2012-11-05T19:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/05/html5-head</id>
+    <content type="html"><![CDATA[<p>HTML 裡的 &lt;head&gt; 以前一直讓我很困惑，從小時候開始學 HTML，
+坊間的書和中文的教學網站，在這邊通常都是草草帶過，
+而小時候又不求甚解，反正瀏覽器容錯性這麼高，寫錯還是跑得出來。
+然而，長大以後，對一些小細節就會特別去注意，也比較看得懂原文的網站，
+所以在這邊整理一些 &lt;head&gt;「該放什麼東西，以及順序該怎麼排」。</p>
+
+<!--more-->
+
+
+<h2>&lt;title&gt;</h2>
+
+<p>&lt;head&gt; 裡面有一個必要的標籤，那就是&lt;title&gt;</p>
+
+<p>所以一開始看起來應該會像這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果不打 &lt;title&gt; 呢？ 瀏覽器不會跟你說你錯了，但是會自動幫你填入&lt;title&gt;，
+至於填入什麼，不同的瀏覽器有不同的填法。但是因為這行是必要的，
+所以送到 W3C HTML validation，它會跟你說你錯了。</p>
+
+<h2>Encoding</h2>
+
+<p>一般不指定 Encoding 時，瀏覽器會根據伺服器送過來的 header 或是用其他方法來判定。
+但是這個判定不一定會是正確的，所以我們會在 &lt;head&gt; 告訴瀏覽器，我們使用的 Encoding 方式。</p>
+
+<p>至於要用什麼編碼方式，在以往 UTF-8 還沒出現的時候，網路上的編碼非常亂，
+甚至現在有一些比較老牌的網站還是在用那些 Encoding，
+可是一旦網頁上如果出現其他語言，就非常可能變成亂碼。
+所以在現代的網頁裡，幾乎都是使用 UTF-8。</p>
+
+<p>那位置要放在哪呢？為了避免 <a href="http://code.google.com/p/doctype-mirror/wiki/ArticleUtf7">IE 的安全性因素</a>，編碼必須出現在最前面的<strong>1024 bytes</strong>。
+所以我們把它放在最前面。</p>
+
+<p>所以看起來應該會像：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><em>P.S.1:如果你的編碼選擇 UTF-8 ，那你的文件在存檔的時候，記得存成 UTF-8 without BOM</em><br/>
+<em>P.S.2:你可能看過各式各樣的寫法，但是在 HTML5 裡面，你只需要像上面這樣簡潔有力就可以了！</em></p>
+
+<h2>X-UA-Compatible</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>為了萬惡 IE ，我們加了這行，這行做了兩件事情：</p>
+
+<ul>
+<li>告訴 IE 要用最新的版本！</li>
+<li>如果用戶有安裝 <strong>Google Chrome Frame</strong>，就使用 Google Chrome Frame！這是一個 IE 外掛，可以讓 IE 使用 Chrome 的 render 引擎。</li>
+</ul>
+
+
+<p>不過加上這行可能會在一些需要認證的網站出現錯誤，所以建議讓伺服器用 header 的方式來送出。</p>
+
+<p>如果你不介意，那加上去會是這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Description</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;網站的描述。。。&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>這是一個描述這個網站的標籤，搜尋引擎或是一些 spider 會用到這個資訊。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;description&quot; content=&quot;網站的描述。。。&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Viewport</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>由於現在行動裝置盛行，為了讓使用者瀏覽方便，所以在瀏覽器的預設寬度，
+會讓沒有支援行動裝置的網站看起來比較舒服，
+如果你的網站有做 Responsive Design ，記得加上這行。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;description&quot; content=&quot;網站的描述。。。&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Favicon</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;icon&quot;</span> <span class="na">href=</span><span class="s">&quot;http://blog.roachking.net/favicon.ico&quot;</span> <span class="na">type=</span><span class="s">&quot;image/x-icon&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著我們會放入 Favicon ，也就是網址列上面那個小 icon 。
+一般瀏覽器就算你不寫這行，瀏覽器還是會去根目錄下尋找 favicon.ico 。
+而且不管有沒有找到，瀏覽器通常不會再找第二次。</p>
+
+<p>所以如果你有更新 Favicon ，記得加上這行，並改檔名，讓每個瀏覽器都能抓到最新版本。</p>
+
+<p>在這裡你還可以放一些專屬於 APPLE 裝置的 icon。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;description&quot; content=&quot;網站的描述。。。&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>link rel=&quot;icon&quot; href=&quot;http://blog.roachking.net/favicon.ico&quot; type=&quot;image/x-icon&quot; /<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Javascript 和 CSS</h2>
+
+<p>接著我們會告訴瀏覽器要載入那些 CSS 和 Javascript 檔案。</p>
+
+<p>先載入 CSS 還是先載入 Javascript？<br/>
+由於 &lt;script&gt; 標籤如果沒加上 async 屬性的話，會 block 住瀏覽器，瀏覽器得讀完這個 script 才會繼續下一個動作，
+而 &lt;link&gt; 標籤則沒有這個問題，所以<strong>先讀 CSS 再讀 Javascript</strong>，就可以讓瀏覽器同時下載 CSS 和 Javascript！</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>html head </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="ni">&amp;lt;</span>!DOCTYPE html&gt;
+</span><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta charset=&quot;utf-8&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>title<span class="ni">&amp;gt;</span>Hello World!<span class="ni">&amp;lt;</span>/title<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;description&quot; content=&quot;網站的描述。。。&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>link rel=&quot;icon&quot; href=&quot;http://blog.roachking.net/favicon.ico&quot; type=&quot;image/x-icon&quot; /<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>link rel=&quot;stylesheet&quot; href=&quot;css/normalize.css&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>link rel=&quot;stylesheet&quot; href=&quot;css/your-style.css&quot;<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>script src=&quot;js/your-script.js&quot;<span class="ni">&amp;gt;&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果要讓 Script 同步下載呢？ <br/>
+async 雖然可以讓 script 同步下載，但是如果沒管理好相依性是很可怕的！
+譬如說：你寫了一段 script 用到 jquery 的 ready 方法，但是因為加了 async ，而瀏覽器還沒把 jquery.js 讀進來，
+這個時候就會出錯了！</p>
+
+<p>解決的方法就是使用一些延後讀取 Javascript 的套件，像 <a href="http://headjs.com/">head.js</a> 或是 <a href="http://requirejs.org/">require.js</a>。</p>
+
+<h2>小結</h2>
+
+<p>以上，基本的 &lt;head&gt; 就完成了。網路上有太多奇奇怪怪的 &lt;head&gt; ，相信看完這篇，</p>
+
+<p>可以稍微了解 &lt;head&gt; 倒底該塞什麼？ 順序該如何放？</p>
+
+<p>參考資料：</p>
+
+<p><a href="http://html5boilerplate.com/">HTML5 ★ BOILERPLATE</a><br/>
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html">The HTML5 spec</a><br/>
+<a href="https://developers.google.com/speed/pagespeed/">Google Page Speed</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Normalize.css]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/03/Normalize-css/"/>
+    <updated>2012-11-03T21:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/03/Normalize-css</id>
+    <content type="html"><![CDATA[<p><blockquote><p>Normalize.css makes browsers render all elements more<br/>consistently and in line with modern standards. It precisely<br/>targets only the styles that need normalizing.</p></blockquote></p>
+
+<p>Normalize.css Official Site : <a href="http://necolas.github.com/normalize.css/">http://necolas.github.com/normalize.css/</a></p>
+
+<p>「跨瀏覽器問題」一直是網頁設計師最頭痛的問題之一，在 CSS 方面，
+以往習慣用 <a href="http://meyerweb.com/eric/tools/css/reset/">reset.css</a> 來重置 CSS 屬性。
+reset.css 將所有元素的屬性歸零，當使用到這些元素的時候 ，後再賦予其屬性，以達到跨瀏覽器呈現一致。</p>
+
+<!--more-->
+
+
+<p>不過，reset.css 會產生一個缺點，當我要使用 &lt;p&gt; 時，在瀏覽器預設下，它應該是跟下一個元素有一段距離的。
+原本瀏覽器就將這個距離設定得很好，可是用了 reset.css ，卻要自己設定 &lt;p&gt; 的 margin，
+然而自己設定的數值往往沒有瀏覽器預設的好看。</p>
+
+<p>如果要解決上面的問題，我們應該做的是：保留瀏覽器好的屬性，並保持跨瀏覽器的呈現一致。</p>
+
+<p>Normalize.css 做的不是重置這些屬性，而是「標準化」這些屬性，保留這些屬性原本的優點，
+進而達到跨瀏覽器的呈現一致。 像官網一開始所說的一樣， Normalize.css 更符合現代設計，
+且支援 HTML5 ，是一個 reset.css 的取代方案。</p>
+
+<p>最近非常火紅的 Bootstrap 和 HTML5 Boilerplate 也都是使用 Normalize.css，<br/>
+下一次在寫網頁的時候，不仿試試看 Normalize.css ！</p>
+
+<p>下面是 Normalize.css 的原始碼，有興趣的讀者可以拿來跟 reset.css 比較看看。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>normalize.css </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+<span class='line-number'>312</span>
+<span class='line-number'>313</span>
+<span class='line-number'>314</span>
+<span class='line-number'>315</span>
+<span class='line-number'>316</span>
+<span class='line-number'>317</span>
+<span class='line-number'>318</span>
+<span class='line-number'>319</span>
+<span class='line-number'>320</span>
+<span class='line-number'>321</span>
+<span class='line-number'>322</span>
+<span class='line-number'>323</span>
+<span class='line-number'>324</span>
+<span class='line-number'>325</span>
+<span class='line-number'>326</span>
+<span class='line-number'>327</span>
+<span class='line-number'>328</span>
+<span class='line-number'>329</span>
+<span class='line-number'>330</span>
+<span class='line-number'>331</span>
+<span class='line-number'>332</span>
+<span class='line-number'>333</span>
+<span class='line-number'>334</span>
+<span class='line-number'>335</span>
+<span class='line-number'>336</span>
+<span class='line-number'>337</span>
+<span class='line-number'>338</span>
+<span class='line-number'>339</span>
+<span class='line-number'>340</span>
+<span class='line-number'>341</span>
+<span class='line-number'>342</span>
+<span class='line-number'>343</span>
+<span class='line-number'>344</span>
+<span class='line-number'>345</span>
+<span class='line-number'>346</span>
+<span class='line-number'>347</span>
+<span class='line-number'>348</span>
+<span class='line-number'>349</span>
+<span class='line-number'>350</span>
+<span class='line-number'>351</span>
+<span class='line-number'>352</span>
+<span class='line-number'>353</span>
+<span class='line-number'>354</span>
+<span class='line-number'>355</span>
+<span class='line-number'>356</span>
+<span class='line-number'>357</span>
+<span class='line-number'>358</span>
+<span class='line-number'>359</span>
+<span class='line-number'>360</span>
+<span class='line-number'>361</span>
+<span class='line-number'>362</span>
+<span class='line-number'>363</span>
+<span class='line-number'>364</span>
+<span class='line-number'>365</span>
+<span class='line-number'>366</span>
+<span class='line-number'>367</span>
+<span class='line-number'>368</span>
+<span class='line-number'>369</span>
+<span class='line-number'>370</span>
+<span class='line-number'>371</span>
+<span class='line-number'>372</span>
+<span class='line-number'>373</span>
+<span class='line-number'>374</span>
+<span class='line-number'>375</span>
+<span class='line-number'>376</span>
+<span class='line-number'>377</span>
+<span class='line-number'>378</span>
+<span class='line-number'>379</span>
+<span class='line-number'>380</span>
+<span class='line-number'>381</span>
+<span class='line-number'>382</span>
+<span class='line-number'>383</span>
+<span class='line-number'>384</span>
+<span class='line-number'>385</span>
+<span class='line-number'>386</span>
+<span class='line-number'>387</span>
+<span class='line-number'>388</span>
+<span class='line-number'>389</span>
+<span class='line-number'>390</span>
+<span class='line-number'>391</span>
+<span class='line-number'>392</span>
+<span class='line-number'>393</span>
+<span class='line-number'>394</span>
+<span class='line-number'>395</span>
+<span class='line-number'>396</span>
+<span class='line-number'>397</span>
+<span class='line-number'>398</span>
+<span class='line-number'>399</span>
+<span class='line-number'>400</span>
+<span class='line-number'>401</span>
+<span class='line-number'>402</span>
+<span class='line-number'>403</span>
+<span class='line-number'>404</span>
+<span class='line-number'>405</span>
+<span class='line-number'>406</span>
+<span class='line-number'>407</span>
+<span class='line-number'>408</span>
+<span class='line-number'>409</span>
+<span class='line-number'>410</span>
+<span class='line-number'>411</span>
+<span class='line-number'>412</span>
+<span class='line-number'>413</span>
+<span class='line-number'>414</span>
+<span class='line-number'>415</span>
+<span class='line-number'>416</span>
+<span class='line-number'>417</span>
+<span class='line-number'>418</span>
+<span class='line-number'>419</span>
+<span class='line-number'>420</span>
+<span class='line-number'>421</span>
+<span class='line-number'>422</span>
+<span class='line-number'>423</span>
+<span class='line-number'>424</span>
+<span class='line-number'>425</span>
+<span class='line-number'>426</span>
+<span class='line-number'>427</span>
+<span class='line-number'>428</span>
+<span class='line-number'>429</span>
+<span class='line-number'>430</span>
+<span class='line-number'>431</span>
+<span class='line-number'>432</span>
+<span class='line-number'>433</span>
+<span class='line-number'>434</span>
+<span class='line-number'>435</span>
+<span class='line-number'>436</span>
+<span class='line-number'>437</span>
+<span class='line-number'>438</span>
+<span class='line-number'>439</span>
+<span class='line-number'>440</span>
+<span class='line-number'>441</span>
+<span class='line-number'>442</span>
+<span class='line-number'>443</span>
+<span class='line-number'>444</span>
+<span class='line-number'>445</span>
+<span class='line-number'>446</span>
+<span class='line-number'>447</span>
+<span class='line-number'>448</span>
+<span class='line-number'>449</span>
+<span class='line-number'>450</span>
+<span class='line-number'>451</span>
+<span class='line-number'>452</span>
+<span class='line-number'>453</span>
+<span class='line-number'>454</span>
+<span class='line-number'>455</span>
+<span class='line-number'>456</span>
+<span class='line-number'>457</span>
+<span class='line-number'>458</span>
+<span class='line-number'>459</span>
+<span class='line-number'>460</span>
+<span class='line-number'>461</span>
+<span class='line-number'>462</span>
+<span class='line-number'>463</span>
+<span class='line-number'>464</span>
+<span class='line-number'>465</span>
+<span class='line-number'>466</span>
+<span class='line-number'>467</span>
+<span class='line-number'>468</span>
+<span class='line-number'>469</span>
+<span class='line-number'>470</span>
+<span class='line-number'>471</span>
+<span class='line-number'>472</span>
+<span class='line-number'>473</span>
+<span class='line-number'>474</span>
+<span class='line-number'>475</span>
+<span class='line-number'>476</span>
+<span class='line-number'>477</span>
+<span class='line-number'>478</span>
+<span class='line-number'>479</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="o">/&lt;</span><span class="nt">em</span><span class="o">&gt;!</span> <span class="nt">normalize</span><span class="nc">.css</span> <span class="nt">v2</span><span class="nc">.0.1</span> <span class="o">|</span> <span class="nt">MIT</span> <span class="nt">License</span> <span class="o">|</span> <span class="nt">git</span><span class="nc">.io</span><span class="o">/</span><span class="nt">normalize</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">HTML5</span> <span class="nt">display</span> <span class="nt">definitions</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Corrects</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">block</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">display</span> <span class="nt">not</span> <span class="nt">defined</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">article</span><span class="o">,</span>
+</span><span class='line'><span class="nt">aside</span><span class="o">,</span>
+</span><span class='line'><span class="nt">details</span><span class="o">,</span>
+</span><span class='line'><span class="nt">figcaption</span><span class="o">,</span>
+</span><span class='line'><span class="nt">figure</span><span class="o">,</span>
+</span><span class='line'><span class="nt">footer</span><span class="o">,</span>
+</span><span class='line'><span class="nt">header</span><span class="o">,</span>
+</span><span class='line'><span class="nt">hgroup</span><span class="o">,</span>
+</span><span class='line'><span class="nt">nav</span><span class="o">,</span>
+</span><span class='line'><span class="nt">section</span><span class="o">,</span>
+</span><span class='line'><span class="nt">summary</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Corrects</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">inline-block</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">display</span> <span class="nt">not</span> <span class="nt">defined</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">audio</span><span class="o">,</span>
+</span><span class='line'><span class="nt">canvas</span><span class="o">,</span>
+</span><span class='line'><span class="nt">video</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Prevents</span> <span class="nt">modern</span> <span class="nt">browsers</span> <span class="nt">from</span> <span class="nt">displaying</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">audio</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">without</span> <span class="nt">controls</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Remove</span> <span class="nt">excess</span> <span class="nt">height</span> <span class="nt">in</span> <span class="nt">iOS</span> <span class="nt">5</span> <span class="nt">devices</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">audio</span><span class="nd">:not</span><span class="o">([</span><span class="nt">controls</span><span class="o">])</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">styling</span> <span class="nt">for</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">hidden</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">attribute</span> <span class="nt">not</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;[</span><span class="nt">hidden</span><span class="o">]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Base</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Sets</span> <span class="nt">default</span> <span class="nt">font</span> <span class="nt">family</span> <span class="nt">to</span> <span class="nt">sans-serif</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Prevents</span> <span class="nt">iOS</span> <span class="nt">text</span> <span class="nt">size</span> <span class="nt">adjust</span> <span class="nt">after</span> <span class="nt">orientation</span> <span class="nt">change</span><span class="o">,</span> <span class="nt">without</span> <span class="nt">disabling</span>
+</span><span class='line'> <span class="o">*</span>    <span class="nt">user</span> <span class="nt">zoom</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">html</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-family</span><span class="o">:</span> <span class="k">sans-serif</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Removes</span> <span class="nt">default</span> <span class="nt">margin</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">body</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Links</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">outline</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">inconsistency</span> <span class="nt">between</span> <span class="nt">Chrome</span> <span class="nt">and</span> <span class="nt">other</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">a</span><span class="nd">:focus</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">outline</span><span class="o">:</span> <span class="k">thin</span> <span class="k">dotted</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Improves</span> <span class="nt">readability</span> <span class="nt">when</span> <span class="nt">focused</span> <span class="nt">and</span> <span class="nt">also</span> <span class="nt">mouse</span> <span class="nt">hovered</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">a</span><span class="nd">:active</span><span class="o">,</span>
+</span><span class='line'><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">outline</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Typography</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">h1</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">font</span> <span class="nt">sizes</span> <span class="nt">within</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">section</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">and</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">article</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">Firefox</span> <span class="nt">4</span><span class="o">+,</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Safari</span> <span class="nt">5</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">h1</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">styling</span> <span class="nt">not</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">,</span> <span class="nt">Safari</span> <span class="nt">5</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">abbr</span><span class="o">[</span><span class="nt">title</span><span class="o">]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">style</span> <span class="nt">set</span> <span class="nt">to</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">bolder</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">Firefox</span> <span class="nt">4</span><span class="o">+,</span> <span class="nt">Safari</span> <span class="nt">5</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">b</span><span class="o">,</span>
+</span><span class='line'><span class="nt">strong</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">styling</span> <span class="nt">not</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">Safari</span> <span class="nt">5</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">dfn</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-style</span><span class="o">:</span> <span class="k">italic</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">styling</span> <span class="nt">not</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">mark</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">background</span><span class="o">:</span> <span class="m">#ff0</span><span class="p">;</span>
+</span><span class='line'><span class="k">color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Corrects</span> <span class="nt">font</span> <span class="nt">family</span> <span class="nt">set</span> <span class="nt">oddly</span> <span class="nt">in</span> <span class="nt">Safari</span> <span class="nt">5</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">code</span><span class="o">,</span>
+</span><span class='line'><span class="nt">kbd</span><span class="o">,</span>
+</span><span class='line'><span class="nt">pre</span><span class="o">,</span>
+</span><span class='line'><span class="nt">samp</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-family</span><span class="o">:</span> <span class="k">monospace</span><span class="o">,</span> <span class="k">serif</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-size</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Improves</span> <span class="nt">readability</span> <span class="nt">of</span> <span class="nt">pre-formatted</span> <span class="nt">text</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">pre</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="p">;</span>
+</span><span class='line'><span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>
+</span><span class='line'><span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Sets</span> <span class="nt">consistent</span> <span class="nt">quote</span> <span class="nt">types</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">q</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">quotes</span><span class="o">:</span> <span class="s2">&quot;\201C&quot;</span> <span class="s2">&quot;\201D&quot;</span> <span class="s2">&quot;\2018&quot;</span> <span class="s2">&quot;\2019&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">inconsistent</span> <span class="nt">and</span> <span class="nt">variable</span> <span class="nt">font</span> <span class="nt">size</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">small</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">80</span><span class="o">%</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Prevents</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">sub</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">and</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">sup</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">affecting</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">line-height</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">sub</span><span class="o">,</span>
+</span><span class='line'><span class="nt">sup</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-size</span><span class="o">:</span> <span class="m">75</span><span class="o">%</span><span class="p">;</span>
+</span><span class='line'><span class="k">line-height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class='line'><span class="k">vertical-align</span><span class="o">:</span> <span class="k">baseline</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">sup</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">top</span><span class="o">:</span> <span class="m">-0.5em</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">sub</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">bottom</span><span class="o">:</span> <span class="m">-0.25em</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Embedded</span> <span class="nt">content</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Removes</span> <span class="nt">border</span> <span class="nt">when</span> <span class="nt">inside</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">a</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">element</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">img</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Corrects</span> <span class="nt">overflow</span> <span class="nt">displayed</span> <span class="nt">oddly</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">svg</span><span class="nd">:not</span><span class="o">(</span><span class="nd">:root</span><span class="o">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Figures</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">margin</span> <span class="nt">not</span> <span class="nt">present</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span> <span class="nt">and</span> <span class="nt">Safari</span> <span class="nt">5</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">figure</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Forms</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Define</span> <span class="nt">consistent</span> <span class="nt">border</span><span class="o">,</span> <span class="nt">margin</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">padding</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">fieldset</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#c0c0c0</span><span class="p">;</span>
+</span><span class='line'><span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">2px</span><span class="p">;</span>
+</span><span class='line'><span class="k">padding</span><span class="o">:</span> <span class="m">0.35em</span> <span class="m">0.625em</span> <span class="m">0.75em</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Corrects</span> <span class="nt">color</span> <span class="nt">not</span> <span class="nt">being</span> <span class="nt">inherited</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Remove</span> <span class="nt">padding</span> <span class="nt">so</span> <span class="nt">people</span> <span class="nt">aren</span><span class="o">&amp;</span><span class="nt">rsquo</span><span class="o">;</span><span class="nt">t</span> <span class="nt">caught</span> <span class="nt">out</span> <span class="nt">if</span> <span class="nt">they</span> <span class="nt">zero</span> <span class="nt">out</span> <span class="nt">fieldsets</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">legend</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Corrects</span> <span class="nt">font</span> <span class="nt">family</span> <span class="nt">not</span> <span class="nt">being</span> <span class="nt">inherited</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Corrects</span> <span class="nt">font</span> <span class="nt">size</span> <span class="nt">not</span> <span class="nt">being</span> <span class="nt">inherited</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">3</span><span class="o">.</span> <span class="nt">Addresses</span> <span class="nt">margins</span> <span class="nt">set</span> <span class="nt">differently</span> <span class="nt">in</span> <span class="nt">Firefox</span> <span class="nt">4</span><span class="o">+,</span> <span class="nt">Safari</span> <span class="nt">5</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">Chrome</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">,</span>
+</span><span class='line'><span class="nt">select</span><span class="o">,</span>
+</span><span class='line'><span class="nt">textarea</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-family</span><span class="o">:</span> <span class="k">inherit</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="k">font-size</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 3 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Addresses</span> <span class="nt">Firefox</span> <span class="nt">4</span><span class="o">+</span> <span class="nt">setting</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">line-height</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">on</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">using</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;!</span><span class="nt">important</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">the</span> <span class="nt">UA</span> <span class="nt">stylesheet</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">line-height</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Avoid</span> <span class="nt">the</span> <span class="nt">WebKit</span> <span class="nt">bug</span> <span class="nt">in</span> <span class="nt">Android</span> <span class="nt">4</span><span class="nc">.0</span><span class="o">.&lt;/</span><span class="nt">em</span><span class="o">&gt;</span> <span class="nt">where</span> <span class="o">(</span><span class="nt">2</span><span class="o">)</span> <span class="nt">destroys</span> <span class="nt">native</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">audio</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span>    <span class="nt">and</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">video</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">controls</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Corrects</span> <span class="nt">inability</span> <span class="nt">to</span> <span class="nt">style</span> <span class="nt">clickable</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">types</span> <span class="nt">in</span> <span class="nt">iOS</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">3</span><span class="o">.</span> <span class="nt">Improves</span> <span class="nt">usability</span> <span class="nt">and</span> <span class="nt">consistency</span> <span class="nt">of</span> <span class="nt">cursor</span> <span class="nt">style</span> <span class="nt">between</span> <span class="nt">image-type</span>
+</span><span class='line'> <span class="o">*</span>    <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">and</span> <span class="nt">others</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">html</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">button</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;],</span> <span class="o">/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="nt">1</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">reset</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">submit</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="n">button</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span> <span class="c">/* 3 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Re-set</span> <span class="nt">default</span> <span class="nt">cursor</span> <span class="nt">for</span> <span class="nt">disabled</span> <span class="nt">elements</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">button</span><span class="o">[</span><span class="nt">disabled</span><span class="o">],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">disabled</span><span class="o">]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">cursor</span><span class="o">:</span> <span class="k">default</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Addresses</span> <span class="nt">box</span> <span class="nt">sizing</span> <span class="nt">set</span> <span class="nt">to</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">content-box</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Removes</span> <span class="nt">excess</span> <span class="nt">padding</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">checkbox</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">radio</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Addresses</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">appearance</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">set</span> <span class="nt">to</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">searchfield</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">Safari</span> <span class="nt">5</span> <span class="nt">and</span> <span class="nt">Chrome</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Addresses</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">box-sizing</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">set</span> <span class="nt">to</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">border-box</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">in</span> <span class="nt">Safari</span> <span class="nt">5</span> <span class="nt">and</span> <span class="nt">Chrome</span>
+</span><span class='line'> <span class="o">*</span>    <span class="o">(</span><span class="nt">include</span> <span class="o">&lt;</span><span class="nt">code</span><span class="o">&gt;</span><span class="nt">-moz</span><span class="o">&lt;/</span><span class="nt">code</span><span class="o">&gt;</span> <span class="nt">to</span> <span class="nt">future-proof</span><span class="o">).</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">search</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;]</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="n">textfield</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+</span><span class='line'><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Removes</span> <span class="nt">inner</span> <span class="nt">padding</span> <span class="nt">and</span> <span class="nt">search</span> <span class="nt">cancel</span> <span class="nt">button</span> <span class="nt">in</span> <span class="nt">Safari</span> <span class="nt">5</span> <span class="nt">and</span> <span class="nt">Chrome</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">on</span> <span class="nt">OS</span> <span class="nt">X</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">search</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;]:</span><span class="nd">:-webkit-search-cancel-button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=&amp;</span><span class="nt">ldquo</span><span class="o">;</span><span class="nt">search</span><span class="o">&amp;</span><span class="nt">rdquo</span><span class="o">;]:</span><span class="nd">:-webkit-search-decoration</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Removes</span> <span class="nt">inner</span> <span class="nt">padding</span> <span class="nt">and</span> <span class="nt">border</span> <span class="nt">in</span> <span class="nt">Firefox</span> <span class="nt">4</span><span class="o">+.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">button</span><span class="o">:</span><span class="nd">:-moz-focus-inner</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">:</span><span class="nd">:-moz-focus-inner</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">1</span><span class="o">.</span> <span class="nt">Removes</span> <span class="nt">default</span> <span class="nt">vertical</span> <span class="nt">scrollbar</span> <span class="nt">in</span> <span class="nt">IE</span> <span class="nt">8</span><span class="o">/</span><span class="nt">9</span><span class="o">.</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">2</span><span class="o">.</span> <span class="nt">Improves</span> <span class="nt">readability</span> <span class="nt">and</span> <span class="nt">alignment</span> <span class="nt">in</span> <span class="nt">all</span> <span class="nt">browsers</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">textarea</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">overflow</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="o">==========================================================================</span>
+</span><span class='line'>   <span class="nt">Tables</span>
+</span><span class='line'>   <span class="o">==========================================================================</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span>
+</span><span class='line'> <span class="o">*</span> <span class="nt">Remove</span> <span class="nt">most</span> <span class="nt">spacing</span> <span class="nt">between</span> <span class="nt">table</span> <span class="nt">cells</span><span class="o">.</span>
+</span><span class='line'> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">table</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">border-collapse</span><span class="o">:</span> <span class="k">collapse</span><span class="p">;</span>
+</span><span class='line'><span class="k">border-spacing</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

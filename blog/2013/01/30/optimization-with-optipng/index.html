@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用 OptiPNG 最佳化 PNG - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="OptiPNG Official Site : http://optipng.sourceforge.net/ OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。 安裝 OptiPNG 如果你是 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用 OptiPNG 最佳化 PNG</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T14:30:00+08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>OptiPNG Official Site : <a href="http://optipng.sourceforge.net/">http://optipng.sourceforge.net/</a></p>
+
+<p>OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。</p>
+
+<!--more-->
+
+
+<h2>安裝 OptiPNG</h2>
+
+<p>如果你是 MAC 的使用者，可以使用 brew 安裝：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew install optipng
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其他作業系統也有相對應的套件庫，例如 CentOS 可以使用 yum：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>yum install optipng
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果都沒有，可以到官網下載 tar 回來自己編譯。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>wget http://prdownloads.sourceforge.net/optipng/optipng-0.7.4.tar.gz
+</span><span class='line'><span class="nv">$ </span>tar -xzvf optipng-0.7.4.tar.gz
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>optipng-0.7.4
+</span><span class='line'><span class="nv">$ </span>./configure
+</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用 OptiPNG</h2>
+
+<p>使用 OptiPNG 很簡單：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng fat.png
+</span><span class='line'>
+</span><span class='line'>1920x1080 pixels, 4x8 bits/pixel, RGB+alpha
+</span><span class='line'>Reducing image to 3x8 bits/pixel, RGB
+</span><span class='line'>Input IDAT <span class="nv">size</span> <span class="o">=</span> 1969511 bytes
+</span><span class='line'>Input file <span class="nv">size</span> <span class="o">=</span> 1969633 bytes
+</span><span class='line'>
+</span><span class='line'>Trying:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 5       IDAT <span class="nv">size</span> <span class="o">=</span> 1765809
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 5       IDAT <span class="nv">size</span> <span class="o">=</span> 1728639
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 5       IDAT <span class="nv">size</span> <span class="o">=</span> 1635304
+</span><span class='line'>
+</span><span class='line'>Selecting parameters:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 8  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 5       IDAT <span class="nv">size</span> <span class="o">=</span> 1635304
+</span><span class='line'>
+</span><span class='line'>Output IDAT <span class="nv">size</span> <span class="o">=</span> 1635304 bytes <span class="o">(</span>334207 bytes decrease<span class="o">)</span>
+</span><span class='line'>Output file <span class="nv">size</span> <span class="o">=</span> 1635426 bytes <span class="o">(</span>334207 <span class="nv">bytes</span> <span class="o">=</span> 16.97% decrease<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>隨便拿一張未壓縮的 PNG 來測試，可以看到檔案大小少了約 17% 。</p>
+
+<p>可以加入參數，做最高等級的最佳化，但是最佳化的速度最慢：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -o7 fat.png
+</span><span class='line'>
+</span><span class='line'>920x1080 pixels, 4x8 bits/pixel, RGB+alpha
+</span><span class='line'>Reducing image to 3x8 bits/pixel, RGB
+</span><span class='line'>Input IDAT <span class="nv">size</span> <span class="o">=</span> 1969511 bytes
+</span><span class='line'>Input file <span class="nv">size</span> <span class="o">=</span> 1969633 bytes
+</span><span class='line'>
+</span><span class='line'>Trying:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 1       IDAT <span class="nv">size</span> <span class="o">=</span> 1806167
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 1       IDAT <span class="nv">size</span> <span class="o">=</span> 1772590
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 2       IDAT <span class="nv">size</span> <span class="o">=</span> 1756210
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 2       IDAT <span class="nv">size</span> <span class="o">=</span> 1730041
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 2       IDAT <span class="nv">size</span> <span class="o">=</span> 1693082
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 0  <span class="nv">f</span> <span class="o">=</span> 3       IDAT <span class="nv">size</span> <span class="o">=</span> 1679603
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 9  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 1  <span class="nv">f</span> <span class="o">=</span> 3       IDAT <span class="nv">size</span> <span class="o">=</span> 1653177
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 3       IDAT <span class="nv">size</span> <span class="o">=</span> 1569035
+</span><span class='line'>
+</span><span class='line'>Selecting parameters:
+</span><span class='line'>  <span class="nv">zc</span> <span class="o">=</span> 1  <span class="nv">zm</span> <span class="o">=</span> 9  <span class="nv">zs</span> <span class="o">=</span> 2  <span class="nv">f</span> <span class="o">=</span> 3       IDAT <span class="nv">size</span> <span class="o">=</span> 1569035
+</span><span class='line'>
+</span><span class='line'>Output IDAT <span class="nv">size</span> <span class="o">=</span> 1569035 bytes <span class="o">(</span>400476 bytes decrease<span class="o">)</span>
+</span><span class='line'>Output file <span class="nv">size</span> <span class="o">=</span> 1569157 bytes <span class="o">(</span>400476 <span class="nv">bytes</span> <span class="o">=</span> 20.33% decrease<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到比上一個例子又少了 3% 的大小，但是也多花了 3 分鐘來做最佳化。</p>
+
+<p>也可以把圖片的 metadata　一併去除掉，減少檔案大小的同時，也可以避免一些 code injection：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -strip all *.png
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>當然如果需要整個目錄內的 PNG 都最佳化，可以下達：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng *.png
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果怕最佳化的時候出錯，可以加一個 -k ，optiPNG 會自動備份原本的檔案。如果你本來就有在做版本控管，就不需要這個了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>optipng -k *.png
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>更多資訊</h2>
+
+<p>OptiPNG 並不是唯一解，還有其他最佳化工具，壓縮的比例也都不同，網路上都可以找到評比，有需要的話可以自行 Google。</p>
+
+<p>如果想要更了解 PNG 和壓縮原理可以參考：<a href="http://optipng.sourceforge.net/pngtech/optipng.html">A guide to PNG optimization</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T14:30:00+08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tools/'>Tools</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/" data-via="" data-counturl="http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/29/graceful-restart-apache/" title="Previous Post: 優雅地重開 Apache">&laquo; 優雅地重開 Apache</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/02/15/noscript-css/" title="Next Post: 不支援 JavaScript 時的 CSS">不支援 JavaScript 時的 CSS &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/';
+        var disqus_url = 'http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Php | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用 APC 加速你的 PHP！]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/30/apc-for-faster-php/"/>
+    <updated>2012-11-30T16:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/30/apc-for-faster-php</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/hweiFLwzR8a0OVNE3Rjv_apc_plus_php.png" alt="apc_plus_php" /></p>
+
+<p>PHP 是 Script 語言，在程式被執行的時候才會開始編譯，所以和其他預先編譯好的語言比起來速度會比較慢。
+而如果 code 沒有變更，每次的編譯其實是多餘的，如果能將重複編譯的時間和資源省下來，就可以讓 PHP 加速不少。</p>
+
+<p>市面上有很多 PHP 加速的外掛，可以用來達成這個目的，APC 就是其中一個。APC 會將編譯的結果暫存起來，省去每次需要重新編譯的時間。</p>
+
+<!--more-->
+
+
+<h2>安裝</h2>
+
+<p>下面安裝方法以 Centos 為範例：</p>
+
+<p>首先，如果沒有 PEAR，請先安裝 PEAR： ( 如果需要最新版本，可以下載原始碼自行編譯 )</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>yum install php-pear&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著使用 pecl 安裝 APC：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>pecl install apc&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安裝好後，在 /etc/php.ini 加入一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;extension <span class="o">=</span> apc.so&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著重新啟動 Apache：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>/etc/init.d/httpd restart&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此 APC 的安裝程序就完成了！</p>
+
+<h2>設定</h2>
+
+<p>安裝好後就可以在 phpinfo 裡面看到下面的資訊：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/4e2IxtqtTWGZvUwSGO3f_apc_phpinfo.png" alt="apc_phpinfo" /></p>
+
+<p>其中對速度影響最大的參數就是 <strong>apc.stat</strong>，當 stat 打開的時候，APC 每次都會去檢查檔案有沒有更新，
+但是在 Production 平台，檔案變更通常伴隨著每次 release，每次檔案更新的時間都是可以確定的！
+所以如果要讓速度更快，我們可以把 stat 關閉，檔案更新的時候，再去清除 APC 的快取即可。</p>
+
+<p>要關閉 stat 只要在 php.ini 中加入一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;apc.stat <span class="o">=</span> 0&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>清除快取</h2>
+
+<p>我們可以直接使用 PHP 清除快取：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nb">apc_clear_cache</span><span class="p">();</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>管理後臺</h2>
+
+<p>APC 有內建的管理後臺，可以清楚得看到快取狀態，也可以在後台進行快取的清除。</p>
+
+<p>在使用 PEAR 安裝好 APC 後其實就已經在 PEAR 的目錄下，我們只需要將它複製到 Apache 的 Document 目錄即可：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>cp /usr/share/pear/apc.php /var/www/html/apc.php&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著打開 <a href="http://localhost/apc.php">http://localhost/apc.php</a> 即可看到 APC 的管理後臺：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/Inmm32QhSbmjfqawy8JB_apc_php.png" alt="apc_php.png" /></p>
+
+<p>為了避免訪客也可以進行快取的清除，記得打開 apc.php 設上密碼：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">USE_AUTHENTICATION</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="mi">1</span><span class="p">);</span>           <span class="c1">// Use (internal) authentication &amp;ndash; best choice if&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>                                        <span class="c1">// no other authentication is available</span>
+</span><span class='line'>                                        <span class="c1">// If set to 0:</span>
+</span><span class='line'>                                        <span class="c1">//  There will be no further authentication. You </span>
+</span><span class='line'>                                        <span class="c1">//  will have to handle this by yourself!</span>
+</span><span class='line'>                                        <span class="c1">// If set to 1:</span>
+</span><span class='line'>                                        <span class="c1">//  You need to change ADMIN_PASSWORD to make</span>
+</span><span class='line'>                                        <span class="c1">//  this work!</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">ADMIN_USERNAME</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">your_user_name</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>            <span class="c1">// Admin Username</span>
+</span><span class='line'><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">ADMIN_PASSWORD</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">your_password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>     <span class="c1">// Admin Password &amp;ndash; CHANGE THIS TO ENABLE!!!</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Benchmark</h2>
+
+<p>APC 加速的效果如何？其實網路上可以找到很多 Benckmark 資料。<br/>
+如果單純只是 Hello World，APC 不能提供多大幫助，因為 APC 是編譯快取，但是在大型的應用程式裡面，APC 甚至可以提供原本兩倍的速度！</p>
+
+<h2>小結</h2>
+
+<p>其實 APC 還有很多功能，可以暫存 PHP 經常使用的變數、可以偵測上傳進度等等，而且還有更多設定可以調配，
+有需要的再自行 Google 吧！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[恐怖的 Nesting if Statements]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/12/if-elsif-elsif-else/"/>
+    <updated>2012-11-12T20:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/12/if-elsif-elsif-else</id>
+    <content type="html"><![CDATA[<p>在上一家公司裡，公司自行開發了一套 Framework，工程師都必須 Follow 這套 Framework 和設計標準，
+而這套 Framework 是由其中一個有十年經驗的工程師所開發。他跟我說這套程式碼的開發流程後，給了我一個 Sample Code，
+一看之下，讓我馬上決定離開這家公司。</p>
+
+<p>先不論這個 Framework 好不好用，光看裡面的 Coding Style，我就覺得無法從這家公司學到高深的技術了。
+在那個 Sample Code 中，我看到最噁心的東西就是，不斷的 if else if else，少則三四層，多則五六層。
+他跟我說程式碼可以維護是很重要的，結果我看到他的寫的東西卻是這樣&hellip;這種東西可以維護嗎(怒)？</p>
+
+<!--more-->
+
+
+<p>下面就是我看到的東西，其實只要稍微下點工夫雕琢，就可以讓 Code 更好看：</p>
+
+<h2>Example 1</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">some_function</span><span class="p">(</span><span class="nv">$param</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nv">$param</span> <span class="o">===</span> <span class="s1">&#39;OK&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="cm">/*</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">        A</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">        lot</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">        of</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">        statement ...</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    */</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>這種 Code 很常見，但是要看完一整頁的 Code ，才會發現，原來條件不符合會 return false。</p>
+
+<p>如果改成這樣寫：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">some_function</span><span class="p">(</span><span class="nv">$param</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nv">$param</span> <span class="o">!==</span> <span class="s1">&#39;OK&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    A</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    lot</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    of</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="cm">    statement ...</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>一開始不符合的條件就直接 return false ，剩下來的全部都是 else！</p>
+
+<h2>Example 2</h2>
+
+<p>再來就是恐怖的 Nesting if statements ：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">do_something</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nv">$condition1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$condition2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nv">$condition3</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">do_something_special</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nx">do_something_else</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>這種槽狀式的 statements ，通常看到第三層就頭昏眼花了，更別說過幾個月以後還要回來維護。
+其實大部分超過三層的 if&hellip;else 通常都可以縮減到兩層以下。</p>
+
+<p>以上面的例子，如果改成：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">do_something</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$condition1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$condition2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$condition3</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">do_something_special</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">do_something_else</span><span class="p">();</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>這樣不就清楚多了？</p>
+
+<h2>Example 3</h2>
+
+<p>在表單送出後，做一些條件判斷：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$error_message</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$statementA</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$error_message</span> <span class="o">=</span> <span class="s1">&#39;錯誤A&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$statementB</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$error_message</span> <span class="o">=</span> <span class="s1">&#39;錯誤B&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$statementC</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$error_message</span> <span class="o">=</span> <span class="s1">&#39;錯誤C&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$error_message</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//show error message</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span> <span class="o">=&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="nv">$error_message</span><span class="p">));</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//store to database</span>
+</span><span class='line'>    <span class="nv">$some_model</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">save</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>看起來沒問題，也是很直觀的寫法，但是如果條件一多起來，亂七八糟的 if else 就會非常難懂。
+在這邊只要使用 try catch，不僅能讓 code 更簡潔，維護性也更好：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nv">$statementA</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&quot;錯誤A&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nv">$statementB</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&quot;錯誤B&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nv">$statementC</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&quot;錯誤C&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//store to database</span>
+</span><span class='line'>    <span class="nv">$some_model</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">save</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">//show error message</span>
+</span><span class='line'>    <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span> <span class="o">=&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="nv">$e</span><span class="o">-&amp;</span><span class="nx">gt</span><span class="p">;</span><span class="nx">getMessage</span><span class="p">()));</span>
+</span><span class='line'>    <span class="k">exit</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>小技巧</h2>
+
+<p>當你一直在做重複的事情，或是開始察覺你的程式碼越來越多層、越來越難懂之時，</p>
+
+<p>依案件的情況，你可以選擇馬上停下來思考一下，或是註解起來，等重構的時候再來處理。</p>
+
+<h2>小結</h2>
+
+<p>在要離開公司之前，跟那位十年經驗的前輩聊了一下，他始終覺得 OOP 、 refactoring 、 namespace 和 autoloading
+是沒必要的，他跟我說「 一開始程式寫好好的為什麼要重構？我的方法快速又有效 」。只可惜我只有一年年資，也敬重他是前輩，
+所以不好意思當面嗆他。</p>
+
+<p>我很委婉的跟他說公司的技術目前停在五年前，而且以這種 Coding 方式，這家公司的技術未來很難再成長。
+或許他有他的道理，因為在台灣，接案的公司往往只要東西跑得出來就好了，技術和品質客戶不懂，也沒有心想去懂。</p>
+
+<p><blockquote><p>Steve Jobs：Stay Hungry, Stay Foolish</p></blockquote></p>
+
+<p>不僅賈伯斯這麼說，三個傻瓜裡面也說「追求卓越，成功就會來追你」。不斷的學習、更新自己，似乎才是成功的不二法門。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[開發時 Error Reporting 永遠使用 E_ALL]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/"/>
+    <updated>2012-11-09T19:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all</id>
+    <content type="html"><![CDATA[<p>PHP 允許開發者自行設定 Error Reporting <em>(錯誤報告)</em> 的 Level。有些開發者因為開發方便而設成 (E_ERROR |  E_PARSE)，
+故意去忽略 notices 和 warmings 的訊息。雖然這些訊息只是在提醒你，
+但也說明了你的程式不夠嚴謹。打開這些訊息，讓 Error Reporting 來告訴你哪些寫法是具有危險性的。</p>
+
+<p>將 Error Reporting 設成 E_ALL 有兩種方法，一種是從 php.ini 設置；
+而另外一種則是在 runtime 的時候加入一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nb">error_reporting</span><span class="p">(</span> <span class="k">E_ALL</span> <span class="p">);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你的專案已經開發到一定程度，而且從來沒開過 E_ALL，那你可能會看到非常多的錯誤訊息，下面簡單介紹一些常見的錯誤：</p>
+
+<ul>
+<li>沒初始化的變數</li>
+<li>不存在的 key</li>
+<li>裸露的字串</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>沒初始化的變數</h2>
+
+<p>初始化字串雖然很簡單，但卻是非常常犯的錯誤，看看下面的 Code：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">foo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>看起來雖然很正常，但是 $admin_ok 並沒有初始化，所以當 password 不等於 foo 的時候，
+去呼叫 $admin_ok 就會出現錯誤，像這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">foo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="k">echo</span> <span class="nv">$admin_ok</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>解決的辦法很簡單，就是先給他一個初始值：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">==</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">foo</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;)</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>或是寫成：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>不存在的 key</h2>
+
+<p>在上個例子中，如果表單沒有 password 這個欄位，那 $_POST 這個陣列就不會有 password 這個健值，
+解決方法就是，在使用前先檢查這個 key 存不存在：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;;</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="nv">$_POST</span><span class="p">)){</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>或是</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;;</span>
+</span><span class='line'><span class="nb">array_key_exists</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="err">$</span><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">POST</span><span class="p">)</span> <span class="k">AND</span> <span class="nv">$password</span> <span class="o">=</span> <span class="err">$</span><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">POST</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>也可以寫成一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="nb">array_key_exists</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="err">$</span><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">POST</span><span class="p">)</span> <span class="o">?</span> <span class="err">$</span><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">POST</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;]</span> <span class="o">:</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>裸露的字串</h2>
+
+<p>這個應該算是少數人會犯的錯誤，有些人會在指定 key 的時候不將 key 括起來：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$foo</span><span class="p">[</span><span class="nx">bar</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>只要改成這樣就可以了：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nv">$foo</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">bar</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>小結</h2>
+
+<p>如果沒有用過 E_ALL 的，在設定完後可能會常常遇到錯誤，不用害怕！</p>
+
+<p>當你越來越習慣嚴格的開發環境的時候，你的程式會越來越嚴謹，並減少一些不可預期的錯誤！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHP Framework Laravel (三) Hello World!]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-iii/"/>
+    <updated>2012-11-01T20:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-iii</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/924/QzVqHLaXQgiwCxqN7qyY_laravel.jpg" alt="laravel.jpg" /></p>
+
+<p><a href="http://laravel.com/">Laravel Official Site</a></p>
+
+<p>今天要來介紹：怎麼使用 Laravel 做一個 Hello World ! 頁面。</p>
+
+<!--more-->
+
+
+<h2>Laravel 的 Routing</h2>
+
+<p>Laravel 的 Routing ，不像以往的 Framework 有預設的 Routing (如 controller/action/param )，<br/>
+在 Laravel 中，每一個 Routing 都必須給予明確的指定！<br/>
+而這時候可能有人會問：每個都指定那不是非常麻煩？<br/>
+幸好 Laravel 提供了兩種 Routing 方式：一種跟傳統的 MVC Routing 方式一樣，另外一種則是自己指定的 Routing 。</p>
+
+<h2>基本 Routing</h2>
+
+<p>首先打開 <em>/application/routes.php</em> ，會看到一個官方已經預設好的 Route ，可以先將它刪掉沒關係。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/routes.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="k">function</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="nx">View</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="s1">&#39;home.index&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>註冊一個Route至 &ldquo;GET /&rdquo;:</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/routes.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="k">function</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>用瀏覽器打開 *<a href="http://localhost/laravel/*%EF%BC%8C%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%E7%9A%84">http://localhost/laravel/*%EF%BC%8C%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%E7%9A%84</a> Hello World! 就完成了！</p>
+
+<p><strong>註冊一個接受任何HTTP Method (GET, POST, PUT, and DELETE)的Route：</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/routes.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Route</span><span class="o">::</span><span class="na">any</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">/&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="k">function</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>註冊一個接受參數傳遞的Route：</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>application/routes.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">hello</span><span class="o">/</span><span class="p">(</span><span class="o">:</span><span class="nx">any</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="s2">&quot;Hello &quot;</span> <span class="o">.</span> <span class="nv">$name</span> <span class="o">.</span> <span class="s2">&quot;!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>打開 *<a href="http://localhost/laravel/hello/tonilin*">http://localhost/laravel/hello/tonilin*</a> 就可以看到 Hello tonilin!</p>
+
+<p><strong>各種 HTTP Method</strong></p>
+
+<p>前面介紹了 get 和 any ，當然也可以替換成put 、 post 和 delete，來建立一個 RESTful 的應用程式。</p>
+
+<p>Laravel 還提供更細節的參數 filter，相關資訊可以在官網文件的 Routing 分類找到。</p>
+
+<h2>Controller Routing</h2>
+
+<p>如本篇開頭所講的，Laravel 還提供傳統 MVC 的 Routing 方式，</p>
+
+<p>在 Laravel 中的 Default Controller為 Home Controller。</p>
+
+<p>下面我們就介紹：用 Controller 的方式來建立一個 Hello World 吧！</p>
+
+<p><strong>在/application/controllers中建立一個home.php的檔案：</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/controllers/home.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Home_Controller</span> <span class="k">extends</span> <span class="nx">Base_Controller</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">action_index</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>在/application/routes.php中加入一個Controller Route：</strong></p>
+
+<p> 之前有提過<strong>每一個</strong> Routing 都必須明確的指定！</p>
+
+<p>所以剛剛加了一個 Home Controller ，我們也必須加入一個 Home Route：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/routes.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="nx">Route</span><span class="o">::</span><span class="na">controller</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">home</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>測試</strong></p>
+
+<p>接著以瀏覽器打開 *<a href="http://localhost/laravel/*">http://localhost/laravel/*</a> 就可以看到 Hello World!</p>
+
+<h2>Controller AND View</h2>
+
+<p>直到剛剛，我們都還只有使用到 Routing 和 Controller，<br/>
+接下來，我們試著把之前的 Hello World! 分成 Controller 和 view。</p>
+
+<p><strong>打開之前寫好的 /application/controllers/home.php</strong></p>
+
+<p>我們將return 回去的東西，改成view：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/controllers/home.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Home_Controller</span> <span class="k">extends</span> <span class="nx">Base_Controller</span> <span class="p">{</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">public</span> <span class="k">function</span> <span class="nf">action_index</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">View</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="s1">&#39;home.index&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><strong>在/application/views/home中建立一個index.php的檔案：</strong></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/application/views/home/index.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span> <span class="o">!&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>為什麼要特別開一個資料夾 home 呢？<br/>
+因為我們是在 Home Controller 裡面的 index action  ，
+為了以後方便找檔案，所以我們通常會有一套放置 view 的方法。<br/>
+規則就是很簡單的(controller)/(action).php。</p>
+
+<p><strong>測試</strong></p>
+
+<p>接著以瀏覽器打開 *<a href="http://localhost/laravel/*">http://localhost/laravel/*</a> ，如果你也是看到Hello World!，那就是成功了！</p>
+
+<h2>小結</h2>
+
+<p>如同以往，我們在這邊只簡單介紹基礎的應用，如需要更詳細的文件，請到 Laravel 官網搜尋。</p>
+
+<p>相信從這一篇開始，就可以看出一些 Laravel 跟其他 Framework 不相同的 Routing 方式，</p>
+
+<p>下一篇開始會介紹我覺得很好用的 RESTful Controller ！</p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">PHP Framework Laravel (一) 簡介</a><br/>
+<a href="/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-II/">PHP Framework Laravel (二) 安裝</a><br/>
+<a href="/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-III/">PHP Framework Laravel (三) Hello World!</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHP Framework Laravel (二) 安裝]]></title>
+    <link href="http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/"/>
+    <updated>2012-10-30T18:07:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/924/QzVqHLaXQgiwCxqN7qyY_laravel.jpg" alt="laravel.jpg" /></p>
+
+<p><a href="http://laravel.com/">Laravel Official Site</a></p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">上一篇</a>文章簡單介紹了 Laraval 的一些特色，今天就來實際安裝看看吧！</p>
+
+<!--more-->
+
+
+<h2>系統需求</h2>
+
+<ul>
+<li><p><strong>PHP5.3.x 以上</strong> <br/>
+Laravel 會用到一些 PHP5.3.x 以上才有的功能，如： closures, late-static binding and namespaces。</p></li>
+<li><p><strong>The FileInfo library</strong> <br/>
+在 Linux 環境下的，這個 Library 在 PHP5.3.x 以上是預設安裝的， Windows 用戶可能要另外安裝。</p></li>
+<li><p><strong>Mcrypt library</strong><br/>
+用來產生 Hash ， PHP5.3.x 內建。</p></li>
+</ul>
+
+
+<h2>下載並安裝</h2>
+
+<p>到官網下載 <a href="http://laravel.com/">Laravel</a> 之後，解壓縮並放到網頁伺服器內。<em>(本篇文章以/var/www/laravel為例)</em></p>
+
+<h2>目錄結構</h2>
+
+<p>這裡先簡單介紹 Laravel 的目錄結構：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/
+</span><span class='line'>/application  放置有關application的目錄，包括 controllers 、 views 、 models 和 configs&hellip;等等。
+</span><span class='line'>/bundles  放置 bundles ， bundles 是 Laravel 的特色之一，本篇先跳過不介紹。
+</span><span class='line'>/laravel  放置 laravel framework
+</span><span class='line'>/public  靜態檔案，內有.htaccess和index.php，需將 virtual host 的 Document Root 設到此目錄。
+</span><span class='line'>/storage  檔案儲存空間，裡面有可能包含一些 cache 或 sessions 檔案。
+</span><span class='line'>/artisan  Laravel 的 CLI 工具。
+</span><span class='line'>/paths.php  在這裡可以設置一些常用的路徑。&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你是一位 MVC Framework 的初學者，你只需要關心application、public兩個資料夾，<br/>
+利用簡單的 controllers 、 views 和 models 來熟悉 MVC 的架構。</p>
+
+<h2>基本設定</h2>
+
+<h3>Application Key</h3>
+
+<p>在開始 Coding 之前，先來設定 Application Key ， Laravel 在應用程式的某些地方需要加密(如cookies)，需要 Application Key 來確保資料的安全性。</p>
+
+<p>打開 <em>application/config/application.php</em></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">Application</span> <span class="nx">Key</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="k">This</span> <span class="nb">key</span> <span class="nx">is</span> <span class="nx">used</span> <span class="nx">by</span> <span class="nx">the</span> <span class="nx">encryption</span> <span class="k">and</span> <span class="nx">cookie</span> <span class="nx">classes</span> <span class="nx">to</span> <span class="nx">generate</span> <span class="nx">secure</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">encrypted</span> <span class="nx">strings</span> <span class="k">and</span> <span class="nx">hashes</span><span class="o">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">extremely</span> <span class="nx">important</span> <span class="nx">that</span> <span class="k">this</span> <span class="nb">key</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">remain</span> <span class="nx">secret</span> <span class="k">and</span> <span class="nx">should</span> <span class="k">not</span> <span class="nx">be</span> <span class="nx">shared</span> <span class="nx">with</span> <span class="nx">anyone</span><span class="o">.</span> <span class="nx">Make</span> <span class="nx">it</span> <span class="nx">about</span> <span class="mi">32</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">characters</span> <span class="nx">of</span> <span class="nx">random</span> <span class="nx">gibberish</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">key</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在 key 裡面填入32個字元以上的字串，看起來會像這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">Application</span> <span class="nx">Key</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="k">This</span> <span class="nb">key</span> <span class="nx">is</span> <span class="nx">used</span> <span class="nx">by</span> <span class="nx">the</span> <span class="nx">encryption</span> <span class="k">and</span> <span class="nx">cookie</span> <span class="nx">classes</span> <span class="nx">to</span> <span class="nx">generate</span> <span class="nx">secure</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">encrypted</span> <span class="nx">strings</span> <span class="k">and</span> <span class="nx">hashes</span><span class="o">.</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">extremely</span> <span class="nx">important</span> <span class="nx">that</span> <span class="k">this</span> <span class="nb">key</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">remain</span> <span class="nx">secret</span> <span class="k">and</span> <span class="nx">should</span> <span class="k">not</span> <span class="nx">be</span> <span class="nx">shared</span> <span class="nx">with</span> <span class="nx">anyone</span><span class="o">.</span> <span class="nx">Make</span> <span class="nx">it</span> <span class="nx">about</span> <span class="mi">32</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">characters</span> <span class="nx">of</span> <span class="nx">random</span> <span class="nx">gibberish</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nb">key</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">gkdckrdonbkscgedpekcvocxkdspfdokspdkfscmxvwertwerq</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<hr />
+
+<h3>設置漂亮的 URL</h3>
+
+<p>到現在這個步驟應用程式已經能跑，因為所有的 request 都會導到 index.php ，
+所以除了首頁以外，所有的網址都會有 index.php。現在要做的就是讓 index.php 隱藏起來。</p>
+
+<p>打開 <em>application/config/application.php</em></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">Application</span> <span class="nx">Index</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="k">If</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">including</span> <span class="nx">the</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;</span> <span class="nx">in</span> <span class="nx">your</span> <span class="nx">URLs</span><span class="p">,</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">ignore</span> <span class="k">this</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">However</span><span class="p">,</span> <span class="k">if</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">using</span> <span class="nx">mod_rewrite</span> <span class="nx">to</span> <span class="nx">get</span> <span class="nx">cleaner</span> <span class="nx">URLs</span><span class="p">,</span> <span class="nx">just</span> <span class="nx">set</span>
+</span><span class='line'><span class="o">|</span> <span class="k">this</span> <span class="nx">option</span> <span class="nx">to</span> <span class="nx">an</span> <span class="k">empty</span> <span class="nx">string</span> <span class="k">and</span> <span class="nx">we</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span><span class="nx">ll</span> <span class="nx">take</span> <span class="nx">care</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">rest</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">index</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>將 index 的值留空，看起來會像這樣：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span>
+</span><span class='line'><span class="o">/&lt;</span><span class="nx">em</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">Application</span> <span class="nx">Index</span>
+</span><span class='line'><span class="o">|&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">mdash</span><span class="p">;</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">|</span> <span class="k">If</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">including</span> <span class="nx">the</span> <span class="o">&amp;</span><span class="nx">ldquo</span><span class="p">;</span><span class="nx">index</span><span class="o">.</span><span class="nx">php</span><span class="o">&amp;</span><span class="nx">rdquo</span><span class="p">;</span> <span class="nx">in</span> <span class="nx">your</span> <span class="nx">URLs</span><span class="p">,</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">ignore</span> <span class="k">this</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span> <span class="nx">However</span><span class="p">,</span> <span class="k">if</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">using</span> <span class="nx">mod_rewrite</span> <span class="nx">to</span> <span class="nx">get</span> <span class="nx">cleaner</span> <span class="nx">URLs</span><span class="p">,</span> <span class="nx">just</span> <span class="nx">set</span>
+</span><span class='line'><span class="o">|</span> <span class="k">this</span> <span class="nx">option</span> <span class="nx">to</span> <span class="nx">an</span> <span class="k">empty</span> <span class="nx">string</span> <span class="k">and</span> <span class="nx">we</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span><span class="nx">ll</span> <span class="nx">take</span> <span class="nx">care</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">rest</span><span class="o">.</span>
+</span><span class='line'><span class="o">|</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;/</span>
+</span><span class='line'><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">index</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>執行</h2>
+
+<p>接著使用瀏覽器打開 *<a href="http://localhost/laravel/public*">http://localhost/laravel/public*</a> 就可以看到歡迎頁面：</p>
+
+<p><img src="/upload/laravel_hello_world.png" width="640" height="493" title="Laravel" ></p>
+
+<p>以上 Laravel 基本的設置就完成了，如果需要隱藏 Uri 內的 public，<br/>
+可以參考 <a href="http://laravel.com/docs/install#server-configuration">Laravel Server Configuration</a></p>
+
+<h2>小結</h2>
+
+<p>今天介紹了 Laravel 的安裝，因為篇幅的限制，這裡都只介紹最簡單的設置。如果需要更進階的東西，
+可以參考官方的文件，或是需要特別教學的我會再另外開一篇文章介紹。</p>
+
+<p>下一篇開始會介紹簡單的 Controllers 和 Views 的使用。</p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">PHP Framework Laravel (一) 簡介</a><br/>
+<a href="/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-II/">PHP Framework Laravel (二) 安裝</a><br/>
+<a href="/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-III/">PHP Framework Laravel (三) Hello World!</a></p>
+]]></content>
+  </entry>
+  
+</feed>

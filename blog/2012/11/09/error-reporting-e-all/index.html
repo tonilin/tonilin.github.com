@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>開發時 Error Reporting 永遠使用 E_ALL - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="PHP 允許開發者自行設定 Error Reporting (錯誤報告) 的 Level。有些開發者因為開發方便而設成 (E_ERROR | E_PARSE)，
+故意去忽略 notices 和 warmings 的訊息。雖然這些訊息只是在提醒你，
+但也說明了你的程式不夠嚴謹。打開這些訊息，讓 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">開發時 Error Reporting 永遠使用 E_ALL</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-09T19:00:00+08:00" pubdate data-updated="true">Nov 9<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>PHP 允許開發者自行設定 Error Reporting <em>(錯誤報告)</em> 的 Level。有些開發者因為開發方便而設成 (E_ERROR |  E_PARSE)，
+故意去忽略 notices 和 warmings 的訊息。雖然這些訊息只是在提醒你，
+但也說明了你的程式不夠嚴謹。打開這些訊息，讓 Error Reporting 來告訴你哪些寫法是具有危險性的。</p>
+
+<p>將 Error Reporting 設成 E_ALL 有兩種方法，一種是從 php.ini 設置；
+而另外一種則是在 runtime 的時候加入一行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nb">error_reporting</span><span class="p">(</span> <span class="k">E_ALL</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你的專案已經開發到一定程度，而且從來沒開過 E_ALL，那你可能會看到非常多的錯誤訊息，下面簡單介紹一些常見的錯誤：</p>
+
+<ul>
+<li>沒初始化的變數</li>
+<li>不存在的 key</li>
+<li>裸露的字串</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>沒初始化的變數</h2>
+
+<p>初始化字串雖然很簡單，但卻是非常常犯的錯誤，看看下面的 Code：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起來雖然很正常，但是 $admin_ok 並沒有初始化，所以當 password 不等於 foo 的時候，
+去呼叫 $admin_ok 就會出現錯誤，像這樣：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">echo</span> <span class="nv">$admin_ok</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解決的辦法很簡單，就是先給他一個初始值：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nv">$admin_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或是寫成：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'>    <span class="nv">$admin_ok</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>不存在的 key</h2>
+
+<p>在上個例子中，如果表單沒有 password 這個欄位，那 $_POST 這個陣列就不會有 password 這個健值，
+解決方法就是，在使用前先檢查這個 key 存不存在：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">)){</span>
+</span><span class='line'>    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或是</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nb">array_key_exists</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">)</span> <span class="k">AND</span> <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以寫成一行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$password</span> <span class="o">=</span> <span class="nb">array_key_exists</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>裸露的字串</h2>
+
+<p>這個應該算是少數人會犯的錯誤，有些人會在指定 key 的時候不將 key 括起來：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$foo</span><span class="p">[</span><span class="nx">bar</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>只要改成這樣就可以了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="nv">$foo</span><span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>小結</h2>
+
+<p>如果沒有用過 E_ALL 的，在設定完後可能會常常遇到錯誤，不用害怕！</p>
+
+<p>當你越來越習慣嚴格的開發環境的時候，你的程式會越來越嚴謹，並減少一些不可預期的錯誤！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-09T19:00:00+08:00" pubdate data-updated="true">Nov 9<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/07/postman-restful-client/" title="Previous Post: Postman - 測試 API 的好工具">&laquo; Postman - 測試 API 的好工具</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/12/if-elsif-elsif-else/" title="Next Post: 恐怖的 Nesting if statements ">恐怖的 Nesting if statements  &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

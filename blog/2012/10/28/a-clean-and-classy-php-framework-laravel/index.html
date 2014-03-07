@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP Framework Laravel (一) 簡介 - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="Laravel Official Site 最近剛好接觸一個 Framework 叫 Laravel ，是目前我用得最得心應手的 PHP Framework ，
+由於最近才接觸，印象還很清晰，所以就打算從這裡下手了。 為什麼選擇 Laravel ? Laravel is a clean and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/10/28/a-clean-and-classy-php-framework-laravel">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP Framework Laravel (一) 簡介</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-28T21:11:00+08:00" pubdate data-updated="true">Oct 28<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="http://user-image.logdown.io/user/7/blog/530/post/924/QzVqHLaXQgiwCxqN7qyY_laravel.jpg" alt="laravel.jpg" /></p>
+
+<p><a href="http://laravel.com/">Laravel Official Site</a></p>
+
+<p>最近剛好接觸一個 Framework 叫 Laravel ，是目前我用得最得心應手的 PHP Framework ，<br/>
+由於最近才接觸，印象還很清晰，所以就打算從這裡下手了。</p>
+
+<!--more-->
+
+
+<h2>為什麼選擇 Laravel ?</h2>
+
+<blockquote><p>Laravel is a clean and classy framework for PHP web development.<br/>Freeing you from spaghetti code, <br/>Laravel helps you create wonderful applications using simple, expressive syntax.<br/>Development should be a creative experience<br/>that you enjoy, not something that is painful.<br/>Enjoy the fresh air.</p></blockquote>
+
+
+<p>對於一個 Framework ，我覺得最重要的就是要用得「舒服」，<br/>
+以前用過不少 Framework ，多多少少會有些礙手礙腳的地方，<br/>
+譬如， autoloader 不夠完善、架構太龐大、速度太慢、文件雜亂或是缺東缺西，<br/>
+這些缺點容易讓人分心，使得Coding的過程不是很順暢。</p>
+
+<p>而今天要介紹的Laravel，就像它的標題講得一樣，Clean &amp; Classy ！<br/>
+它既不會像 Zend Framework 一樣包山包海什麼都有，
+也不會只給你簡單的MVC其他什麼都不提供，<br/>
+Laravel 給我的感覺，就是一個剛剛好的 Framework 。</p>
+
+<h2>Laravel 的特色</h2>
+
+<p><strong>自訂性高的 Routing </strong><br/>
+不只可以使用 RESTful 的 Routing 規則，也可以使用傳統 MVC 的 /cotroller/action/param 的 Routing</p>
+
+<p><strong>namespace的實現</strong><br/>
+可以減少大型程式 Class 名稱的相衝，並有良好的 autoloader 來輔助讀取 Class 。</p>
+
+<p><strong>簡單易用的 ORM </strong><br/>
+在小型不太需要考慮效能的應用程式中，可以使用內建的 ORM ，加快開發的速度和程式的易讀性；不過不建議在有效率考量的應用程式中使用。</p>
+
+<p><strong>速度不慢</strong><br/>
+相較於一些熱門的 Framework ，我想 Laravel 的速度是相當經得起考驗的，<br/>
+可以看看測試結果：<a href="http://www.ruilog.com/blog/view/b6f0e42cf705.html">PHP Framework MVC Benchmark &ndash; v20111201-4</a></p>
+
+<p><strong>良好的文件</strong><br/>
+<em>CodeIgniter</em> 會擁有這麼多使用者的其中一個原因就是文件寫得非常清楚，可以幫企業省下非常多的訓練成本。<br/>
+<em>Laravel</em> 在文件上也非常傑出，有一定英文基礎的都可以快速地上手，<br/>
+官方甚至有承諾：<em>一定會把文件寫好才會做 release 的動作</em>。</p>
+
+<h2>小結</h2>
+
+<p>其實會接觸 Laravel ，是因為在開發一個RESTful的網站，<br/>
+使用的是 Slim Framework ，雖然輕巧方便，但是寫起來不是挺順手，<br/>
+缺了一些 Framework 沒有實作的東西，而自己去實作那些功能的時候又覺得做得不是很理想。</p>
+
+<p>看了很多網站，對 Laravel 的評價都是 <strong>Awesome!!</strong> ，所以決定來試一試，<br/>
+自己實際使用 Laravel 的時間只有一個月，所以還說不準，不過到現在還沒有讓我失望，<br/>
+如果你下一個專案還沒有決定使用哪個 Framework ，或許可以試一試 Laravel 。</p>
+
+<p>下一篇開始會從如何安裝 Laravel 開始講起。</p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">PHP Framework Laravel (一) 簡介</a><br/>
+<a href="/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-II/">PHP Framework Laravel (二) 安裝</a><br/>
+<a href="/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-III/">PHP Framework Laravel (三) Hello World!</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-28T21:11:00+08:00" pubdate data-updated="true">Oct 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/laravel/'>Laravel</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/27/hello-world/" title="Previous Post: Hello world!">&laquo; Hello world!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/" title="Next Post: PHP Framework Laravel (二) 安裝">PHP Framework Laravel (二) 安裝 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

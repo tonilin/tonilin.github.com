@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PHP Framework Laravel (二) 安裝 - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="Laravel Official Site 上一篇文章簡單介紹了 Laraval 的一些特色，今天就來實際安裝看看吧！ 系統需求 PHP5.3.x 以上 Laravel 會用到一些 PHP5.3.x 以上才有的功能，如： closures, late-static binding and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PHP Framework Laravel (二) 安裝</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-30T18:07:00+08:00" pubdate data-updated="true">Oct 30<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="http://user-image.logdown.io/user/7/blog/530/post/924/QzVqHLaXQgiwCxqN7qyY_laravel.jpg" alt="laravel.jpg" /></p>
+
+<p><a href="http://laravel.com/">Laravel Official Site</a></p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">上一篇</a>文章簡單介紹了 Laraval 的一些特色，今天就來實際安裝看看吧！</p>
+
+<!--more-->
+
+
+<h2>系統需求</h2>
+
+<ul>
+<li><p><strong>PHP5.3.x 以上</strong> <br/>
+Laravel 會用到一些 PHP5.3.x 以上才有的功能，如： closures, late-static binding and namespaces。</p></li>
+<li><p><strong>The FileInfo library</strong> <br/>
+在 Linux 環境下的，這個 Library 在 PHP5.3.x 以上是預設安裝的， Windows 用戶可能要另外安裝。</p></li>
+<li><p><strong>Mcrypt library</strong><br/>
+用來產生 Hash ， PHP5.3.x 內建。</p></li>
+</ul>
+
+
+<h2>下載並安裝</h2>
+
+<p>到官網下載 <a href="http://laravel.com/">Laravel</a> 之後，解壓縮並放到網頁伺服器內。<em>(本篇文章以/var/www/laravel為例)</em></p>
+
+<h2>目錄結構</h2>
+
+<p>這裡先簡單介紹 Laravel 的目錄結構：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/ 
+</span><span class='line'>/application  放置有關application的目錄，包括 controllers 、 views 、 models 和 configs...等等。
+</span><span class='line'>/bundles  放置 bundles ， bundles 是 Laravel 的特色之一，本篇先跳過不介紹。
+</span><span class='line'>/laravel  放置 laravel framework
+</span><span class='line'>/public  靜態檔案，內有.htaccess和index.php，需將 virtual host 的 Document Root 設到此目錄。
+</span><span class='line'>/storage  檔案儲存空間，裡面有可能包含一些 cache 或 sessions 檔案。
+</span><span class='line'>/artisan  Laravel 的 CLI 工具。
+</span><span class='line'>/paths.php  在這裡可以設置一些常用的路徑。</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你是一位 MVC Framework 的初學者，你只需要關心application、public兩個資料夾，<br/>
+利用簡單的 controllers 、 views 和 models 來熟悉 MVC 的架構。</p>
+
+<h2>基本設定</h2>
+
+<h3>Application Key</h3>
+
+<p>在開始 Coding 之前，先來設定 Application Key ， Laravel 在應用程式的某些地方需要加密(如cookies)，需要 Application Key 來確保資料的安全性。</p>
+
+<p>打開 <em>application/config/application.php</em></p>
+
+<figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">| Application Key</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">| This key is used by the encryption and cookie classes to generate secure</span>
+</span><span class='line'><span class="cm">| encrypted strings and hashes. It is extremely important that this key</span>
+</span><span class='line'><span class="cm">| remain secret and should not be shared with anyone. Make it about 32</span>
+</span><span class='line'><span class="cm">| characters of random gibberish.</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 key 裡面填入32個字元以上的字串，看起來會像這樣：</p>
+
+<figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">| Application Key</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">| This key is used by the encryption and cookie classes to generate secure</span>
+</span><span class='line'><span class="cm">| encrypted strings and hashes. It is extremely important that this key</span>
+</span><span class='line'><span class="cm">| remain secret and should not be shared with anyone. Make it about 32</span>
+</span><span class='line'><span class="cm">| characters of random gibberish.</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gkdckrdonbkscgedpekcvocxkdspfdokspdkfscmxvwertwerq&#39;</span><span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h3>設置漂亮的 URL</h3>
+
+<p>到現在這個步驟應用程式已經能跑，因為所有的 request 都會導到 index.php ，
+所以除了首頁以外，所有的網址都會有 index.php。現在要做的就是讓 index.php 隱藏起來。</p>
+
+<p>打開 <em>application/config/application.php</em></p>
+
+<figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">| Application Index</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">| If you are including the &quot;index.php&quot; in your URLs, you can ignore this.</span>
+</span><span class='line'><span class="cm">| However, if you are using mod_rewrite to get cleaner URLs, just set</span>
+</span><span class='line'><span class="cm">| this option to an empty string and we&#39;ll take care of the rest.</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="s1">&#39;index&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index.php&#39;</span><span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>將 index 的值留空，看起來會像這樣：</p>
+
+<figure class='code'><figcaption><span>application/config/application.php </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
+</span><span class='line'><span class="cm">/*</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">| Application Index</span>
+</span><span class='line'><span class="cm">|--------------------------------------------------------------------------</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">| If you are including the &quot;index.php&quot; in your URLs, you can ignore this.</span>
+</span><span class='line'><span class="cm">| However, if you are using mod_rewrite to get cleaner URLs, just set</span>
+</span><span class='line'><span class="cm">| this option to an empty string and we&#39;ll take care of the rest.</span>
+</span><span class='line'><span class="cm">|</span>
+</span><span class='line'><span class="cm">*/</span>
+</span><span class='line'><span class="s1">&#39;index&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>執行</h2>
+
+<p>接著使用瀏覽器打開 *<a href="http://localhost/laravel/public*">http://localhost/laravel/public*</a> 就可以看到歡迎頁面：</p>
+
+<p><img src="/upload/laravel_hello_world.png" width="640" height="493" title="Laravel" ></p>
+
+<p>以上 Laravel 基本的設置就完成了，如果需要隱藏 Uri 內的 public，<br/>
+可以參考 <a href="http://laravel.com/docs/install#server-configuration">Laravel Server Configuration</a></p>
+
+<h2>小結</h2>
+
+<p>今天介紹了 Laravel 的安裝，因為篇幅的限制，這裡都只介紹最簡單的設置。如果需要更進階的東西，
+可以參考官方的文件，或是需要特別教學的我會再另外開一篇文章介紹。</p>
+
+<p>下一篇開始會介紹簡單的 Controllers 和 Views 的使用。</p>
+
+<p><a href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/">PHP Framework Laravel (一) 簡介</a><br/>
+<a href="/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-II/">PHP Framework Laravel (二) 安裝</a><br/>
+<a href="/blog/2012/11/01/a-clean-and-classy-php-framework-laravel-III/">PHP Framework Laravel (三) Hello World!</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-30T18:07:00+08:00" pubdate data-updated="true">Oct 30<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/laravel/'>Laravel</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/28/a-clean-and-classy-php-framework-laravel/" title="Previous Post: PHP Framework Laravel (一) 簡介">&laquo; PHP Framework Laravel (一) 簡介</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/10/31/fences2/" title="Next Post: 最好用的桌面管理軟體 Fences 2.0">最好用的桌面管理軟體 Fences 2.0 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/10/30/a-clean-and-classy-php-framework-laravel-ii/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

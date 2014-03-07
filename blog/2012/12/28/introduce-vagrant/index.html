@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用 Vagrant 管理虛擬機器 - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="Vagrant Official Site : http://vagrantup.com/ 什麼是 Vagrant ? 以往在建立 VM 的時候，就算 Guest Machine 都已經安裝好了，在部屬 Share Folder 、 Port Forwarding
+時也會花非常多的時間， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/12/28/introduce-vagrant">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用 Vagrant 管理虛擬機器</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-28T21:42:00+08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="http://user-image.logdown.io/user/7/blog/530/post/937/LSQ4lpQRWJKvY2x4LRLA_vagrant.png" alt="Vagrant" /></p>
+
+<p>Vagrant Official Site : <a href="http://vagrantup.com/">http://vagrantup.com/</a></p>
+
+<h2>什麼是 Vagrant ?</h2>
+
+<p>以往在建立 VM 的時候，就算 Guest Machine 都已經安裝好了，在部屬 Share Folder 、 Port Forwarding
+時也會花非常多的時間，如果是在一個團隊裡，要求大家開發的環境都一樣，而 Server 內要有
+Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想到這些就令人頭痛。</p>
+
+<p>而 Vagrant 就是用來解決這個問題的，它能將你配置好的 VM 封裝起來，以後，如果其他開發者進來，
+只要一個指令，就可以把開發環境建立起來，開發環境一起來，馬上就能進入狀況，可以節省非常多的時間成本！</p>
+
+<!--more-->
+
+
+<h2>開始使用 Vagrant</h2>
+
+<p>Vagrant 是使用 Ruby 寫的，我們可以用 gem 來安裝：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install vagrant
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著到 <a href="http://www.vagrantbox.es/">Vagrantbox.es</a> ，選擇一個已經封裝好的 Vagrant Box，
+像我習慣使用 CentOS x64，所以下面以 CentOS x64 做範例。</p>
+
+<p>將 Box 加進 Vagrant 裡：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant box add centos https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>建立一個專案資料夾：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir ~/vagrant_project
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> ~/vagrant_project
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用剛剛加進來的 box 初始化環境：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant init centos
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著就可以啟動 VM 了：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant up
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用 SSH 進入 VM</h2>
+
+<p>以往建立 VM 以後，要手動設定網路和 Port Forwarding，現在只需要在 VM 啟動以後，
+使用一個指令就可以用 SSH 進入 VM：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant ssh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>( 如果需要 root 權限，密碼是 vagrant )</em></p>
+
+<h2>分享資料夾</h2>
+
+<p>Vagrant 在部屬好以後，已經自動幫我們配置好 Share Folder 了。</p>
+
+<ul>
+<li>在 Host Machine 的位置在 Vagrant 專案的資料夾，以先前的例子是在 ~/vagrant_project/ 。</li>
+<li>在 Guest Machine 中，則是在 /vagrant。</li>
+</ul>
+
+
+<p>到這裡，你應該就可以知道，只要把 apache 的 Document Path 指到 /vagrant，就可以在 Host Machine
+開發了！</p>
+
+<h2>設定 Port Forwarding</h2>
+
+<p>設定 Port Forwarding ，我們才能輕鬆得從 Host Machine 連到 Guest 建立起來的伺服器。
+在 vagrant 專案的資料夾下，會看到一個 Vagrantfile，這是 Vagrant 自動幫我們建立的。</p>
+
+<p>一開始它可能看起來會像這樣：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>現在我們要將 Host 的 8080，轉發到 Guest 的 80：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
+</span><span class='line'>  config.vm.forward_port <span class="s2">&quot;http&quot;</span>, 80, 8080
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重新啟動 VM：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant reload
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你已經用 SSH 將 Apache 安裝好，現在在瀏覽器輸入 <a href="http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82">http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82</a></p>
+
+<h2>關閉 VM</h2>
+
+<p>在系統重開機之前，千萬要記得先關掉 VM，不正常關閉 VM，可能會造成一些系統錯誤。</p>
+
+<p>關閉 VM 只需要一個指令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant halt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>封裝 VM</h2>
+
+<p>如果你已經將所有東西配置好，打算將這個 VM 封裝起來使用，你只需要輸入：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant package
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如此就可以在目錄下看到一個 package.box，其他使用者只需要使用 vagrant box add，就可以立即部屬一個
+你建立好的環境。</p>
+
+<h2>小結</h2>
+
+<p>開始使用 Vagrant 後，第一個想法就是，這一定可以幫團隊節省非常多的成本，每個剛進來的工程師，
+都可以使用簡單的幾個指令，就建置好環境，而且馬上就可以成為戰力！</p>
+
+<p>Vagrant 還有更多便利的功能，可以在官網找到，可以讓建立開發環境更自動化，有興趣的可以參考官方網站。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-28T21:42:00+08:00" pubdate data-updated="true">Dec 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/server/'>Server</a>, <a class='category' href='/blog/categories/tools/'>Tools</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/22/mac/" title="Previous Post: 投向 mac 的擁抱 QQ">&laquo; 投向 mac 的擁抱 QQ</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/01/17/introduce-bower/" title="Next Post: Bower JavaScript 套件管理器">Bower JavaScript 套件管理器 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

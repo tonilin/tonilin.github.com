@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Server | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/server/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Localtunnel - 分享 Localhost Web Server]]></title>
+    <link href="http://blog.roachking.net/blog/2013/05/01/localtunnel/"/>
+    <updated>2013-05-01T13:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/05/01/localtunnel</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
+
+<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
+
+<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
+或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
+
+<p>localtunnel 可以建立一個通道，並產生一個網址，
+客戶就可以用這個網址，連到內網的 Web Server。</p>
+
+<!--more-->
+
+
+<h2>安裝 localtunnel</h2>
+
+<p>Localtunnel 需要使用 Gem 安裝:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你是使用 rvm，則不需要加上 sudo：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>打開你的 Web Server</h2>
+
+<p>他開你的 Web Server 並記下 Port，這裡以 8080 為例。</p>
+
+<h2>開始使用 localtunnel</h2>
+
+<p>第一次使用，必須附上 Public SSH key：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel -k ~/.ssh/id_rsa.pub 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>以後，則只需要打上 Web Server 的 Port</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著就會看到</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Port 8080 is now publicly accessible from &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://4mec.localtunnel.com&quot;</span>&gt;http://4mec.localtunnel.com&lt;/a&gt; &amp;hellip;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>後面那串網址就是 localtunnel 幫你產生的，使用者就可以透過這個網址看到內網的 Web Server 了！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[優雅地重開 Apache]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/"/>
+    <updated>2013-01-29T21:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache</id>
+    <content type="html"><![CDATA[<p>Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd restart
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>這個指令會<em>立即</em>關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。</p>
+
+<p>比較少人知道還有一個 graceful 的指令：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd graceful
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>發出這個指令以後，每個子進程都會處理完目前的 request 後，再套用新的設定。在 production 伺服器更改設定，使用 graceful 才能避免造成使用者的困擾。</p>
+
+<p>參考資料：<a href="http://httpd.apache.org/docs/2.0/stopping.html#graceful">Apache Stopping and Restarting</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[VirtualBox Apache Sendfile]]></title>
+    <link href="http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile/"/>
+    <updated>2013-01-26T19:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile</id>
+    <content type="html"><![CDATA[<p>之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
+但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。</p>
+
+<p>這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
+發現是 Apache 的 sendfile 在做怪，這是一個利用 Kernel 的 sendfile 來加速靜態檔案發送的功能。</p>
+
+<p>但是 sendfile 在目錄是網路掛載的情況下會出問題，所以在開發環境，把這個功能關掉，才不會出現檔案沒更新的錯誤。</p>
+
+<p>打開 <strong>httpd.conf</strong>，找到 EnableSendfile ，並設成 off：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>httpd.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='apacheconf'><span class='line'><span class="c">#&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="err">EnableSendfile:</span> <span class="nb">Control</span> whether the sendfile kernel support is&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="nb">used</span> to deliver files (assuming that the <span class="k">OS</span> supports it).&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="nb">The</span> default is <span class="k">on</span>; turn this <span class="k">off</span> if you serve from NFS-mounted&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span><span class="err">filesystems</span>. <span class="nb">Please</span> see&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;&lt;a</span> <span class="s">href=&quot;http://httpd.apache.org/docs/2.2/mod/core.html#enablesendfile&quot;</span><span class="nt">&gt;</span><span class="err">http://httpd</span>.<span class="err">apache</span>.<span class="err">org/docs/2</span>.<span class="err">2/mod/core</span>.<span class="err">html</span><span class="c">#enablesendfile&lt;/a&gt;&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span><span class="c">#</span>
+</span><span class='line'><span class="nb">EnableSendfile</span> <span class="k">off</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>更多有關 Apache Sendfile 可以參考：<a href="http://httpd.apache.org/docs/2.0/mod/core.html#enablesendfile">Apache Documentation</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Vagrant 管理虛擬機器]]></title>
+    <link href="http://blog.roachking.net/blog/2012/12/28/introduce-vagrant/"/>
+    <updated>2012-12-28T21:42:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/12/28/introduce-vagrant</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/937/LSQ4lpQRWJKvY2x4LRLA_vagrant.png" alt="Vagrant" /></p>
+
+<p>Vagrant Official Site : <a href="http://vagrantup.com/">http://vagrantup.com/</a></p>
+
+<h2>什麼是 Vagrant ?</h2>
+
+<p>以往在建立 VM 的時候，就算 Guest Machine 都已經安裝好了，在部屬 Share Folder 、 Port Forwarding
+時也會花非常多的時間，如果是在一個團隊裡，要求大家開發的環境都一樣，而 Server 內要有
+Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想到這些就令人頭痛。</p>
+
+<p>而 Vagrant 就是用來解決這個問題的，它能將你配置好的 VM 封裝起來，以後，如果其他開發者進來，
+只要一個指令，就可以把開發環境建立起來，開發環境一起來，馬上就能進入狀況，可以節省非常多的時間成本！</p>
+
+<!--more-->
+
+
+<h2>開始使用 Vagrant</h2>
+
+<p>Vagrant 是使用 Ruby 寫的，我們可以用 gem 來安裝：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gem install vagrant
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著到 <a href="http://www.vagrantbox.es/">Vagrantbox.es</a> ，選擇一個已經封裝好的 Vagrant Box，
+像我習慣使用 CentOS x64，所以下面以 CentOS x64 做範例。</p>
+
+<p>將 Box 加進 Vagrant 裡：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant box add centos &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box&quot;</span>&gt;https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box&lt;/a&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>建立一個專案資料夾：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mkdir ~/vagrant_project
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> ~/vagrant_project
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>使用剛剛加進來的 box 初始化環境：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant init centos
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著就可以啟動 VM 了：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant up
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>使用 SSH 進入 VM</h2>
+
+<p>以往建立 VM 以後，要手動設定網路和 Port Forwarding，現在只需要在 VM 啟動以後，
+使用一個指令就可以用 SSH 進入 VM：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant ssh
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><em>( 如果需要 root 權限，密碼是 vagrant )</em></p>
+
+<h2>分享資料夾</h2>
+
+<p>Vagrant 在部屬好以後，已經自動幫我們配置好 Share Folder 了。</p>
+
+<ul>
+<li>在 Host Machine 的位置在 Vagrant 專案的資料夾，以先前的例子是在 ~/vagrant_project/ 。</li>
+<li>在 Guest Machine 中，則是在 /vagrant。</li>
+</ul>
+
+
+<p>到這裡，你應該就可以知道，只要把 apache 的 Document Path 指到 /vagrant，就可以在 Host Machine
+開發了！</p>
+
+<h2>設定 Port Forwarding</h2>
+
+<p>設定 Port Forwarding ，我們才能輕鬆得從 Host Machine 連到 Guest 建立起來的伺服器。
+在 vagrant 專案的資料夾下，會看到一個 Vagrantfile，這是 Vagrant 自動幫我們建立的。</p>
+
+<p>一開始它可能看起來會像這樣：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> &amp;ldquo;base&amp;rdquo;
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>現在我們要將 Host 的 8080，轉發到 Guest 的 80：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Vagrant::Config.run <span class="k">do</span> |config|
+</span><span class='line'>  config.vm.box <span class="o">=</span> &amp;ldquo;base&amp;rdquo;
+</span><span class='line'>  config.vm.forward_port &amp;ldquo;http&amp;rdquo;, 80, 8080
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重新啟動 VM：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant reload
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你已經用 SSH 將 Apache 安裝好，現在在瀏覽器輸入 <a href="http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82">http://localhost:8080%EF%BC%8C%E6%87%89%E8%A9%B2%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%95%AB%E9%9D%A2%E4%BA%86%E3%80%82</a></p>
+
+<h2>關閉 VM</h2>
+
+<p>在系統重開機之前，千萬要記得先關掉 VM，不正常關閉 VM，可能會造成一些系統錯誤。</p>
+
+<p>關閉 VM 只需要一個指令：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant halt
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>封裝 VM</h2>
+
+<p>如果你已經將所有東西配置好，打算將這個 VM 封裝起來使用，你只需要輸入：
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vagrant package
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此就可以在目錄下看到一個 package.box，其他使用者只需要使用 vagrant box add，就可以立即部屬一個
+你建立好的環境。</p>
+
+<h2>小結</h2>
+
+<p>開始使用 Vagrant 後，第一個想法就是，這一定可以幫團隊節省非常多的成本，每個剛進來的工程師，
+都可以使用簡單的幾個指令，就建置好環境，而且馬上就可以成為戰力！</p>
+
+<p>Vagrant 還有更多便利的功能，可以在官網找到，可以讓建立開發環境更自動化，有興趣的可以參考官方網站。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 APC 加速你的 PHP！]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/30/apc-for-faster-php/"/>
+    <updated>2012-11-30T16:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/30/apc-for-faster-php</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/hweiFLwzR8a0OVNE3Rjv_apc_plus_php.png" alt="apc_plus_php" /></p>
+
+<p>PHP 是 Script 語言，在程式被執行的時候才會開始編譯，所以和其他預先編譯好的語言比起來速度會比較慢。
+而如果 code 沒有變更，每次的編譯其實是多餘的，如果能將重複編譯的時間和資源省下來，就可以讓 PHP 加速不少。</p>
+
+<p>市面上有很多 PHP 加速的外掛，可以用來達成這個目的，APC 就是其中一個。APC 會將編譯的結果暫存起來，省去每次需要重新編譯的時間。</p>
+
+<!--more-->
+
+
+<h2>安裝</h2>
+
+<p>下面安裝方法以 Centos 為範例：</p>
+
+<p>首先，如果沒有 PEAR，請先安裝 PEAR： ( 如果需要最新版本，可以下載原始碼自行編譯 )</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>yum install php-pear&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著使用 pecl 安裝 APC：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>pecl install apc&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安裝好後，在 /etc/php.ini 加入一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;extension <span class="o">=</span> apc.so&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著重新啟動 Apache：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>/etc/init.d/httpd restart&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如此 APC 的安裝程序就完成了！</p>
+
+<h2>設定</h2>
+
+<p>安裝好後就可以在 phpinfo 裡面看到下面的資訊：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/4e2IxtqtTWGZvUwSGO3f_apc_phpinfo.png" alt="apc_phpinfo" /></p>
+
+<p>其中對速度影響最大的參數就是 <strong>apc.stat</strong>，當 stat 打開的時候，APC 每次都會去檢查檔案有沒有更新，
+但是在 Production 平台，檔案變更通常伴隨著每次 release，每次檔案更新的時間都是可以確定的！
+所以如果要讓速度更快，我們可以把 stat 關閉，檔案更新的時候，再去清除 APC 的快取即可。</p>
+
+<p>要關閉 stat 只要在 php.ini 中加入一行：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;apc.stat <span class="o">=</span> 0&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>清除快取</h2>
+
+<p>我們可以直接使用 PHP 清除快取：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nb">apc_clear_cache</span><span class="p">();</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>管理後臺</h2>
+
+<p>APC 有內建的管理後臺，可以清楚得看到快取狀態，也可以在後台進行快取的清除。</p>
+
+<p>在使用 PEAR 安裝好 APC 後其實就已經在 PEAR 的目錄下，我們只需要將它複製到 Apache 的 Document 目錄即可：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>cp /usr/share/pear/apc.php /var/www/html/apc.php&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著打開 <a href="http://localhost/apc.php">http://localhost/apc.php</a> 即可看到 APC 的管理後臺：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/933/Inmm32QhSbmjfqawy8JB_apc_php.png" alt="apc_php.png" /></p>
+
+<p>為了避免訪客也可以進行快取的清除，記得打開 apc.php 設上密碼：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">?</span><span class="nx">php</span><span class="o">&lt;/</span><span class="nx">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">USE_AUTHENTICATION</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="mi">1</span><span class="p">);</span>           <span class="c1">// Use (internal) authentication &amp;ndash; best choice if&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span>                                        <span class="c1">// no other authentication is available</span>
+</span><span class='line'>                                        <span class="c1">// If set to 0:</span>
+</span><span class='line'>                                        <span class="c1">//  There will be no further authentication. You </span>
+</span><span class='line'>                                        <span class="c1">//  will have to handle this by yourself!</span>
+</span><span class='line'>                                        <span class="c1">// If set to 1:</span>
+</span><span class='line'>                                        <span class="c1">//  You need to change ADMIN_PASSWORD to make</span>
+</span><span class='line'>                                        <span class="c1">//  this work!</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="nx">code</span><span class="o">&gt;&lt;/</span><span class="nx">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">ADMIN_USERNAME</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">your_user_name</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>            <span class="c1">// Admin Username</span>
+</span><span class='line'><span class="nx">defaults</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">ADMIN_PASSWORD</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;,</span><span class="o">&amp;</span><span class="nx">lsquo</span><span class="p">;</span><span class="nx">your_password</span><span class="o">&amp;</span><span class="nx">rsquo</span><span class="p">;);</span>     <span class="c1">// Admin Password &amp;ndash; CHANGE THIS TO ENABLE!!!</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Benchmark</h2>
+
+<p>APC 加速的效果如何？其實網路上可以找到很多 Benckmark 資料。<br/>
+如果單純只是 Hello World，APC 不能提供多大幫助，因為 APC 是編譯快取，但是在大型的應用程式裡面，APC 甚至可以提供原本兩倍的速度！</p>
+
+<h2>小結</h2>
+
+<p>其實 APC 還有很多功能，可以暫存 PHP 經常使用的變數、可以偵測上傳進度等等，而且還有更多設定可以調配，
+有需要的再自行 Google 吧！</p>
+]]></content>
+  </entry>
+  
+</feed>

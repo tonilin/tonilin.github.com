@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 其它 | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/qi-ta/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[投向 Mac 的擁抱 QQ]]></title>
+    <link href="http://blog.roachking.net/blog/2012/12/22/mac/"/>
+    <updated>2012-12-22T17:50:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/12/22/mac</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/936/JvoauDoSQQ2BILP3TtxE_apple.jpg" alt="apple" /></p>
+
+<p>自己向來是 Windows 的忠實使用者，即便我其實不太喜歡微軟的東西，但是在 Windows 我可以發揮最大的開發速度。</p>
+
+<p>然而，最近找工作，跑了很多家公司面試，發現，千篇一律的都是 mac！！實機操作的時候也是 mac，導致環境不熟悉，
+操作的速度非常緩慢，本來一個小時內可以搞定的題目，居然花了兩個小時以上。
+甚至有公司還規定，他們公司只用 mac，禁止 Windows..XDD</p>
+
+<!--more-->
+
+
+<p>於是，前幾天下定決心買了 macbook pro，花了兩天把環境調校好，雖然現在還不熟悉環境，coding 起來礙手礙腳的，
+不過已經可以充分感受到 mac 對開發者的友善了，其中最重要的就是 Linux based 的環境，很多東西都可以透過 Command Line 下指令完成。
+而且不像 Windows 對大小寫不敏感， mac 格式化的時候，就可以選擇是否對大小寫敏感，這可以避免很多不可預期的錯誤。</p>
+
+<p>在開發 Web 的時候，需要非常多的工具讓開發流程更快速，在 mac 都可以找到現成的軟體；跟 mac 比起來，
+Windows 這方面的資源真的是少得可憐，下面稍微列一下我用到的軟體：</p>
+
+<ul>
+<li>Sublime 2</li>
+</ul>
+
+
+<p>目前用來 Coding 的編輯器，在 Windows 的時候也有用過，不過在 Windows 我比較愛 Notepad++。</p>
+
+<ul>
+<li>Evernote</li>
+</ul>
+
+
+<p>從 Windows 就有在用了，但是 Mac 的 UI 好很多！</p>
+
+<ul>
+<li>Pocket</li>
+</ul>
+
+
+<p>以前的 Read it later，放一些想看現在卻沒時間看的文章，很高興有 mac 版，雖然網頁版就很好用了。</p>
+
+<ul>
+<li>Filezilla</li>
+</ul>
+
+
+<p>FTP 軟體，在 Windows 的時候就是我的最愛了。</p>
+
+<ul>
+<li>Transmission</li>
+</ul>
+
+
+<p>下載 BT 用，不常用，因為我覺得 2.5吋硬碟很容易爆炸，加上我人品不太好，所以還是不要冒險的好。</p>
+
+<ul>
+<li>Scroll Reverser</li>
+</ul>
+
+
+<p>更改觸控版和滑鼠滾輪捲動的方向。由於 Mac 滑鼠滾輪滾動的方向和 Windows 相反，若使用系統內建的選項會連觸控版的設定也改掉，
+而這個軟體可以將滑鼠和觸控版分開設定。</p>
+
+<ul>
+<li>Parallels Desktop</li>
+</ul>
+
+
+<p>為了 IE ，裝了 Windows，嘖嘖，不過第一次用這個軟體的時候實在太驚豔了！可以做到好像 mac 和 Windows 融合在一起的感覺。</p>
+
+<ul>
+<li>VirtualBox</li>
+</ul>
+
+
+<p>我的開發環境會盡量跟 Production 環境一樣，所以開了一個 Centos 的機器。不過 Linux Based 的環境，
+如果沒有 root 權限，不能使用小於 1024 的 port，所以這方面我用了 mac 的 Port Forwarding ，
+來讓外來的連線可以看到 80 port 的東西。</p>
+
+<ul>
+<li>The Unarchiver</li>
+</ul>
+
+
+<p>如題，解壓縮用。</p>
+
+<ul>
+<li>Welly</li>
+</ul>
+
+
+<p>上 BBS 用，跟 Nally 比起來，這個用起來比較習慣。</p>
+
+<ul>
+<li>SmartGit 3</li>
+</ul>
+
+
+<p>Git 還是要有 GUI 比較方便，在 Windows 是用烏龜牌的 Git，這款是以前同事推薦的，目前用得還滿順手的。</p>
+
+<ul>
+<li>Divvy</li>
+</ul>
+
+
+<p>在 Windows 會很習慣把視窗放到最大，但 mac 預設沒這個功能，要另外裝，而這個軟體還可以自訂快速鍵，
+可以快速地把視窗做各種縮放。</p>
+
+<ul>
+<li>Less.app</li>
+</ul>
+
+
+<p>自動檢查 less 檔案有無更新，自動編譯的軟體。</p>
+
+<ul>
+<li>iTerm 2</li>
+</ul>
+
+
+<p>有分頁的 Terminal，取代系統原本的。</p>
+
+<ul>
+<li>XtraFinder</li>
+</ul>
+
+
+<p>mac 沒有剪下！Windows 的使用者一定很不習慣，這個軟體可以加強內建的 finder，還有一些分頁之類的功能。</p>
+
+<ul>
+<li>Alfred</li>
+</ul>
+
+
+<p>這個是目前我用到最喜歡的軟體，可以用來取代 spotlight，除了基本的檔案搜尋以外，很多事情都可以用一行指令搞定，
+只要輸入「google lovey」，就可以幫我開啟瀏覽器搜尋 lovey，而且有很高的自定性，像我自己就把 php.net 加進去，
+只要輸入「php htmlspecialchars」，就可以幫我找 htmlspecialchars 的 manual。有了這個東西，我滑鼠已經很少去碰 Dock 列了。</p>
+
+<h2>小結</h2>
+
+<p>現在都努力的逼自己使用 mac，希望可以趕快上手，達到原本的開發速度。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DIY 空中花園 1.0]]></title>
+    <link href="http://blog.roachking.net/blog/2012/11/30/garden-1-0/"/>
+    <updated>2012-11-30T16:30:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/11/30/garden-1-0</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/934/Zu83R414TnqqDGK3Nv4d_garden_1.jpg" alt="garden_1.jpg" /></p>
+
+<p>很久以前就很想把陽台改造成空中花園，不太喜歡一盆一盆的盆栽，感覺很雜亂的感覺。
+剛好最近沒工作在家太無聊，於是就開始了空中花園 DIY，以前完全沒有經驗，完全都靠網路上找資料、做功課。</p>
+
+<!--more-->
+
+
+<h2>原本的陽台</h2>
+
+<p>在開始介紹施工過程之前，先來看一下原本的陽台。</p>
+
+<p>去田尾公路花園買的竹子，本來想種一排，當作跟隔壁的隔間
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/0zX3UCy6RUePysWbppmp_garden_2.jpg" alt="garden_2.jpg" /></p>
+
+<p>種了三年的葡萄樹，每年會生2~3串葡萄，超級難照顧，一天沒檢查，葉子就會被毛毛蟲吃光光
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/l3usleCdSkW5vEd5CXsU_garden_3.jpg" alt="garden_3.jpg" /></p>
+
+<p>另外一邊空空曠曠的，地板會有鳥大便和盆栽飛出來的土，看起來不是很乾淨
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/zdsgwE19Q5aFLh7KuOSc_garden_4.jpg" alt="garden_4.jpg" /></p>
+
+<h2>鋪設排水板！</h2>
+
+<p>施工之前先把陽台掃乾淨<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/eZlXs4phSIyKqhTHq401_garden_5.jpg" alt="garden_5.jpg" /></p>
+
+<p>開始鋪排水板，這是空中花園必備的步驟<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/XBnPrYUpS5e4baXFRbcu_garden_6.jpg" alt="garden_6.jpg" /></p>
+
+<p>像巧拼一樣，一片一片拼上去<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/2JgVU0znQRSNP6nh8xFa_garden_7.jpg" alt="garden_7.jpg" /></p>
+
+<p>旁邊不足一塊的地方要把排水板裁切，這裡我用三角形來排，強度比較足夠<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/nmAHNiLVTdCXBytOcenp_garden_8.jpg" alt="garden_8.jpg" /></p>
+
+<p>排水孔的部分，要特別剪一個圓形<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/O5rKUH0FQuatZ2cTvKtZ_garden_9.jpg" alt="garden_9.jpg" /></p>
+
+<p>完成！<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/zuEHivgGRCuLMsUv14vj_garden_10.jpg" alt="garden_10.jpg" /></p>
+
+<h2>路緣石</h2>
+
+<p>陽台和房間中間有一塊預計放上鵝卵石的空間，所以要路緣石來防止泥土流出</p>
+
+<p>自己攪拌水泥，第一次用，好怕失敗<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/KrOIG9klQAWj5IiUciRa_garden_11.jpg" alt="garden_11.jpg" /></p>
+
+<p>瞬間完成(誤)，中間過程手髒髒不能拍XDD<br/>
+等乾了以後水泥的顏色就跟石頭顏色一樣了<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/IpHiS4NXRxKusYodTHO3_garden_12.jpg" alt="garden_12.jpg" /></p>
+
+<h2>蓋上不織布</h2>
+
+<p>蓋上不織布，不織布可以過濾泥土，排水版下面才不會堆積泥土，防止排水孔堵塞。</p>
+
+<p>不織布和不織布重疊的部分至少要30公分。<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/BHg0StxQQVMgC6tPDFAG_garden_13.jpg" alt="garden_13.jpg" /></p>
+
+<p>這邊弧度比較奇怪，要好好整理<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/yZmWCIqRMej40ynvrATf_garden_14.jpg" alt="garden_14.jpg" /></p>
+
+<h2>放上泥土</h2>
+
+<p>大包40公斤，小包20公斤，從一樓搬到三樓。本來很熱血得想自己搬，後來沒雞雞，找了工讀生來幫忙XDD<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/7lRmGNsRWynA2QWLMyGD_garden_15.jpg" alt="garden_15.jpg" /></p>
+
+<p>土放下去以後，連續下了好幾天的雨，陽台淹水了！！太慘了！所以不忍心放上來XDD</p>
+
+<p>想說這樣下去不是辦法，於是上網找解決方法，原來是田土太黏了！網路上說要加沙子和珍珠石之類的介質，來改善排水。</p>
+
+<p>去建材行搬了20包沙子，每包20公斤，這次很有毅力自己從地下一樓搬到三樓，差點往生<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/hBxzIQpTCXM3ntqLpRag_garden_16.jpg" alt="garden_16.jpg" /></p>
+
+<p>加了珍珠石，陽台好像下雪<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/glEBlXaQvOgdCu1OXSwl_garden_17.jpg" alt="garden_17.jpg" /></p>
+
+<p>因為連日大雨，加上天氣冷，所以草皮一直無法出貨，也還好因為這樣，可以好好測試土壤的排水！
+草皮來之前把珍珠石、沙子、泥土好好混和，效果真的很明顯，比較不會積水了！</p>
+
+<h2>種草皮</h2>
+
+<p>草皮終於來了，我買的是台北草，聽說比較好照顧，很幸運買到很茂密都沒雜草的草皮！</p>
+
+<p>別看草皮輕輕的，一捆草皮約半坪，可是比一包沙子還要重呢！<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/Xo8M5wc0RBaxadG7PlgW_garden_18.jpg" alt="garden_18.jpg" /></p>
+
+<p>另外一個角度<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/PAyrunFUTlOGEgVFLddA_garden_19.jpg" alt="garden_19.jpg" /></p>
+
+<h2>鋪石頭</h2>
+
+<p>拍賣上看到的石頭都太貴了，而且還要加貴死人的運費，於是殺到大肚的石頭工廠買，超級便宜！！</p>
+
+<p>花崗石一片 30x90x3 只要130元，鵝卵石一包二十公斤也是130元。</p>
+
+<p>回到家都晚上了，趕快排一排，石頭四塊剛好可以排成一個弧形，鵝卵石也剛剛好<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/kgNXInPzR4ioei0zLzyi_garden_20.jpg" alt="garden_20.jpg" /></p>
+
+<h2>大功告成！</h2>
+
+<p>累死人了！兩個禮拜腰酸背痛XDD，趁太陽出來的時候拍了幾張</p>
+
+<p>從房間走到陽台<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/CaNPkIXHRVuObbDInZQT_garden_21.jpg" alt="garden_21.jpg" /></p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/934/bdKTWXQ6RemTDxNxV6yi_garden_22.jpg" alt="garden_22.jpg" /></p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/934/eFXPl0CjRcCjfugsMnpd_garden_23.jpg" alt="garden_23.jpg" /></p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/934/Zu83R414TnqqDGK3Nv4d_garden_1.jpg" alt="garden_1.jpg" /></p>
+
+<p>從空中來一張<br/>
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/OCQFho0uQGVD5Zvm1y1g_garden_24.jpg" alt="garden_24.jpg" /></p>
+
+<p>草皮近看，真的很漂亮！
+<img src="http://user-image.logdown.io/user/7/blog/530/post/934/qe6KPiTkQ1eS5Y2yeeVX_garden_25.jpg" alt="garden_25.jpg" /></p>
+
+<h2>小結</h2>
+
+<p>整個下來花了快兩萬，不知道請師傅來做多少錢，可是 DIY 無價阿！！</p>
+
+<p>也只有年輕的時候可以這樣自己搞，尤其陽台又在三樓，光這次我就上上下下幾百趟了吧！</p>
+
+<p>以後每天打開窗戶就是看到一片綠地，沒下雨的時候還可以出去打滾XDD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World!]]></title>
+    <link href="http://blog.roachking.net/blog/2012/10/27/hello-world/"/>
+    <updated>2012-10-27T22:56:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2012/10/27/hello-world</id>
+    <content type="html"><![CDATA[<p>身為一個工程師，第一篇文章先來個 Hello World!</p>
+]]></content>
+  </entry>
+  
+</feed>

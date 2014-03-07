@@ -1,0 +1,1044 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Normalize.css - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="Normalize.css makes browsers render all elements more consistently and in line with modern standards. It precisely targets only the styles that need &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2012/11/03/Normalize-css">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Normalize.css</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-03T21:00:00+08:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2012</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><blockquote><p>Normalize.css makes browsers render all elements more <br/>consistently and in line with modern standards. It precisely <br/>targets only the styles that need normalizing.</p></blockquote>
+
+
+<p>Normalize.css Official Site : <a href="http://necolas.github.com/normalize.css/">http://necolas.github.com/normalize.css/</a></p>
+
+<p>「跨瀏覽器問題」一直是網頁設計師最頭痛的問題之一，在 CSS 方面，
+以往習慣用 <a href="http://meyerweb.com/eric/tools/css/reset/">reset.css</a> 來重置 CSS 屬性。
+reset.css 將所有元素的屬性歸零，當使用到這些元素的時候 ，後再賦予其屬性，以達到跨瀏覽器呈現一致。</p>
+
+<!--more-->
+
+
+<p>不過，reset.css 會產生一個缺點，當我要使用 &lt;p&gt; 時，在瀏覽器預設下，它應該是跟下一個元素有一段距離的。
+原本瀏覽器就將這個距離設定得很好，可是用了 reset.css ，卻要自己設定 &lt;p&gt; 的 margin，
+然而自己設定的數值往往沒有瀏覽器預設的好看。</p>
+
+<p>如果要解決上面的問題，我們應該做的是：保留瀏覽器好的屬性，並保持跨瀏覽器的呈現一致。</p>
+
+<p>Normalize.css 做的不是重置這些屬性，而是「標準化」這些屬性，保留這些屬性原本的優點，
+進而達到跨瀏覽器的呈現一致。 像官網一開始所說的一樣， Normalize.css 更符合現代設計，
+且支援 HTML5 ，是一個 reset.css 的取代方案。</p>
+
+<p>最近非常火紅的 Bootstrap 和 HTML5 Boilerplate 也都是使用 Normalize.css，<br/>
+下一次在寫網頁的時候，不仿試試看 Normalize.css ！</p>
+
+<p>下面是 Normalize.css 的原始碼，有興趣的讀者可以拿來跟 reset.css 比較看看。</p>
+
+<figure class='code'><figcaption><span>normalize.css </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+<span class='line-number'>312</span>
+<span class='line-number'>313</span>
+<span class='line-number'>314</span>
+<span class='line-number'>315</span>
+<span class='line-number'>316</span>
+<span class='line-number'>317</span>
+<span class='line-number'>318</span>
+<span class='line-number'>319</span>
+<span class='line-number'>320</span>
+<span class='line-number'>321</span>
+<span class='line-number'>322</span>
+<span class='line-number'>323</span>
+<span class='line-number'>324</span>
+<span class='line-number'>325</span>
+<span class='line-number'>326</span>
+<span class='line-number'>327</span>
+<span class='line-number'>328</span>
+<span class='line-number'>329</span>
+<span class='line-number'>330</span>
+<span class='line-number'>331</span>
+<span class='line-number'>332</span>
+<span class='line-number'>333</span>
+<span class='line-number'>334</span>
+<span class='line-number'>335</span>
+<span class='line-number'>336</span>
+<span class='line-number'>337</span>
+<span class='line-number'>338</span>
+<span class='line-number'>339</span>
+<span class='line-number'>340</span>
+<span class='line-number'>341</span>
+<span class='line-number'>342</span>
+<span class='line-number'>343</span>
+<span class='line-number'>344</span>
+<span class='line-number'>345</span>
+<span class='line-number'>346</span>
+<span class='line-number'>347</span>
+<span class='line-number'>348</span>
+<span class='line-number'>349</span>
+<span class='line-number'>350</span>
+<span class='line-number'>351</span>
+<span class='line-number'>352</span>
+<span class='line-number'>353</span>
+<span class='line-number'>354</span>
+<span class='line-number'>355</span>
+<span class='line-number'>356</span>
+<span class='line-number'>357</span>
+<span class='line-number'>358</span>
+<span class='line-number'>359</span>
+<span class='line-number'>360</span>
+<span class='line-number'>361</span>
+<span class='line-number'>362</span>
+<span class='line-number'>363</span>
+<span class='line-number'>364</span>
+<span class='line-number'>365</span>
+<span class='line-number'>366</span>
+<span class='line-number'>367</span>
+<span class='line-number'>368</span>
+<span class='line-number'>369</span>
+<span class='line-number'>370</span>
+<span class='line-number'>371</span>
+<span class='line-number'>372</span>
+<span class='line-number'>373</span>
+<span class='line-number'>374</span>
+<span class='line-number'>375</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="c">/*! normalize.css v2.0.1 | MIT License | git.io/normalize */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   HTML5 display definitions</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Corrects `block` display not defined in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">article</span><span class="o">,</span>
+</span><span class='line'><span class="nt">aside</span><span class="o">,</span>
+</span><span class='line'><span class="nt">details</span><span class="o">,</span>
+</span><span class='line'><span class="nt">figcaption</span><span class="o">,</span>
+</span><span class='line'><span class="nt">figure</span><span class="o">,</span>
+</span><span class='line'><span class="nt">footer</span><span class="o">,</span>
+</span><span class='line'><span class="nt">header</span><span class="o">,</span>
+</span><span class='line'><span class="nt">hgroup</span><span class="o">,</span>
+</span><span class='line'><span class="nt">nav</span><span class="o">,</span>
+</span><span class='line'><span class="nt">section</span><span class="o">,</span>
+</span><span class='line'><span class="nt">summary</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Corrects `inline-block` display not defined in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">audio</span><span class="o">,</span>
+</span><span class='line'><span class="nt">canvas</span><span class="o">,</span>
+</span><span class='line'><span class="nt">video</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Prevents modern browsers from displaying `audio` without controls.</span>
+</span><span class='line'><span class="c"> * Remove excess height in iOS 5 devices.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">audio</span><span class="nd">:not</span><span class="o">([</span><span class="nt">controls</span><span class="o">])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses styling for `hidden` attribute not present in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span><span class="nt">hidden</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Base</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Sets default font family to sans-serif.</span>
+</span><span class='line'><span class="c"> * 2. Prevents iOS text size adjust after orientation change, without disabling</span>
+</span><span class='line'><span class="c"> *    user zoom.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">html</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-family</span><span class="o">:</span> <span class="k">sans-serif</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Removes default margin.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">body</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Links</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses `outline` inconsistency between Chrome and other browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">a</span><span class="nd">:focus</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">outline</span><span class="o">:</span> <span class="k">thin</span> <span class="k">dotted</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Improves readability when focused and also mouse hovered in all browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">a</span><span class="nd">:active</span><span class="o">,</span>
+</span><span class='line'><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">outline</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Typography</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses `h1` font sizes within `section` and `article` in Firefox 4+,</span>
+</span><span class='line'><span class="c"> * Safari 5, and Chrome.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">h1</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses styling not present in IE 8/9, Safari 5, and Chrome.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">abbr</span><span class="o">[</span><span class="nt">title</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border-bottom</span><span class="o">:</span> <span class="m">1px</span> <span class="k">dotted</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses style set to `bolder` in Firefox 4+, Safari 5, and Chrome.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">b</span><span class="o">,</span>
+</span><span class='line'><span class="nt">strong</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses styling not present in Safari 5 and Chrome.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">dfn</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-style</span><span class="o">:</span> <span class="k">italic</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses styling not present in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">mark</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">background</span><span class="o">:</span> <span class="m">#ff0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Corrects font family set oddly in Safari 5 and Chrome.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">code</span><span class="o">,</span>
+</span><span class='line'><span class="nt">kbd</span><span class="o">,</span>
+</span><span class='line'><span class="nt">pre</span><span class="o">,</span>
+</span><span class='line'><span class="nt">samp</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-family</span><span class="o">:</span> <span class="k">monospace</span><span class="o">,</span> <span class="k">serif</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Improves readability of pre-formatted text in all browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">pre</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="o">-</span><span class="n">wrap</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">word</span><span class="o">-</span><span class="n">wrap</span><span class="o">:</span> <span class="n">break</span><span class="o">-</span><span class="n">word</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Sets consistent quote types.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">q</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">quotes</span><span class="o">:</span> <span class="s2">&quot;\201C&quot;</span> <span class="s2">&quot;\201D&quot;</span> <span class="s2">&quot;\2018&quot;</span> <span class="s2">&quot;\2019&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses inconsistent and variable font size in all browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">small</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">80</span><span class="o">%</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Prevents `sub` and `sup` affecting `line-height` in all browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">sub</span><span class="o">,</span>
+</span><span class='line'><span class="nt">sup</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">75</span><span class="o">%</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">line-height</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">baseline</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">sup</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">top</span><span class="o">:</span> <span class="m">-0.5em</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">sub</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">bottom</span><span class="o">:</span> <span class="m">-0.25em</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Embedded content</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Removes border when inside `a` element in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">img</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Corrects overflow displayed oddly in IE 9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">svg</span><span class="nd">:not</span><span class="o">(</span><span class="nd">:root</span><span class="o">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Figures</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses margin not present in IE 8/9 and Safari 5.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">figure</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Forms</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Define consistent border, margin, and padding.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">fieldset</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="k">solid</span> <span class="m">#c0c0c0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">2px</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">0.35em</span> <span class="m">0.625em</span> <span class="m">0.75em</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Corrects color not being inherited in IE 8/9.</span>
+</span><span class='line'><span class="c"> * 2. Remove padding so people aren&#39;t caught out if they zero out fieldsets.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">legend</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Corrects font family not being inherited in all browsers.</span>
+</span><span class='line'><span class="c"> * 2. Corrects font size not being inherited in all browsers.</span>
+</span><span class='line'><span class="c"> * 3. Addresses margins set differently in Firefox 4+, Safari 5, and Chrome</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">,</span>
+</span><span class='line'><span class="nt">select</span><span class="o">,</span>
+</span><span class='line'><span class="nt">textarea</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">font-family</span><span class="o">:</span> <span class="k">inherit</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="k">font-size</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'>    <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 3 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Addresses Firefox 4+ setting `line-height` on `input` using `!important` in</span>
+</span><span class='line'><span class="c"> * the UA stylesheet.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">line-height</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`</span>
+</span><span class='line'><span class="c"> *    and `video` controls.</span>
+</span><span class='line'><span class="c"> * 2. Corrects inability to style clickable `input` types in iOS.</span>
+</span><span class='line'><span class="c"> * 3. Improves usability and consistency of cursor style between image-type</span>
+</span><span class='line'><span class="c"> *    `input` and others.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">html</span> <span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span><span class="o">],</span> <span class="c">/* 1 */</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;reset&quot;</span><span class="o">],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="n">button</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'>    <span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;</span> <span class="c">/* 3 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Re-set default cursor for disabled elements.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">button</span><span class="o">[</span><span class="nt">disabled</span><span class="o">],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">disabled</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">cursor</span><span class="o">:</span> <span class="k">default</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Addresses box sizing set to `content-box` in IE 8/9.</span>
+</span><span class='line'><span class="c"> * 2. Removes excess padding in IE 8/9.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;checkbox&quot;</span><span class="o">],</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;radio&quot;</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.</span>
+</span><span class='line'><span class="c"> * 2. Addresses `box-sizing` set to `border-box` in Safari 5 and Chrome</span>
+</span><span class='line'><span class="c"> *    (include `-moz` to future-proof).</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="o">]</span> <span class="p">{</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="n">textfield</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'>    <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">content</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Removes inner padding and search cancel button in Safari 5 and Chrome</span>
+</span><span class='line'><span class="c"> * on OS X.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="o">]:</span><span class="nd">:-webkit-search-cancel-button</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;search&quot;</span><span class="o">]:</span><span class="nd">:-webkit-search-decoration</span> <span class="p">{</span>
+</span><span class='line'>    <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Removes inner padding and border in Firefox 4+.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">button</span><span class="o">:</span><span class="nd">:-moz-focus-inner</span><span class="o">,</span>
+</span><span class='line'><span class="nt">input</span><span class="o">:</span><span class="nd">:-moz-focus-inner</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * 1. Removes default vertical scrollbar in IE 8/9.</span>
+</span><span class='line'><span class="c"> * 2. Improves readability and alignment in all browsers.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">textarea</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">overflow</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span> <span class="c">/* 1 */</span>
+</span><span class='line'>    <span class="k">vertical-align</span><span class="o">:</span> <span class="k">top</span><span class="p">;</span> <span class="c">/* 2 */</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/* ==========================================================================</span>
+</span><span class='line'><span class="c">   Tables</span>
+</span><span class='line'><span class="c">   ========================================================================== */</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">/*</span>
+</span><span class='line'><span class="c"> * Remove most spacing between table cells.</span>
+</span><span class='line'><span class="c"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">table</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">border-collapse</span><span class="o">:</span> <span class="k">collapse</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">border-spacing</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-03T21:00:00+08:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/html5/'>HTML5</a>, <a class='category' href='/blog/categories/css/'>css</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2012/11/03/Normalize-css/" data-via="" data-counturl="http://blog.roachking.net/blog/2012/11/03/Normalize-css/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/03/sorting-css-csscomb/" title="Previous Post: 自動排序 CSS 屬性 - CSScomb">&laquo; 自動排序 CSS 屬性 - CSScomb</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/11/05/html5-head/" title="Next Post: HTML 裡的 <head> 到底該放什麼、怎麼放？">HTML 裡的 <head> 到底該放什麼、怎麼放？ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/">不要使用 INT 來儲存 Facebook ID 或 Twitter ID</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2012/11/03/Normalize-css/';
+        var disqus_url = 'http://blog.roachking.net/blog/2012/11/03/Normalize-css/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

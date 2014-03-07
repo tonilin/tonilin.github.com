@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gems | 蟑螂窩]]></title>
+  <link href="http://blog.roachking.net/blog/categories/gems/atom.xml" rel="self"/>
+  <link href="http://blog.roachking.net/"/>
+  <updated>2014-03-07T17:57:49+08:00</updated>
+  <id>http://blog.roachking.net/</id>
+  <author>
+    <name><![CDATA[tonilin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Roadie 減輕 Email 排版的痛]]></title>
+    <link href="http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie/"/>
+    <updated>2013-06-10T23:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie</id>
+    <content type="html"><![CDATA[<p>Roadie Repo : <a href="https://github.com/Mange/roadie">https://github.com/Mange/roadie</a></p>
+
+<p>在排版 Email 時最痛苦的就是要寫 Inline Style，跟平常在排版的時候習慣大不相同，
+而且 Inline Style 非常難維護，一封信同樣的 Style 就要複製一次，不同信的同樣 Style 也要複製一次，
+哪天單純只是要改一個小樣式，所有的 Email 都要拿出來改，光用想的就很恐怖，這就是每次要排版 Email 都很痛苦的其中一個原因。</p>
+
+<p>Roadie 就是用來解決這個問題的，你可以像平常一樣用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code>，或是直接包 Assets 裡面的 CSS 進來，甚至是 SCSS 也可以，
+它會自動幫你把 CSS 轉成 Inline Style，還會幫你把 HTML 裡的圖片改成 absolute URL。</p>
+
+<!-- more -->
+
+
+<h1>安裝 Roadie</h1>
+
+<p>在 Rails 的 Gemfile 加入：</p>
+
+<p><code>ruby Gemfile
+gem 'roadie'
+</code></p>
+
+<h1>設定</h1>
+
+<p>在 <code>application.rb</code> 或環境設定檔裡面，依需求加入以下的設定：</p>
+
+<p><code>ruby application.rb
+config.roadie.enabled = false # Roadie 是預設開啟的，可以設為 false 關閉 Roadie。  
+config.action_mailer.default_url_options = {:host =&gt; 'example.com'} # 有這行會自動將圖片的網址變成 Absolute。  
+config.assets.enabled = true # 預設是使用 assets pipeline 裡面的 CSS，如設為 false，則會到 `public/stylesheets` 裡面找。  
+</code></p>
+
+<p>其他還有更進階的設定，請參考 <a href="https://github.com/Mange/roadie">Roadie Repo</a>。</p>
+
+<h1>開始使用</h1>
+
+<p>先測試看看用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code> ，是否能正確轉換：
+```html</p>
+
+
+
+
+
+<p class="red">Red text</p>
+
+
+<p>```</p>
+
+<p>成功輸出成 Inline Style：
+```html</p>
+
+<p style="color:red">Red text</p>
+
+
+<p>```</p>
+
+<h1>使用 Asset Pipeline</h1>
+
+<p>前面的簡介有提到，可以直接使用 Asset pipeline 裡面的 SCSS，這樣我們就可以不用每封 Email 都重寫 CSS 了。</p>
+
+<p>在 Mailer 裡面加上 <code>default :css =&gt; :email</code>，代表使用 email 這個 CSS。
+```ruby app/mailers/sample_mailer.rb
+class SampleMailer &lt; ActionMailer::Base
+  default :css => :email, :from => &ldquo;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#101;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#99;&#111;&#x6d;">&#101;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#109;</a>&rdquo;</p>
+
+<p>  def send_example_email</p>
+
+<pre><code>mail(:to =&gt; "example@example.com", :subject =&gt; "Sample Email")
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>也可以個別在每個 method，加入 CSS：
+```ruby app/mailers/sample_mailer.rb
+class SampleMailer &lt; ActionMailer::Base
+  default :from => &ldquo;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#101;&#120;&#x61;&#x6d;&#x70;&#108;&#101;&#64;&#x65;&#x78;&#97;&#109;&#112;&#108;&#101;&#46;&#x63;&#x6f;&#x6d;">&#x65;&#120;&#97;&#109;&#112;&#108;&#101;&#x40;&#x65;&#x78;&#97;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;</a>&rdquo;</p>
+
+<p>  def send_example_email</p>
+
+<pre><code>mail(:to =&gt; "example@example.com", :subject =&gt; "Sample Email", :css =&gt; [:email])
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>在 <code>app/assets/stylesheets</code> 加入 <code>email.css.scss</code>：</p>
+
+<p>```scss app/assets/stylesheets/email.css.scss
+$red: red;</p>
+
+<p>.red {
+  color: $red;
+}
+```</p>
+
+<p>接著 Email 的 HTML 就更簡潔了：
+```html</p>
+
+<p class="red">Red text</p>
+
+
+<p>```</p>
+
+<p>太棒了！一樣可以看到正常運作：
+```html</p>
+
+<p style="color:red">Red text</p>
+
+
+<p>```</p>
+
+<h1>圖片自動轉換 Absolute URL</h1>
+
+<p>先隨意的加一段 Image tag：
+<code>html
+&lt;img src="logo.png"&gt;
+</code></p>
+
+<p>可以看到自動變成：
+<code>html
+&lt;img src="http://example.com/logo.png"&gt;
+</code></p>
+
+<p>如果是 CSS 裡面的 Image：
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nc">.logo</span> <span class="p">{</span>
+</span><span class='line'>  <span class="na">background-image</span><span class="o">:</span> <span class="nf">image-url</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nt">logo</span><span class="nc">.png</span><span class="k">&amp;</span><span class="nt">rdquo</span><span class="o">;)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>竟然也會自動轉換：</p>
+
+<p>```html</p>
+
+<p style="background-image:url(http://example.com/assets/logo.png)">test</p>
+
+
+<p>```</p>
+
+<h1>小結</h1>
+
+<p>雖然 Email 排版依然很痛苦，但是已經輕鬆很多，這個 Gem 還有更多設定，可以在 <a href="https://github.com/Mange/roadie">Roadie Repo</a> 找到，
+可以更進階得去修改 Email 裡面的內容。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Localtunnel - 分享 Localhost Web Server]]></title>
+    <link href="http://blog.roachking.net/blog/2013/05/01/localtunnel/"/>
+    <updated>2013-05-01T13:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/05/01/localtunnel</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
+
+<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
+
+<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
+或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
+
+<p>localtunnel 可以建立一個通道，並產生一個網址，
+客戶就可以用這個網址，連到內網的 Web Server。</p>
+
+<!--more-->
+
+
+<h2>安裝 localtunnel</h2>
+
+<p>Localtunnel 需要使用 Gem 安裝:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果你是使用 rvm，則不需要加上 sudo：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;gem install localtunnel&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>打開你的 Web Server</h2>
+
+<p>他開你的 Web Server 並記下 Port，這裡以 8080 為例。</p>
+
+<h2>開始使用 localtunnel</h2>
+
+<p>第一次使用，必須附上 Public SSH key：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel -k ~/.ssh/id_rsa.pub 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>以後，則只需要打上 Web Server 的 Port</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;localtunnel 8080&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>接著就會看到</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Port 8080 is now publicly accessible from &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://4mec.localtunnel.com&quot;</span>&gt;http://4mec.localtunnel.com&lt;/a&gt; &amp;hellip;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>後面那串網址就是 localtunnel 幫你產生的，使用者就可以透過這個網址看到內網的 Web Server 了！</p>
+]]></content>
+  </entry>
+  
+</feed>
