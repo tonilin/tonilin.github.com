@@ -7,8 +7,6 @@ categories:
 ---
 201309 連結收集
 
-<!--more-->
-
 
 # Rails
 
@@ -23,6 +21,8 @@ categories:
 - [Web Console](https://github.com/rails/web-console)
 
 > Rails Console on the Browser.
+
+<!-- more -->
 
 # Web
 

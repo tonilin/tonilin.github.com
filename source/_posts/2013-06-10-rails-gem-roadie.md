@@ -15,7 +15,7 @@ Roadie Repo : <https://github.com/Mange/roadie>
 Roadie 就是用來解決這個問題的，你可以像平常一樣用 `<style type="text/css"></style>`，或是直接包 Assets 裡面的 CSS 進來，甚至是 SCSS 也可以，
 它會自動幫你把 CSS 轉成 Inline Style，還會幫你把 HTML 裡的圖片改成 absolute URL。
 
-<!--more-->
+<!-- more -->
 
 
 # 安裝 Roadie
