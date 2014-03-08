@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-林品翔 (tonilin) ，外號小強，對 Web 相關的東西充滿熱情和興趣，目前是一個 Rails Full-Stack Developer，
+林品翔 (tonilin) ，外號小強，對 Web 相關的東西充滿熱情和興趣，是一個 Rails Full-Stack Developer，
 目前為 [oSolve](http://osolve.com/) 的創辦人。
 
 
