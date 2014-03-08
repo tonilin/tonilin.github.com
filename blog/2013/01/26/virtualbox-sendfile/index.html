@@ -32,6 +32,15 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<meta property="og:title" content="VirtualBox Apache Sendfile" />
+<meta property="og:site_name" content="蟑螂窩" />
+<meta property="og:url" content="http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile/" />
+<meta property="og:description" content="之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
+但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。 這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
+發現是 Apache 的 sendfile 在做怪，這是一個利用 Kernel 的 sendfile &hellip;" />
+
+  <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
+
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -70,6 +79,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/aboutme">About me</a></li>
 </ul>
 
 </nav>

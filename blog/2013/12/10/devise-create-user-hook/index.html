@@ -30,6 +30,28 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<meta property="og:title" content="Devise create user hook" />
+<meta property="og:site_name" content="蟑螂窩" />
+<meta property="og:url" content="http://blog.roachking.net/blog/2013/12/10/devise-create-user-hook/" />
+<meta property="og:description" content="今天做案子時，需要在 Devise user create 前後做一些事情，但是又不想污染 User model，以往的方法就是寫一個 Users::RegistrationsController 去繼承 Devise::RegistrationsController，然後把整個 method copy 過來一次： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16 &hellip;" />
+
+  <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
+
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -68,6 +90,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/aboutme">About me</a></li>
 </ul>
 
 </nav>

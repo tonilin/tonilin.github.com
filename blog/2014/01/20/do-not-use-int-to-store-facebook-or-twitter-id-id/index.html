@@ -30,6 +30,17 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
+<meta property="og:title" content="不要使用 INT 來儲存 Facebook ID 或 Twitter ID" />
+<meta property="og:site_name" content="蟑螂窩" />
+<meta property="og:url" content="http://blog.roachking.net/blog/2014/01/20/do-not-use-int-to-store-facebook-or-twitter-id-id/" />
+<meta property="og:description" content="今天在修一個使用者回報的 Facebook Binding 登入到錯誤帳號的問題，於是就開啟資料庫來看，發現一堆 Binding 都是綁到 Facebook 的 2147483647 這個 UID。 靠！好熟悉的數字，這不是天堂金幣的上限嗎？ 這麼熟悉的數字一看就知道溢位了 Orz ，用 mysql 的話把欄位改成 BIGINT 就沒問題了，Rails 的修改方式： 1
+2
+3
+4
+5 &hellip;" />
+
+  <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
+
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -68,6 +79,7 @@
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/aboutme">About me</a></li>
 </ul>
 
 </nav>
