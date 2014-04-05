@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>優雅地重開 Apache - 蟑螂窩</title>
+  <title>201403 連結收集 - 蟑螂窩</title>
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
-$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 &hellip;">
+  <meta name="description" content="Ruby play play ► — your company&rsquo;s dj burn A Toolkit To Create 8-bit Flavored Application order_query Finds next / previous Active Record(s) in &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ $ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache">
+  <link rel="canonical" href="http://blog.roachking.net/blog/2014/03/21/201403-link-collection">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
@@ -31,12 +30,10 @@ $ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然�
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<meta property="og:title" content="優雅地重開 Apache" />
+<meta property="og:title" content="201403 連結收集" />
 <meta property="og:site_name" content="蟑螂窩" />
-<meta property="og:url" content="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/" />
-<meta property="og:description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
-$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。 比較少人知道還有一個 graceful 的指令： 1
-$ /etc/init.d/ &hellip;" />
+<meta property="og:url" content="http://blog.roachking.net/blog/2014/03/21/201403-link-collection/" />
+<meta property="og:description" content="Ruby play play ► — your company&rsquo;s dj burn A Toolkit To Create 8-bit Flavored Application order_query Finds next / previous Active Record(s) in one query word-to-markdown A ruby gem to liberate &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -89,7 +86,7 @@ $ /etc/init.d/ &hellip;" />
   
   <header>
     
-      <h1 class="entry-title">優雅地重開 Apache</h1>
+      <h1 class="entry-title">201403 連結收集</h1>
     
     
       <p class="meta">
@@ -105,7 +102,7 @@ $ /etc/init.d/ &hellip;" />
   
 
 
-<time datetime="2013-01-29T21:30:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+<time datetime="2014-03-21T02:38:00+08:00" pubdate data-updated="true">Mar 21<span>st</span>, 2014</time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://blog.roachking.net">Comments</a>
@@ -115,25 +112,66 @@ $ /etc/init.d/ &hellip;" />
   </header>
 
 
-<div class="entry-content"><p>Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server：</p>
+<div class="entry-content"><h2>Ruby</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd restart
-</span></code></pre></td></tr></table></div></figure>
+<p><a href="https://github.com/play/play">play</a></p>
 
+<blockquote><p>play ► — your company&rsquo;s dj</p></blockquote>
 
-<p>這個指令會<em>立即</em>關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。</p>
+<p><a href="https://github.com/remore/burn">burn</a></p>
 
-<p>比較少人知道還有一個 graceful 的指令：</p>
+<blockquote><p>A Toolkit To Create 8-bit Flavored Application</p></blockquote>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd graceful
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
 
-<p>發出這個指令以後，每個子進程都會處理完目前的 request 後，再套用新的設定。在 production 伺服器更改設定，使用 graceful 才能避免造成使用者的困擾。</p>
+<p><a href="https://github.com/glebm/order_query">order_query</a></p>
 
-<p>參考資料：<a href="http://httpd.apache.org/docs/2.0/stopping.html#graceful">Apache Stopping and Restarting</a></p>
+<blockquote><p>Finds next / previous Active Record(s) in one query</p></blockquote>
+
+<p><a href="https://github.com/benbalter/word-to-markdown">word-to-markdown</a></p>
+
+<blockquote><p>A ruby gem to liberate content from Microsoft Word documents</p></blockquote>
+
+<p><a href="https://github.com/skinnyworm/wechat-rails">wechat-rails</a></p>
+
+<blockquote><p>API and message handling for wechat in rails environment</p></blockquote>
+
+<p><a href="https://github.com/masuidrive/open-wripe">wri.pe</a></p>
+
+<blockquote><p><a href="https://wri.pe">https://wri.pe</a> source code</p></blockquote>
+
+<h2>Javascript</h2>
+
+<p><a href="https://github.com/gabrielecirulli/2048">2048</a></p>
+
+<blockquote><p>A small clone of 1024</p></blockquote>
+
+<p><a href="http://kenwheeler.github.io/slick/">slick</a></p>
+
+<blockquote><p>the last carousel you&rsquo;ll ever need</p></blockquote>
+
+<p><a href="https://github.com/Laverna/laverna">laverna</a></p>
+
+<blockquote><p>Laverna is a JavaScript note taking application with Markdown editor and encryption support. Consider it like open source alternative to Evernote.</p></blockquote>
+
+<p><a href="https://github.com/sdelements/lets-chat">Let&rsquo;s Chat</a></p>
+
+<blockquote><p>Let&rsquo;s Chat: Self-hosted chat app for small teams</p></blockquote>
+
+<p><a href="https://github.com/nosir/obelisk.js">obelisk.js</a></p>
+
+<blockquote><p>JavaScript Engine for Building Pixel Isometric Element with HTML5 Canvas</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="https://github.com/jxnblk/loading">Loading</a></p>
+
+<blockquote><p>This could take a while</p></blockquote>
+
+<p><a href="http://adamschwartz.co/magic-of-css/">The Magic of CSS</a></p>
+
+<blockquote><p>A CSS course for web developers who want to be magicians.</p></blockquote>
 </div>
 
 
@@ -156,21 +194,15 @@ $ /etc/init.d/ &hellip;" />
   
 
 
-<time datetime="2013-01-29T21:30:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+<time datetime="2014-03-21T02:38:00+08:00" pubdate data-updated="true">Mar 21<span>st</span>, 2014</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/server/'>Server</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/" data-via="" data-counturl="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2014/03/21/201403-link-collection/" data-via="" data-counturl="http://blog.roachking.net/blog/2014/03/21/201403-link-collection/" >Tweet</a>
   
   
   
@@ -181,10 +213,8 @@ $ /etc/init.d/ &hellip;" />
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/26/virtualbox-sendfile/" title="Previous Post: VirtualBox Apache Sendfile">&laquo; VirtualBox Apache Sendfile</a>
+        <a class="basic-alignment left" href="/blog/2014/02/12/201402-link-collection/" title="Previous Post: 201402 連結收集">&laquo; 201402 連結收集</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/30/optimization-with-optipng/" title="Next Post: 使用 OptiPNG 最佳化 PNG">使用 OptiPNG 最佳化 PNG &raquo;</a>
       
     </p>
   </footer>
@@ -250,8 +280,8 @@ $ /etc/init.d/ &hellip;" />
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/';
-        var disqus_url = 'http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/';
+        var disqus_identifier = 'http://blog.roachking.net/blog/2014/03/21/201403-link-collection/';
+        var disqus_url = 'http://blog.roachking.net/blog/2014/03/21/201403-link-collection/';
         var disqus_script = 'embed.js';
       
     (function () {

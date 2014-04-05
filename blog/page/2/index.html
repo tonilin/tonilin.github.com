@@ -9,7 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="前陣子寫了一篇 jQuery-ujs link_to issue，裡面我寫了一個 button_link_to helper 來解決 button_to 和 link_to 的問題。 寫完以後發現不同專案要用到這個 method，我都要複製一次太麻煩了XD，於是就把它包成 Gem 了。 &hellip;">
+  <meta name="description" content="最近做專案的時候，要把一個由 Form 送出去的 DELETE，變成用 Ajax 送出去，發生了很危險而且意料之外的事情。 情境 先來重現一下一開始的情境： 一開始先有一個 comment 的 Controller，裡面有一個 Destroy 的 Action，在使用者送 DELETE 到 / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,7 +33,7 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/2/" />
-<meta property="og:description" content="前陣子寫了一篇 jQuery-ujs link_to issue，裡面我寫了一個 button_link_to helper 來解決 button_to 和 link_to 的問題。 寫完以後發現不同專案要用到這個 method，我都要複製一次太麻煩了XD，於是就把它包成 Gem 了。 Github: https://github.com/tonilin/button_link_to 如果想要看 &hellip;" />
+<meta property="og:description" content="最近做專案的時候，要把一個由 Form 送出去的 DELETE，變成用 Ajax 送出去，發生了很危險而且意料之外的事情。 情境 先來重現一下一開始的情境： 一開始先有一個 comment 的 Controller，裡面有一個 Destroy 的 Action，在使用者送 DELETE 到 /posts/1/comments/1時，會刪除 ID 為 1 的 Comment，接著 redirect &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -83,6 +83,137 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/04/mysterious-rails-crud-trap/">神祕的 Rails CRUD 陷阱</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T03:25:00+08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/11/04/mysterious-rails-crud-trap/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/11/04/mysterious-rails-crud-trap/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近做專案的時候，要把一個由 Form 送出去的 DELETE，變成用 Ajax 送出去，發生了很危險而且意料之外的事情。</p>
+
+<h2>情境</h2>
+
+<p>先來重現一下一開始的情境：</p>
+
+<p>一開始先有一個 comment 的 Controller，裡面有一個 Destroy 的 Action，在使用者送 DELETE 到 <code>/posts/1/comments/1</code>時，會刪除 ID 為 1 的 Comment，接著 redirect 到 <code>/posts/1</code>。</p>
+
+<figure class='code'><figcaption><span>comments_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CommentsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">destroy</span>
+</span><span class='line'>    <span class="vi">@comment</span> <span class="o">=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@comment</span><span class="o">.</span><span class="n">destroy</span>
+</span><span class='line'>    <span class="n">redirect_to</span> <span class="n">post_url</span><span class="p">(</span><span class="vi">@post</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著使用 jQuery ujs，送出 DELETE Form 到 post_comment_path(1, 1)：</p>
+
+<figure class='code'><figcaption><span>destroy_comment.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="s2">&quot;Delete comment&quot;</span><span class="p">,</span> <span class="n">post_comment_path</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>狀況</h2>
+
+<p>這個時候覺得每次刪除 comment，都會重新刷新畫面，太擾人了，想改用 Ajax 來完成，於是我們把 HTML 多了一個， <code>:remote =&gt; true</code>：</p>
+
+<figure class='code'><figcaption><span>destroy_comment.html.erb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%=</span> <span class="n">link_to</span><span class="p">(</span><span class="s2">&quot;Delete comment&quot;</span><span class="p">,</span> <span class="n">post_comment_path</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="ss">:method</span> <span class="o">=&gt;</span> <span class="ss">:delete</span><span class="p">,</span> <span class="ss">:remote</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Controller 則是維持不變。</p>
+
+<p>這樣會發生什麼事情呢？如果你也覺得只會刪除 comment 那就掉入陷阱了。</p>
+
+<h2>實際情況</h2>
+
+<p>按下 Delete comment 會發生什麼事情呢？首先會刪除 comment，這應該沒有什麼問題。那接下來遇到的 redirect 會發生什麼事情呢？</p>
+
+<p>如果送過來的不是 ajax，他會直接 redirect 到 <code>/post/1</code> 也就是 post_controller 的 show action，很理所當然的 show 出 post 內容。</p>
+
+<p>但如果是 Ajax 呢？他一樣會 redirect 到 <code>/post/1</code>，但是卻會用 <code>DELETE</code>，所以是丟到 post_controller 的 destroy action，於是你的 post 就會被刪除了XDDD</p>
+
+<p>為什麼會這樣呢？我也不知道XDDD，改天有空研究再另外 PO 一篇。</p>
+
+<h2>解決方法</h2>
+
+<p>其實只要依照不同的要求，回應不同的處理方法就好：</p>
+
+<figure class='code'><figcaption><span>comments_controller.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CommentsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">destroy</span>
+</span><span class='line'>    <span class="vi">@comment</span> <span class="o">=</span> <span class="vi">@post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@comment</span><span class="o">.</span><span class="n">destroy</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">html</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">redirect_to</span> <span class="n">post_url</span><span class="p">(</span><span class="vi">@post</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="nb">format</span><span class="o">.</span><span class="n">js</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">head</span> <span class="ss">:no_content</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是如果非常有自信得只改前端，肯定會掉入陷阱。第一次掉進去的時候，還真的嚇到我了，還好是在開發環境，沒刪到什麼重要資料，學了 Rails 半年多，到現在還是能給我驚奇 >////&lt;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -544,58 +675,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/01/localtunnel/">Localtunnel - 分享 Localhost Web Server</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-01T13:00:00+08:00" pubdate data-updated="true">May 1<span>st</span>, 2013</time>
-        
-           | <a href="/blog/2013/05/01/localtunnel/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2013/05/01/localtunnel/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
-
-<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
-
-<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
-或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
-
-<p>localtunnel 可以建立一個通道，並產生一個網址，
-客戶就可以用這個網址，連到內網的 Web Server。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/01/localtunnel/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -613,6 +692,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/21/201403-link-collection/">201403 連結收集</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
       </li>
     
@@ -626,10 +709,6 @@
     
       <li class="post">
         <a href="/blog/2014/01/17/babosa-friendly-id-solve-chinese-problems/">使用 Babosa 配合 Friendly_id 解決中文網址問題</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/01/17/201401-link-collection/">201401 連結收集</a>
       </li>
     
   </ul>

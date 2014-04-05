@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-03-08T16:39:53+08:00</updated>
+  <updated>2014-04-05T18:25:16+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[201403 連結收集]]></title>
+    <link href="http://blog.roachking.net/blog/2014/03/21/201403-link-collection/"/>
+    <updated>2014-03-21T02:38:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/03/21/201403-link-collection</id>
+    <content type="html"><![CDATA[<h2>Ruby</h2>
+
+<p><a href="https://github.com/play/play">play</a></p>
+
+<blockquote><p>play ► — your company&rsquo;s dj</p></blockquote>
+
+<p><a href="https://github.com/remore/burn">burn</a></p>
+
+<blockquote><p>A Toolkit To Create 8-bit Flavored Application</p></blockquote>
+
+<!-- more -->
+
+
+<p><a href="https://github.com/glebm/order_query">order_query</a></p>
+
+<blockquote><p>Finds next / previous Active Record(s) in one query</p></blockquote>
+
+<p><a href="https://github.com/benbalter/word-to-markdown">word-to-markdown</a></p>
+
+<blockquote><p>A ruby gem to liberate content from Microsoft Word documents</p></blockquote>
+
+<p><a href="https://github.com/skinnyworm/wechat-rails">wechat-rails</a></p>
+
+<blockquote><p>API and message handling for wechat in rails environment</p></blockquote>
+
+<p><a href="https://github.com/masuidrive/open-wripe">wri.pe</a></p>
+
+<blockquote><p><a href="https://wri.pe">https://wri.pe</a> source code</p></blockquote>
+
+<h2>Javascript</h2>
+
+<p><a href="https://github.com/gabrielecirulli/2048">2048</a></p>
+
+<blockquote><p>A small clone of 1024</p></blockquote>
+
+<p><a href="http://kenwheeler.github.io/slick/">slick</a></p>
+
+<blockquote><p>the last carousel you&rsquo;ll ever need</p></blockquote>
+
+<p><a href="https://github.com/Laverna/laverna">laverna</a></p>
+
+<blockquote><p>Laverna is a JavaScript note taking application with Markdown editor and encryption support. Consider it like open source alternative to Evernote.</p></blockquote>
+
+<p><a href="https://github.com/sdelements/lets-chat">Let&rsquo;s Chat</a></p>
+
+<blockquote><p>Let&rsquo;s Chat: Self-hosted chat app for small teams</p></blockquote>
+
+<p><a href="https://github.com/nosir/obelisk.js">obelisk.js</a></p>
+
+<blockquote><p>JavaScript Engine for Building Pixel Isometric Element with HTML5 Canvas</p></blockquote>
+
+<h2>CSS</h2>
+
+<p><a href="https://github.com/jxnblk/loading">Loading</a></p>
+
+<blockquote><p>This could take a while</p></blockquote>
+
+<p><a href="http://adamschwartz.co/magic-of-css/">The Magic of CSS</a></p>
+
+<blockquote><p>A CSS course for web developers who want to be magicians.</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[201402 連結收集]]></title>
@@ -2207,71 +2275,6 @@
 
 <p>雖然 Email 排版依然很痛苦，但是已經輕鬆很多，這個 Gem 還有更多設定，可以在 <a href="https://github.com/Mange/roadie">Roadie Repo</a> 找到，
 可以更進階得去修改 Email 裡面的內容。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Localtunnel - 分享 Localhost Web Server]]></title>
-    <link href="http://blog.roachking.net/blog/2013/05/01/localtunnel/"/>
-    <updated>2013-05-01T13:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/05/01/localtunnel</id>
-    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/945/0q3U6Zx2TRS1PPyQQ69x_localtunnel.png" alt="localtunnel" /></p>
-
-<p>localtunnel Official Site : <a href="http://progrium.com/localtunnel/">http://progrium.com/localtunnel/</a></p>
-
-<p>在接案公司裡，常常需要把做好的產品拿給客戶看，這時候如果沒有獨立 IP，
-或是 Router 那邊沒有設定 Port Forwarding，客戶就無法從遠端看到內網的 Web。</p>
-
-<p>localtunnel 可以建立一個通道，並產生一個網址，
-客戶就可以用這個網址，連到內網的 Web Server。</p>
-
-<!--more-->
-
-
-<h2>安裝 localtunnel</h2>
-
-<p>Localtunnel 需要使用 Gem 安裝:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo gem install localtunnel
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果你是使用 rvm，則不需要加上 sudo：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install localtunnel
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>打開你的 Web Server</h2>
-
-<p>他開你的 Web Server 並記下 Port，這裡以 8080 為例。</p>
-
-<h2>開始使用 localtunnel</h2>
-
-<p>第一次使用，必須附上 Public SSH key：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>localtunnel -k ~/.ssh/id_rsa.pub 8080
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>以後，則只需要打上 Web Server 的 Port</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>localtunnel 8080
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著就會看到</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>Port 8080 is now publicly accessible from http://4mec.localtunnel.com ...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>後面那串網址就是 localtunnel 幫你產生的，使用者就可以透過這個網址看到內網的 Web Server 了！</p>
 ]]></content>
   </entry>
   
