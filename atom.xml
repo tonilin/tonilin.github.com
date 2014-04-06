@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-04-05T18:25:16+08:00</updated>
+  <updated>2014-04-06T22:56:27+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[開始創業，名字叫 oSolve]]></title>
+    <link href="http://blog.roachking.net/blog/2014/04/07/my-startup-osolve/"/>
+    <updated>2014-04-07T12:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/04/07/my-startup-osolve</id>
+    <content type="html"><![CDATA[<p><a href="http://osolve.com/"><img src="http://blog.roachking.net/upload/osolve_og_image.png" alt="" /></a></p>
+
+<p>從出社會以後的第一間公司離職以後，就一直跟朋友說著要創業，我們有很多想法和想做的點子，卻一直都沒有行動，沒有行動的原因是覺得自己學的東西還不夠，因此決定繼續工作，學習經驗。但是有人跟我說，創業家永遠不會滿足於自己所學，永遠都有學不完的東西，於是我離開了公司，開始跟朋友一起創業。</p>
+
+<p>台灣有非常多的接案公司，使用 Ruby on Rails 開發的卻很少，更可惜的是使用 Ruby 開發 Server 配合 Mobile APP 的公司卻連一家都找不到。就我所知，Ruby 有很多方便的 Gem，可以使開發 API Server 變得非常迅速而且有系統，而大部分的 APP 都是需要跟 Server 做溝通的，如果在 Server 端的開發有 Ruby 的加持，可以節省非常多時間，讓客戶的產品能在最快的時間上線。</p>
+
+<p>於是我們公司提供了 Rails + Mobile APP 開發的解決方案，主要的服務項目是：</p>
+
+<ol>
+<li>Rails 網站開發</li>
+<li>iOS/Android APP 開發</li>
+<li>Web or APP 顧問</li>
+</ol>
+
+
+<p>如果有這方面的需求，可以在 <a href="http://osolve.com/">oSolve</a> 最下面的表單聯絡我們，我們會儘快跟你聯絡。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[201403 連結收集]]></title>
@@ -2089,192 +2113,6 @@
 
 <p>跟剛種好的比較一下，雖然沒有以前整齊，但是現在草地非常綠而且沒有醜醜的分隔線！
 <img src="http://user-image.logdown.io/user/7/blog/530/post/934/OCQFho0uQGVD5Zvm1y1g_garden_24.jpg" alt="Garden" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用 Roadie 減輕 Email 排版的痛]]></title>
-    <link href="http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie/"/>
-    <updated>2013-06-10T23:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie</id>
-    <content type="html"><![CDATA[<p>Roadie Repo : <a href="https://github.com/Mange/roadie">https://github.com/Mange/roadie</a></p>
-
-<p>在排版 Email 時最痛苦的就是要寫 Inline Style，跟平常在排版的時候習慣大不相同，
-而且 Inline Style 非常難維護，一封信同樣的 Style 就要複製一次，不同信的同樣 Style 也要複製一次，
-哪天單純只是要改一個小樣式，所有的 Email 都要拿出來改，光用想的就很恐怖，這就是每次要排版 Email 都很痛苦的其中一個原因。</p>
-
-<p>Roadie 就是用來解決這個問題的，你可以像平常一樣用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code>，或是直接包 Assets 裡面的 CSS 進來，甚至是 SCSS 也可以，
-它會自動幫你把 CSS 轉成 Inline Style，還會幫你把 HTML 裡的圖片改成 absolute URL。</p>
-
-<!-- more -->
-
-
-<h1>安裝 Roadie</h1>
-
-<p>在 Rails 的 Gemfile 加入：</p>
-
-<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;roadie&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>設定</h1>
-
-<p>在 <code>application.rb</code> 或環境設定檔裡面，依需求加入以下的設定：</p>
-
-<figure class='code'><figcaption><span>application.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">roadie</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">false</span> <span class="c1"># Roadie 是預設開啟的，可以設為 false 關閉 Roadie。  </span>
-</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">action_mailer</span><span class="o">.</span><span class="n">default_url_options</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:host</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">}</span> <span class="c1"># 有這行會自動將圖片的網址變成 Absolute。  </span>
-</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span> <span class="c1"># 預設是使用 assets pipeline 裡面的 CSS，如設為 false，則會到 `public/stylesheets` 裡面找。  </span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其他還有更進階的設定，請參考 <a href="https://github.com/Mange/roadie">Roadie Repo</a>。</p>
-
-<h1>開始使用</h1>
-
-<p>先測試看看用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code> ，是否能正確轉換：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nc">.red</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="nt">&lt;/style&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>成功輸出成 Inline Style：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;color:red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>使用 Asset Pipeline</h1>
-
-<p>前面的簡介有提到，可以直接使用 Asset pipeline 裡面的 SCSS，這樣我們就可以不用每封 Email 都重寫 CSS 了。</p>
-
-<p>在 Mailer 裡面加上 <code>default :css =&gt; :email</code>，代表使用 email 這個 CSS。</p>
-
-<figure class='code'><figcaption><span>app/mailers/sample_mailer.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SampleMailer</span> <span class="o">&lt;</span> <span class="ss">ActionMailer</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">default</span> <span class="ss">:css</span> <span class="o">=&gt;</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">send_example_email</span>
-</span><span class='line'>    <span class="n">mail</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span><span class="p">,</span> <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Sample Email&quot;</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>也可以個別在每個 method，加入 CSS：</p>
-
-<figure class='code'><figcaption><span>app/mailers/sample_mailer.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SampleMailer</span> <span class="o">&lt;</span> <span class="ss">ActionMailer</span><span class="p">:</span><span class="ss">:Base</span>
-</span><span class='line'>  <span class="n">default</span> <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">send_example_email</span>
-</span><span class='line'>    <span class="n">mail</span><span class="p">(</span><span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;example@example.com&quot;</span><span class="p">,</span> <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Sample Email&quot;</span><span class="p">,</span> <span class="ss">:css</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:email</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 <code>app/assets/stylesheets</code> 加入 <code>email.css.scss</code>：</p>
-
-<figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nv">$red</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nc">.red</span> <span class="p">{</span>
-</span><span class='line'>  <span class="na">color</span><span class="o">:</span> <span class="nv">$red</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接著 Email 的 HTML 就更簡潔了：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>太棒了！一樣可以看到正常運作：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;color:red&quot;</span><span class="nt">&gt;</span>Red text<span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>圖片自動轉換 Absolute URL</h1>
-
-<p>先隨意的加一段 Image tag：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;logo.png&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>可以看到自動變成：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;http://example.com/logo.png&quot;</span><span class="nt">&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果是 CSS 裡面的 Image：</p>
-
-<figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nc">.logo</span> <span class="p">{</span>
-</span><span class='line'>  <span class="na">background-image</span><span class="o">:</span> <span class="nf">image-url</span><span class="p">(</span><span class="s2">&quot;logo.png&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>竟然也會自動轉換：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">&quot;background-image:url(http://example.com/assets/logo.png)&quot;</span><span class="nt">&gt;</span>test<span class="nt">&lt;/p&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h1>小結</h1>
-
-<p>雖然 Email 排版依然很痛苦，但是已經輕鬆很多，這個 Gem 還有更多設定，可以在 <a href="https://github.com/Mange/roadie">Roadie Repo</a> 找到，
-可以更進階得去修改 Email 裡面的內容。</p>
 ]]></content>
   </entry>
   
