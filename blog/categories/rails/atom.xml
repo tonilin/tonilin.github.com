@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | 蟑螂窩]]></title>
   <link href="http://blog.roachking.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-04-06T22:56:27+08:00</updated>
+  <updated>2014-04-12T21:38:37+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -14,487 +14,85 @@
 
   
   <entry>
-    <title type="html"><![CDATA[jQuery-ujs Link_to Issue]]></title>
-    <link href="http://blog.roachking.net/blog/2013/10/02/jquery-ujs-remote-true-issue/"/>
-    <updated>2013-10-02T10:34:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/10/02/jquery-ujs-remote-true-issue</id>
-    <content type="html"><![CDATA[<p>在 Rails 中，常常會使用 <code>remote =&gt; true</code> 的方式，使連結變成 Ajax 的方式送出去：</p>
+    <title type="html"><![CDATA[Rails 4.1.0 Invalid Locale 問題]]></title>
+    <link href="http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle/"/>
+    <updated>2014-04-12T21:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle</id>
+    <content type="html"><![CDATA[<p>最近 Rails 4.1.0 release，在升級的時候發生了一個錯誤:</p>
 
-<p><code>ruby
-link_to "Delete Comment", comment_path(@comment), :remote =&gt; true, :method =&gt; :delete
+<p><code>bash
+:zh is not a valid locale
 </code></p>
 
-<p>這樣的好處是不用另外寫 Ajax ，就可以輕鬆得送出 Ajax。</p>
+<p>application.rb 的 code 佷簡單：</p>
 
-<p>如果不指定 <code>remote =&gt; true</code> 只有指定 <code>method</code>，在點擊連結以後 jquery-ujs 會幫你產生一個表單，這個表單會放在 <code>&lt;body&gt;</code> 裡面，而且馬上送出去，如此，可以讓連結不只有 GET ，更可以做到 RESTful的效果。</p>
+<p>```ruby
+module Demo
+  class Application &lt; Rails::Application</p>
 
-<p><code>ruby
-link_to "Delete Comment", comment_path(@comment), :method =&gt; :delete
-</code></p>
-
-<p>但是這樣的方法卻會產生一些 issue。</p>
-
-<!--more-->
-
-
-<h2>Issue</h2>
-
-<p>以上兩個方法產生出來的 HTML 是一般的 <code>&lt;a&gt;</code> tag：</p>
-
-<p><code>html
-&lt;a href="http://blog.roachking.net/comments" data-remote="true" data-method="delete"&gt;Delete Comment&lt;/a&gt;
-</code></p>
-
-<p>這樣看起來似乎不會有什麼問題，但如果使用者對連結做了開新視窗的動作：</p>
-
-<ol>
-<li>按滑鼠中鍵點連結</li>
-<li>按右鍵 &ndash;> 選擇開新視窗</li>
-<li>按住 <code>CMD</code>，再點連結</li>
-</ol>
-
-
-<p>相當於：</p>
-
-<p><code>html
-&lt;a href="http://blog.roachking.net/comments" target="_blank"&gt;Delete Comment&lt;/a&gt;
-</code></p>
-
-<p>這樣的行為是發出 <code>GET</code> 到 CommentsController 的 index action，跟原本的發 <code>DELETE</code> 到 destroy action 是不相同的，使用者達不到刪除的效果，而且如果 index 沒東西，那就會造成 500。</p>
-
-<h2>button_to solution</h2>
-
-<p>在 Rails 有一個 button_to 的 helper：</p>
-
-<p><code>ruby
-button_to "Delete Comment", comment_path(@comment), :remote: true, :method =&gt; :delete
-</code></p>
-
-<p>用 button_to 雖然可以解決部份的問題，但仔細看一下他產生的 html：</p>
-
-<p><code>html
-&lt;form method="post" action="/comments" class="button_to" data-remote="true"&gt;
-  &lt;div&gt;
-  &lt;input type="hidden" name="_method" value="delete" /&gt;
-  &lt;input value="Delete Comment" type="submit" /&gt;
-  &lt;input name="authenticity_token" type="hidden" value="xxxxxxx"/&gt;
-  &lt;/div&gt;
-&lt;/form&gt;"
-</code></p>
-
-<p>這樣的 HTML 會產生幾個問題：</p>
-
-<ol>
-<li>因為產生的是 <code>&lt;form&gt;</code> 所以不能在 <code>&lt;form&gt;</code> 裡面使用，HTML 是不允許 nested form 的。</li>
-<li><code>&lt;form&gt;</code> 預設是 <code>display:block</code>，跟原本的 <code>&lt;a&gt;</code>，表現方式不一樣，需要 overide style。</li>
-<li><code>&lt;input&gt;</code> value 裡面不能塞 HTML，所以如果這個按鈕有 icon 之類的 tag 就無法放進去(這個問題在 Rails 4.0有修正)。</li>
-</ol>
-
-
-<h2>Solution</h2>
-
-<p>這個問題真的很惱人，原本很好用的小技巧，變成天天被 Airbrake 轟炸的原兇，所以就寫了一個 button_link_to helper：</p>
-
-<p>```ruby application_helper.rb
-module ApplicationHelper
-  def button_link_to(name = nil, options = nil, html_options = nil, &amp;block)</p>
-
-<pre><code>html_options, options = options, name if block_given?
-options ||= {}
-html_options = convert_options_to_data_attributes(options, html_options)
-url = url_for(options)
-
-html_options.merge!({"data-url" =&gt; url, :type =&gt; "button"})
-
-content_tag(:button, name || url, html_options, &amp;block)
+<pre><code>config.i18n.default_locale = :"zh-TW"
 </code></pre>
 
 <p>  end
 end
 ```</p>
 
-<p>這個方法跟 <code>link_to</code> 使用的方式一模一樣，產生出來的是 <code>&lt;button&gt;</code> tag，而且是單純的 tag，不會有 <code>&lt;form&gt;</code> 包在外面：</p>
+<p>以前不會出錯，為什麼現在會呢？於是 Google 了一下，發現 Rails 4.1.0 會將 <code>I18n.config.enforce_available_locales</code> 預設為 <code>true</code></p>
 
-<p><code>ruby
-button_link_to "Delete Comment", "/comments", :remote =&gt; true
-</code></p>
+<p>在 <code>enforce_available_locales</code> 為 <code>true</code> 的情況下，只要將 <code>locale</code> 設為不包含在 <code>available_locales</code> 內的值，就會報錯。</p>
 
-<p><code>html
-&lt;button data-url="/comments" data-remote="true" type="button"&gt;Delete Comment&lt;/button&gt;
-</code></p>
+<p>解法佷簡單就直接在 <code>application.rb</code> 裡面把 enforce_available_locales 改為 false：</p>
 
-<p>預設的 jquery-ujs，按到這個 button，就已經會自動發 ajax 出去，但是這邊應該要讓按中鍵也會跟按左鍵有一樣的效果，於是要加上下面的 js：</p>
+<p>```ruby
+module Demo
+  class Application &lt; Rails::Application</p>
 
-<p>```javascript application.js
-$(document).on(&ldquo;mouseup&rdquo;, &ldquo;button[data-remote]&rdquo;, function(e) {
-  // middle button click
-  if(e.which == 2) {</p>
-
-<pre><code>$(e.currentTarget).trigger("click.rails")
-</code></pre>
-
-<p>  }
-});
-```</p>
-
-<p>但是如果沒有 <code>:remote =&gt; true</code>，只有指定 <code>method</code>，照原本的規則應該在 <code>&lt;body&gt;</code> 裡面塞 form，並自動送出去，所以要再加入：</p>
-
-<p>```javascript application.js
-  $(document).on(&ldquo;click.rails&rdquo;, &ldquo;button[data-method]&rdquo;, function(e) {</p>
-
-<pre><code>button = $(e.currentTarget)
-
-
-if (button.data('method') &amp;&amp; button.data('remote') === undefined) {
-  if (!$.rails.allowAction(button)) return $.rails.stopEverything(e);
-
-  handleMethod(button)
-}
-</code></pre>
-
-<p>  });</p>
-
-<p>  var handleMethod = function(button) {</p>
-
-<pre><code>var url = button.data("url"),
-  method = button.data('method'),
-  target = button.data('target'),
-  csrf_token = $('meta[name=csrf-token]').attr('content'),
-  csrf_param = $('meta[name=csrf-param]').attr('content'),
-  form = $('&lt;form method="post" action="' + url + '"&gt;&lt;/form&gt;'),
-  metadata_input = '&lt;input name="_method" value="' + method + '" type="hidden" /&gt;';
-
-if (csrf_param !== undefined &amp;&amp; csrf_token !== undefined) {
-  metadata_input += '&lt;input name="' + csrf_param + '" value="' + csrf_token + '" type="hidden" /&gt;';
-}
-
-if (target) { form.attr('target', target); }
-
-form.hide().append(metadata_input).appendTo('body');
-form.submit();
-</code></pre>
-
-<p>  }</p>
-
-<p>```</p>
-
-<p>這樣一來 button_link_to 就可以做到 ajax send 和 form submit 的功能了！</p>
-
-<h2>Style</h2>
-
-<p>原本的 <code>&lt;a&gt;</code> 和 <code>&lt;button&gt;</code> 樣式是不一樣的，一個是文字，一個是按鈕。</p>
-
-<p>這時候只要加上 Twitter Bootstrap 的 <code>btn-link</code> class 就好了：</p>
-
-<p><code>ruby
-button_link_to "Delete Comment", "/comments", :remote =&gt; true, :class =&gt; "btn-link"
-</code></p>
-
-<h2>HTML button</h2>
-
-<p>因為使用的是 button 而不是 input，所以也可以塞 HTML 進去，Icon 就可以正常運作了，使用跟 link_to 一樣的方式丟入 block：</p>
-
-<p><code>html
-button_link_to , "/comments", :remote =&gt; true, :class =&gt; "btn-link" do
-  &lt;i class="icon-remove"&gt;&lt;/i&gt;  Delete Comment
-end
-</code></p>
-
-<h2>實現 Confirm message</h2>
-
-<p>```javascript
-  $(document).on(&ldquo;click.rails&rdquo;, &ldquo;button[data-method]&rdquo;, function(e) {</p>
-
-<pre><code>button = $(e.currentTarget)
-
-if (button.data('method') &amp;&amp; button.data('remote') === undefined) {
-  if (!$.rails.allowAction(button)) return $.rails.stopEverything(e);
-
-  handleMethod(button)
-}
-</code></pre>
-
-<p>  });</p>
-
-<p>```</p>
-
-<h2>實現 data-disabled-with</h2>
-
-<p>```javascript</p>
-
-<p>  $(document).on(&ldquo;click.rails&rdquo;, &ldquo;button[data-method]&rdquo;, function(e) {</p>
-
-<pre><code>button = $(e.currentTarget)
-
-if (button.data('disable-with')) $.rails.disableElement(button);
-
-if (button.data('method') &amp;&amp; button.data('remote') === undefined) {
-  if (!$.rails.allowAction(button)) return $.rails.stopEverything(e);
-
-  handleMethod(button)
-}
-</code></pre>
-
-<p>  });</p>
-
-<p>  $(document).on(&ldquo;ajax:complete&rdquo;, &ldquo;button[data-disable-with]&rdquo;, function() {</p>
-
-<pre><code>$.rails.enableElement($(this));
-</code></pre>
-
-<p>  });</p>
-
-<p>```</p>
-
-<h2>Code</h2>
-
-<p>這邊我把會用到的 code 總結起來，把這些 code 貼到 <code>application_helper.rb</code> 和 <code>application.js</code> 裡面，接著把 link_to 改成 button_link_to，再修一下 style 就可以了！</p>
-
-<p>```ruby application_helper.rb
-module ApplicationHelper
-  def button_link_to(name = nil, options = nil, html_options = nil, &amp;block)</p>
-
-<pre><code>html_options, options = options, name if block_given?
-options ||= {}
-html_options = convert_options_to_data_attributes(options, html_options)
-url = url_for(options)
-
-html_options.merge!({"data-url" =&gt; url, :type =&gt; "button"})
-
-content_tag(:button, name || url, html_options, &amp;block)
+<pre><code>config.i18n.enforce_available_locales = false
+config.i18n.default_locale = :"zh-TW"
 </code></pre>
 
 <p>  end
 end
 ```</p>
 
-<p>```javascript application.js
-(function() {
-  $document = $(document)</p>
+<p>如果想用 enforce_available_locales 但又不希望報錯呢？試著加入 available_locales 看看：</p>
 
-<p>  $(document).on(&ldquo;mouseup&rdquo;, &ldquo;button[data-remote]&rdquo;, function(e) {</p>
+<p>```ruby
+module Demo
+  class Application &lt; Rails::Application</p>
 
-<pre><code>// middle button click
-if(e.which == 2) {
-  $(e.currentTarget).trigger("click.rails")
-}
+<pre><code>config.i18n.available_locales = [:"zh-TW"]
+config.i18n.default_locale = :"zh-TW"
 </code></pre>
 
-<p>  });</p>
-
-<p>  $document.on(&ldquo;click.rails&rdquo;, &ldquo;button[data-method]&rdquo;, function(e) {</p>
-
-<pre><code>button = $(e.currentTarget)
-
-if (button.data('disable-with')) $.rails.disableElement(button);
-
-if (button.data('method') &amp;&amp; button.data('remote') === undefined) {
-  if (!$.rails.allowAction(button)) return $.rails.stopEverything(e);
-
-  handleMethod(button)
-}
-</code></pre>
-
-<p>  });</p>
-
-<p>  $document.on(&ldquo;ajax:complete&rdquo;, &ldquo;button[data-disable-with]&rdquo;, function() {</p>
-
-<pre><code>$.rails.enableElement($(this));
-</code></pre>
-
-<p>  });</p>
-
-<p>  var handleMethod = function(button) {</p>
-
-<pre><code>var url = button.data("url"),
-  method = button.data('method'),
-  target = button.data('target'),
-  csrf_token = $('meta[name=csrf-token]').attr('content'),
-  csrf_param = $('meta[name=csrf-param]').attr('content'),
-  form = $('&lt;form method="post" action="' + url + '"&gt;&lt;/form&gt;'),
-  metadata_input = '&lt;input name="_method" value="' + method + '" type="hidden" /&gt;';
-
-if (csrf_param !== undefined &amp;&amp; csrf_token !== undefined) {
-  metadata_input += '&lt;input name="' + csrf_param + '" value="' + csrf_token + '" type="hidden" /&gt;';
-}
-
-if (target) { form.attr('target', target); }
-
-form.hide().append(metadata_input).appendTo('body');
-form.submit();
-</code></pre>
-
-<p>  }</p>
-
-<p>})();</p>
-
-<p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用 Roadie 減輕 Email 排版的痛]]></title>
-    <link href="http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie/"/>
-    <updated>2013-06-10T23:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/06/10/rails-gem-roadie</id>
-    <content type="html"><![CDATA[<p>Roadie Repo : <a href="https://github.com/Mange/roadie">https://github.com/Mange/roadie</a></p>
-
-<p>在排版 Email 時最痛苦的就是要寫 Inline Style，跟平常在排版的時候習慣大不相同，
-而且 Inline Style 非常難維護，一封信同樣的 Style 就要複製一次，不同信的同樣 Style 也要複製一次，
-哪天單純只是要改一個小樣式，所有的 Email 都要拿出來改，光用想的就很恐怖，這就是每次要排版 Email 都很痛苦的其中一個原因。</p>
-
-<p>Roadie 就是用來解決這個問題的，你可以像平常一樣用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code>，或是直接包 Assets 裡面的 CSS 進來，甚至是 SCSS 也可以，
-它會自動幫你把 CSS 轉成 Inline Style，還會幫你把 HTML 裡的圖片改成 absolute URL。</p>
-
-<!-- more -->
-
-
-<h1>安裝 Roadie</h1>
-
-<p>在 Rails 的 Gemfile 加入：</p>
-
-<p><code>ruby Gemfile
-gem 'roadie'
-</code></p>
-
-<h1>設定</h1>
-
-<p>在 <code>application.rb</code> 或環境設定檔裡面，依需求加入以下的設定：</p>
-
-<p><code>ruby application.rb
-config.roadie.enabled = false # Roadie 是預設開啟的，可以設為 false 關閉 Roadie。  
-config.action_mailer.default_url_options = {:host =&gt; 'example.com'} # 有這行會自動將圖片的網址變成 Absolute。  
-config.assets.enabled = true # 預設是使用 assets pipeline 裡面的 CSS，如設為 false，則會到 `public/stylesheets` 裡面找。  
-</code></p>
-
-<p>其他還有更進階的設定，請參考 <a href="https://github.com/Mange/roadie">Roadie Repo</a>。</p>
-
-<h1>開始使用</h1>
-
-<p>先測試看看用 <code>&lt;style type="text/css"&gt;&lt;/style&gt;</code> ，是否能正確轉換：
-```html</p>
-
-
-
-
-
-<p class="red">Red text</p>
-
-
-<p>```</p>
-
-<p>成功輸出成 Inline Style：
-```html</p>
-
-<p style="color:red">Red text</p>
-
-
-<p>```</p>
-
-<h1>使用 Asset Pipeline</h1>
-
-<p>前面的簡介有提到，可以直接使用 Asset pipeline 裡面的 SCSS，這樣我們就可以不用每封 Email 都重寫 CSS 了。</p>
-
-<p>在 Mailer 裡面加上 <code>default :css =&gt; :email</code>，代表使用 email 這個 CSS。
-```ruby app/mailers/sample_mailer.rb
-class SampleMailer &lt; ActionMailer::Base
-  default :css => :email, :from => &ldquo;<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#x65;&#x40;&#x65;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#99;&#111;&#109;">&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#x65;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#109;</a>&rdquo;</p>
-
-<p>  def send_example_email</p>
-
-<pre><code>mail(:to =&gt; "example@example.com", :subject =&gt; "Sample Email")
-</code></pre>
-
-<p>  end</p>
-
-<p>end
+<p>  end
+end
 ```</p>
 
-<p>也可以個別在每個 method，加入 CSS：
-```ruby app/mailers/sample_mailer.rb
-class SampleMailer &lt; ActionMailer::Base
-  default :from => &ldquo;<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#101;&#120;&#x61;&#109;&#112;&#108;&#101;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#x65;&#46;&#99;&#x6f;&#x6d;">&#101;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#64;&#101;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#46;&#x63;&#111;&#109;</a>&rdquo;</p>
+<p>依然還是會出現一樣的錯誤 <code>:zh is not a valid locale</code>，奇怪，我設定的是 <code>:"zh-TW"</code>，怎麼會報 <code>:zh</code> 不允許呢？
+找了很久，發現在 <code>production.rb</code> 裡面有一行 i18n fallback：</p>
 
-<p>  def send_example_email</p>
+<p><code>ruby
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation can not be found).
+  config.i18n.fallbacks = true
+</code></p>
 
-<pre><code>mail(:to =&gt; "example@example.com", :subject =&gt; "Sample Email", :css =&gt; [:email])
+<p>把 i18n fallbacks 設為 <code>true</code>，在找不到 <code>:"zh-TW"</code> 的 locale 的時候，會接著尋找 <code>:zh</code>，<code>:zh</code> 找不到才會接著找 <code>:en</code>。</p>
+
+<p>於是解決方法就很清楚了，只要連 <code>:zh</code> 一起 available 就可以了：</p>
+
+<p>```ruby
+module Demo
+  class Application &lt; Rails::Application</p>
+
+<pre><code>config.i18n.available_locales = [:"zh-TW", :zh]
+config.i18n.default_locale = :"zh-TW"
 </code></pre>
 
-<p>  end</p>
-
-<p>end
+<p>  end
+end
 ```</p>
-
-<p>在 <code>app/assets/stylesheets</code> 加入 <code>email.css.scss</code>：</p>
-
-<p>```scss app/assets/stylesheets/email.css.scss
-$red: red;</p>
-
-<p>.red {
-  color: $red;
-}
-```</p>
-
-<p>接著 Email 的 HTML 就更簡潔了：
-```html</p>
-
-<p class="red">Red text</p>
-
-
-<p>```</p>
-
-<p>太棒了！一樣可以看到正常運作：
-```html</p>
-
-<p style="color:red">Red text</p>
-
-
-<p>```</p>
-
-<h1>圖片自動轉換 Absolute URL</h1>
-
-<p>先隨意的加一段 Image tag：
-<code>html
-&lt;img src="logo.png"&gt;
-</code></p>
-
-<p>可以看到自動變成：
-<code>html
-&lt;img src="http://example.com/logo.png"&gt;
-</code></p>
-
-<p>如果是 CSS 裡面的 Image：
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>app/assets/stylesheets/email.css.scss </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='scss'><span class='line'><span class="nc">.logo</span> <span class="p">{</span>
-</span><span class='line'>  <span class="na">background-image</span><span class="o">:</span> <span class="nf">image-url</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="nt">logo</span><span class="nc">.png</span><span class="k">&amp;</span><span class="nt">rdquo</span><span class="o">;)</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>竟然也會自動轉換：</p>
-
-<p>```html</p>
-
-<p style="background-image:url(http://example.com/assets/logo.png)">test</p>
-
-
-<p>```</p>
-
-<h1>小結</h1>
-
-<p>雖然 Email 排版依然很痛苦，但是已經輕鬆很多，這個 Gem 還有更多設定，可以在 <a href="https://github.com/Mange/roadie">Roadie Repo</a> 找到，
-可以更進階得去修改 Email 裡面的內容。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[=== 轉職 Rails Developer 分隔線 ===]]></title>
-    <link href="http://blog.roachking.net/blog/2013/04/18/become-rails-developer/"/>
-    <updated>2013-04-18T23:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/04/18/become-rails-developer</id>
-    <content type="html"><![CDATA[<p>決定轉職 Rails Developer，日後補上 PHP => Rails 心得文</p>
 ]]></content>
   </entry>
   

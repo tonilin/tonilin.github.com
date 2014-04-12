@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-04-06T22:56:27+08:00</updated>
+  <updated>2014-04-12T21:38:37+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,6 +12,112 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 4.1.0 Invalid Locale 問題]]></title>
+    <link href="http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle/"/>
+    <updated>2014-04-12T21:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle</id>
+    <content type="html"><![CDATA[<p>最近 Rails 4.1.0 release，在升級的時候發生了一個錯誤:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>:zh is not a valid locale
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>application.rb 的 code 佷簡單：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Demo</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="ss">Rails</span><span class="p">:</span><span class="ss">:Application</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="ss">:&quot;zh-TW&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以前不會出錯，為什麼現在會呢？於是 Google 了一下，發現 Rails 4.1.0 會將 <code>I18n.config.enforce_available_locales</code> 預設為 <code>true</code></p>
+
+<p>在 <code>enforce_available_locales</code> 為 <code>true</code> 的情況下，只要將 <code>locale</code> 設為不包含在 <code>available_locales</code> 內的值，就會報錯。</p>
+
+<p>解法佷簡單就直接在 <code>application.rb</code> 裡面把 enforce_available_locales 改為 false：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Demo</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="ss">Rails</span><span class="p">:</span><span class="ss">:Application</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">enforce_available_locales</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="ss">:&quot;zh-TW&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果想用 enforce_available_locales 但又不希望報錯呢？試著加入 available_locales 看看：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Demo</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="ss">Rails</span><span class="p">:</span><span class="ss">:Application</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">available_locales</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:&quot;zh-TW&quot;</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="ss">:&quot;zh-TW&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>依然還是會出現一樣的錯誤 <code>:zh is not a valid locale</code>，奇怪，我設定的是 <code>:"zh-TW"</code>，怎麼會報 <code>:zh</code> 不允許呢？
+找了很久，發現在 <code>production.rb</code> 裡面有一行 i18n fallback：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="c1"># Enable locale fallbacks for I18n (makes lookups for any locale fall back to</span>
+</span><span class='line'>  <span class="c1"># the I18n.default_locale when a translation can not be found).</span>
+</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">fallbacks</span> <span class="o">=</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把 i18n fallbacks 設為 <code>true</code>，在找不到 <code>:"zh-TW"</code> 的 locale 的時候，會接著尋找 <code>:zh</code>，<code>:zh</code> 找不到才會接著找 <code>:en</code>。</p>
+
+<p>於是解決方法就很清楚了，只要連 <code>:zh</code> 一起 available 就可以了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">module</span> <span class="nn">Demo</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="ss">Rails</span><span class="p">:</span><span class="ss">:Application</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">available_locales</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:&quot;zh-TW&quot;</span><span class="p">,</span> <span class="ss">:zh</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">config</span><span class="o">.</span><span class="n">i18n</span><span class="o">.</span><span class="n">default_locale</span> <span class="o">=</span> <span class="ss">:&quot;zh-TW&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[開始創業，名字叫 oSolve]]></title>
@@ -2084,35 +2190,6 @@
     <id>http://blog.roachking.net/blog/2013/08/06/coscup-2-13-lightening-talk-slides</id>
     <content type="html"><![CDATA[<script async class="speakerdeck-embed" data-id="339c80e0dfec0130277d76f03c70f61c" data-ratio="1.2994923857868" src="//speakerdeck.com/assets/embed.js"></script>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[空中花園現況]]></title>
-    <link href="http://blog.roachking.net/blog/2013/07/07/status-of-the-hanging-garden/"/>
-    <updated>2013-07-07T20:56:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/07/07/status-of-the-hanging-garden</id>
-    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/4515/k7rOAXRzSWij0wKaKIFj_2013-05-25%2011.21.53.jpg" alt="Garden" /></p>
-
-<p>繼上次發表 <a href="http://blog.roachking.net/blog/2012/11/30/garden-1-0" title="DIY 空中花園 1.0">DIY 空中花園 1.0</a> 以後，一直有人寄信問我最近花園的近況怎樣了，所以特別寫一篇文章，來放最近花園的近況。</p>
-
-<!--more-->
-
-
-<p>先從門口看出去，可以看出草皮，有些地方黃掉了，那是因為冬天春天太陽比較曬不到，現在已經好非常多了！
-<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/nqHd2QOPT6Gl9MU5m0Ys_2013-05-25%2015.37.50.jpg" alt="Garden" /></p>
-
-<p>整體來一張！這是還沒修剪過的，可以看到草很茂密！
-<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/gB9tDcaTIGGqeeNuUpuQ_2013-05-25%2011.21.37.jpg" alt="Garden" /></p>
-
-<p>近看，好綠！
-<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/2kLhdMaeSoqcZBwzP8Fu_2013-05-25%2011.21.53.jpg" alt="Garden" /></p>
-
-<p>出去買了大剪刀回來修剪，修剪完整齊多了！
-<img src="http://user-image.logdown.io/user/7/blog/530/post/4515/DcJ98DMRAjE4df8b4dNQ_2013-05-25%2015.37.34.jpg" alt="Garden" /></p>
-
-<p>跟剛種好的比較一下，雖然沒有以前整齊，但是現在草地非常綠而且沒有醜醜的分隔線！
-<img src="http://user-image.logdown.io/user/7/blog/530/post/934/OCQFho0uQGVD5Zvm1y1g_garden_24.jpg" alt="Garden" /></p>
 ]]></content>
   </entry>
   
