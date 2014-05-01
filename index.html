@@ -9,13 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="最近 Rails 4.1.0 release，在升級的時候發生了一個錯誤: 1
-:zh is not a valid locale application.rb 的 code 佷簡單： 1
-2
-3
-4
-5
-module Demo class Application &lt; Rails:: &hellip;">
+  <meta name="description" content="Ruby TDD is dead. Long live testing RailsConf 2014 got underway earlier this week and as always some interesting stuff has come out of the keynotes, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -39,13 +33,7 @@ module Demo class Application &lt; Rails:: &hellip;">
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/" />
-<meta property="og:description" content="最近 Rails 4.1.0 release，在升級的時候發生了一個錯誤: 1
-:zh is not a valid locale application.rb 的 code 佷簡單： 1
-2
-3
-4
-5
-module Demo class Application &lt; Rails::Application config.i18n.default_locale = :&quot;zh-TW& &hellip;" />
+<meta property="og:description" content="Ruby TDD is dead. Long live testing RailsConf 2014 got underway earlier this week and as always some interesting stuff has come out of the keynotes, particularly DHH’s statements on the weakness of &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -95,6 +83,78 @@ module Demo class Application &lt; Rails::Application config.i18n.default_locale
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-21T02:38:00+08:00" pubdate data-updated="true">Apr 21<span>st</span>, 2014</time>
+        
+           | <a href="/blog/2014/04/21/201404-link-collection/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2014/04/21/201404-link-collection/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Ruby</h2>
+
+<p><a href="http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html?utm_source=rubyweekly&amp;utm_medium=email">TDD is dead. Long live testing</a></p>
+
+<blockquote><p>RailsConf 2014 got underway earlier this week and as always some interesting stuff has come out of the keynotes, particularly DHH’s statements on the weakness of test driven development.</p></blockquote>
+
+<p><a href="http://edgeguides.rubyonrails.org/4_1_release_notes.html">Ruby on Rails 4.1 Release Notes</a></p>
+
+<blockquote><p>Highlights in Rails 4.1: Spring application preloader, config/secrets.yml, Action Pack variants, Action Mailer previews</p></blockquote>
+
+<p><a href="https://www.ruby-lang.org/en/news/2014/04/10/severe-openssl-vulnerability/?utm_source=rubyweekly&amp;utm_medium=email">OpenSSL Severe Vulnerability in TLS Heartbeat Extension (CVE-2014-0160)</a></p>
+
+<blockquote><p>Ruby is affected when statically compiled against a vulnerable version of OpenSSL through the standard library OpenSSL C extension.</p></blockquote>
+
+<p><a href="https://github.com/chrismccord/sync">Sync</a></p>
+
+<blockquote><p>Real-time Rails Partials</p></blockquote>
+
+<p><a href="https://github.com/ecmendenhall/wgif">WGif</a></p>
+
+<blockquote><p>WGif is a command line tool for creating animated GIFs from YouTube videos.</p></blockquote>
+
+<p><a href="https://github.com/madrobby/zaru">zaru</a></p>
+
+<blockquote><p>Filename sanitization for Ruby</p></blockquote>
+
+<p><a href="https://github.com/kickstarter/rack-attack">Rack::Attack!!!</a></p>
+
+<blockquote><p>Rack middleware for blocking &amp; throttling</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/04/21/201404-link-collection/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -820,107 +880,6 @@ module Demo class Application &lt; Rails::Application config.i18n.default_locale
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/30/bundle-install-parallel/">Bundle Install Parallel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T15:25:00+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/12/30/bundle-install-parallel/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2013/12/30/bundle-install-parallel/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Bundler 在 v1.4 以後新增了 parallel install 的功能，可以增快 <code>bundle install</code> 的速度。</p>
-
-<p>根據 <a href="https://github.com/bundler/bundler/pull/2481">https://github.com/bundler/bundler/pull/2481</a> 這個 pull requst 來看，在 gem 的數量很多的時候，速度是相差非常大的：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bundle --path sequential  183.03s user 45.13s system 38% cpu 9:55.48 total
-</span><span class='line'>bundle --path parallel -j4  234.85s user 50.14s system 77% cpu 6:05.52 total</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>事先準備</h2>
-
-<p>首先要確定自己的 bundler 版本是不是大於 1.4:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle --version
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果不是的話請先升級 bundler:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install bundler -v <span class="s2">&quot;&gt;=1.5.1&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>確認自己 cpu 有幾個核心(以 osx 為範例)：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sysctl -n hw.ncpu
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我是用 macbook air，是四核，下面都以 4 核為範例。</p>
-
-<h2>使用 parallel install</h2>
-
-<p>升級 bundler 後就可以使用 parallel 了，只要在後面加上 -j4，4 代表 4 個 jobs：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle install -j4
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>也可以 global 更改預設的 jobs 數：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle config --global <span class="nb">jobs </span>4
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣就不用每次都打 <code>-j4</code> 。</p>
-
-<h2>使用在 capistrano 上</h2>
-
-<p>如果在 capistrano 的 <code>deploy.rb</code> 是使用 <code>require "bundler/capistrano"</code>，只要在 <code>deploy.rb</code> 裡面加上：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span> :bundle_flags,    <span class="s2">&quot;--deployment --quiet -j4&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這樣在跑 <code>cap deploy</code> 的時候， <code>bundle install</code> 就會加上 <code>-j4</code> 了。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -936,6 +895,10 @@ module Demo class Application &lt; Rails::Application config.i18n.default_locale
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/12/rails-4-1-0-invalid-locacle/">Rails 4.1.0 Invalid Locale 問題</a>
       </li>
     
@@ -949,10 +912,6 @@ module Demo class Application &lt; Rails::Application config.i18n.default_locale
     
       <li class="post">
         <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="今天做案子時，需要在 Devise user create 前後做一些事情，但是又不想污染 User model，以往的方法就是寫一個 Users::RegistrationsController 去繼承 Devise::RegistrationsController，然後把整個 method &hellip;">
+  <meta name="description" content="Bundler 在 v1.4 以後新增了 parallel install 的功能，可以增快 bundle install 的速度。 根據 https://github.com/bundler/bundler/pull/2481 這個 pull requst 來看，在 gem 的數量很多的時候， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,22 +33,9 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/2/" />
-<meta property="og:description" content="今天做案子時，需要在 Devise user create 前後做一些事情，但是又不想污染 User model，以往的方法就是寫一個 Users::RegistrationsController 去繼承 Devise::RegistrationsController，然後把整個 method copy 過來一次： 1
+<meta property="og:description" content="Bundler 在 v1.4 以後新增了 parallel install 的功能，可以增快 bundle install 的速度。 根據 https://github.com/bundler/bundler/pull/2481 這個 pull requst 來看，在 gem 的數量很多的時候，速度是相差非常大的： 1
 2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16 &hellip;" />
+bundle --path sequential 183.03s &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -98,6 +85,107 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/30/bundle-install-parallel/">Bundle Install Parallel</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T15:25:00+08:00" pubdate data-updated="true">Dec 30<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/12/30/bundle-install-parallel/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/12/30/bundle-install-parallel/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Bundler 在 v1.4 以後新增了 parallel install 的功能，可以增快 <code>bundle install</code> 的速度。</p>
+
+<p>根據 <a href="https://github.com/bundler/bundler/pull/2481">https://github.com/bundler/bundler/pull/2481</a> 這個 pull requst 來看，在 gem 的數量很多的時候，速度是相差非常大的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle --path sequential  183.03s user 45.13s system 38% cpu 9:55.48 total
+</span><span class='line'>bundle --path parallel -j4  234.85s user 50.14s system 77% cpu 6:05.52 total</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>事先準備</h2>
+
+<p>首先要確定自己的 bundler 版本是不是大於 1.4:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle --version
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果不是的話請先升級 bundler:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem install bundler -v <span class="s2">&quot;&gt;=1.5.1&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>確認自己 cpu 有幾個核心(以 osx 為範例)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sysctl -n hw.ncpu
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我是用 macbook air，是四核，下面都以 4 核為範例。</p>
+
+<h2>使用 parallel install</h2>
+
+<p>升級 bundler 後就可以使用 parallel 了，只要在後面加上 -j4，4 代表 4 個 jobs：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle install -j4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也可以 global 更改預設的 jobs 數：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle config --global <span class="nb">jobs </span>4
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣就不用每次都打 <code>-j4</code> 。</p>
+
+<h2>使用在 capistrano 上</h2>
+
+<p>如果在 capistrano 的 <code>deploy.rb</code> 是使用 <code>require "bundler/capistrano"</code>，只要在 <code>deploy.rb</code> 裡面加上：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">set</span> :bundle_flags,    <span class="s2">&quot;--deployment --quiet -j4&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣在跑 <code>cap deploy</code> 的時候， <code>bundle install</code> 就會加上 <code>-j4</code> 了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -721,46 +809,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/06/coscup-2-13-lightening-talk-slides/">Coscup 2013 Lightening Talk 投影片</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-06T02:10:00+08:00" pubdate data-updated="true">Aug 6<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/08/06/coscup-2-13-lightening-talk-slides/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2013/08/06/coscup-2-13-lightening-talk-slides/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><script async class="speakerdeck-embed" data-id="339c80e0dfec0130277d76f03c70f61c" data-ratio="1.2994923857868" src="//speakerdeck.com/assets/embed.js"></script>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -778,6 +826,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/12/rails-4-1-0-invalid-locacle/">Rails 4.1.0 Invalid Locale 問題</a>
       </li>
     
@@ -791,10 +843,6 @@
     
       <li class="post">
         <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/01/my-rails-template/">我的 Rails Template</a>
       </li>
     
   </ul>
