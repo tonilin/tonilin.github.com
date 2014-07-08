@@ -28,6 +28,8 @@ categories: Rails, Gems
 
 第一種錯誤的寫法會讓回應時間多了 200ms，如果一個頁面裡面有 5 個這種寫錯的 fenced code，就至少會慢 1000ms，而且使用者一定會有出錯的時候。
 
+<!--more-->
+
 
 來看看 Pygments.rb Highlight 的 code，非常簡單，正確的語言進去就直接 render 出來，錯誤的會 raise exception，把 lexer 用 text 傳進去，確保不支援的語言也會顯示出來。
 
