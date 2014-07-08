@@ -53,10 +53,12 @@ Pygments::Lexer.find(language)
 於是解決方法就出來了，只要先判斷再 Highlight 就好了：
 
 ```ruby
-if Pygments::Lexer.find(language)
-  Pygments.highlight(code, :lexer => language)
-else
-  Pygments.highlight(code, :lexer => "text")
+def code_highlight(code, language)
+  if Pygments::Lexer.find(language)
+    Pygments.highlight(code, :lexer => language)
+  else
+    Pygments.highlight(code, :lexer => "text")
+  end
 end
 ```
 
