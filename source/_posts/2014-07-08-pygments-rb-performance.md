@@ -79,9 +79,9 @@ puts "Benchmarking....\n"
 puts "Iterations: " + num.to_s + "\n"
 
 def highlight_fail_raise_exception(code, language)
-  Pygments.highlight(code, :lexer => language, options: {linespans: 'line'})
+  Pygments.highlight(code, :lexer => language)
 rescue => e
-  Pygments.highlight(code, :lexer => "text", options: {linespans: 'line'})
+  Pygments.highlight(code, :lexer => "text")
 end
 
 def highlight_fail_dont_raise_exception(code, language)
@@ -123,7 +123,6 @@ Benchmark.bm(40) do |x|
     end
   end
 end
-
 ```
 
 可以看到差異是非常大的：
@@ -132,13 +131,13 @@ end
 Benchmarking....
 Iterations: 20
                                                user     system      total        real
-Currect language before fixed              0.010000   0.000000   0.010000 (  0.198326)
+Currect language before fixed              0.000000   0.000000   0.000000 (  0.190763)
                                                user     system      total        real
-Wrong language before fixed                0.020000   0.010000   3.030000 (  3.083720)
+Wrong language before fixed                0.020000   0.010000   2.740000 (  2.730492)
                                                user     system      total        real
-Currect language after fixed               0.020000   0.000000   0.020000 (  0.059186)
+Currect language after fixed               0.020000   0.000000   0.020000 (  0.074654)
                                                user     system      total        real
-Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.015615)
+Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.018810)
 ```
 
 
