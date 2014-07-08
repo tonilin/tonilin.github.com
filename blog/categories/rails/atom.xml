@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails, | 蟑螂窩]]></title>
   <link href="http://blog.roachking.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-07-08T16:01:15+08:00</updated>
+  <updated>2014-07-08T16:04:05+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -54,12 +54,12 @@
 <p>```ruby
 def code_highlight(code, language)</p>
 
-<pre><code>Pygments.highlight(code, :lexer =&gt; language, options: {linespans: 'line'})
+<pre><code>Pygments.highlight(code, :lexer =&gt; language)
 </code></pre>
 
 <p>  rescue => e</p>
 
-<pre><code>Pygments.highlight(code, :lexer =&gt; "text", options: {linespans: 'line'})
+<pre><code>Pygments.highlight(code, :lexer =&gt; "text")
 </code></pre>
 
 <p>end
@@ -103,9 +103,9 @@ require &lsquo;benchmark&rsquo;</p>
 puts &ldquo;Iterations: &rdquo; + num.to_s + &ldquo;\n&rdquo;</p>
 
 <p>def highlight_fail_raise_exception(code, language)
-  Pygments.highlight(code, :lexer => language, options: {linespans: &lsquo;line&rsquo;})
+  Pygments.highlight(code, :lexer => language)
 rescue => e
-  Pygments.highlight(code, :lexer => &ldquo;text&rdquo;, options: {linespans: &lsquo;line&rsquo;})
+  Pygments.highlight(code, :lexer => &ldquo;text&rdquo;)
 end</p>
 
 <p>def highlight_fail_dont_raise_exception(code, language)
@@ -164,9 +164,8 @@ end
 </code></pre>
 
 <p>  end
-end</p>
-
-<p>```</p>
+end
+```</p>
 
 <p>可以看到差異是非常大的：</p>
 
@@ -177,22 +176,22 @@ Iterations: 20</p>
 <pre><code>                                           user     system      total        real
 </code></pre>
 
-<p>Currect language before fixed              0.010000   0.000000   0.010000 (  0.198326)</p>
+<p>Currect language before fixed              0.000000   0.000000   0.000000 (  0.190763)</p>
 
 <pre><code>                                           user     system      total        real
 </code></pre>
 
-<p>Wrong language before fixed                0.020000   0.010000   3.030000 (  3.083720)</p>
+<p>Wrong language before fixed                0.020000   0.010000   2.740000 (  2.730492)</p>
 
 <pre><code>                                           user     system      total        real
 </code></pre>
 
-<p>Currect language after fixed               0.020000   0.000000   0.020000 (  0.059186)</p>
+<p>Currect language after fixed               0.020000   0.000000   0.020000 (  0.074654)</p>
 
 <pre><code>                                           user     system      total        real
 </code></pre>
 
-<p>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.015615)
+<p>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.018810)
 ```</p>
 ]]></content>
   </entry>

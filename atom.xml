@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-07-08T16:01:15+08:00</updated>
+  <updated>2014-07-08T16:04:05+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -55,9 +55,9 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">code_highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
-</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">)</span>
 </span><span class='line'>  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
-</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -160,9 +160,9 @@
 </span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Iterations: &quot;</span> <span class="o">+</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">def</span> <span class="nf">highlight_fail_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
-</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">)</span>
 </span><span class='line'><span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
-</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">def</span> <span class="nf">highlight_fail_dont_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
@@ -222,13 +222,13 @@
 </pre></td><td class='code'><pre><code class='text'><span class='line'>Benchmarking....
 </span><span class='line'>Iterations: 20
 </span><span class='line'>                                               user     system      total        real
-</span><span class='line'>Currect language before fixed              0.010000   0.000000   0.010000 (  0.198326)
+</span><span class='line'>Currect language before fixed              0.000000   0.000000   0.000000 (  0.190763)
 </span><span class='line'>                                               user     system      total        real
-</span><span class='line'>Wrong language before fixed                0.020000   0.010000   3.030000 (  3.083720)
+</span><span class='line'>Wrong language before fixed                0.020000   0.010000   2.740000 (  2.730492)
 </span><span class='line'>                                               user     system      total        real
-</span><span class='line'>Currect language after fixed               0.020000   0.000000   0.020000 (  0.059186)
+</span><span class='line'>Currect language after fixed               0.020000   0.000000   0.020000 (  0.074654)
 </span><span class='line'>                                               user     system      total        real
-</span><span class='line'>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.015615)
+</span><span class='line'>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.018810)
 </span></code></pre></td></tr></table></div></figure>
 
 
