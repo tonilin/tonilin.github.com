@@ -36,9 +36,9 @@ categories: Rails, Gems
 
 ```ruby
 def code_highlight(code, language)
-    Pygments.highlight(code, :lexer => language, options: {linespans: 'line'})
+    Pygments.highlight(code, :lexer => language)
   rescue => e
-    Pygments.highlight(code, :lexer => "text", options: {linespans: 'line'})
+    Pygments.highlight(code, :lexer => "text")
 end
 ```
  
