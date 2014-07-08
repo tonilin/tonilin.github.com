@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails, | 蟑螂窩]]></title>
   <link href="http://blog.roachking.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-07-08T16:04:05+08:00</updated>
+  <updated>2014-07-08T16:05:41+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -75,13 +75,21 @@ Pygments::Lexer.find(language)
 
 <p>於是解決方法就出來了，只要先判斷再 Highlight 就好了：</p>
 
-<p><code>ruby
-if Pygments::Lexer.find(language)
-  Pygments.highlight(code, :lexer =&gt; language)
-else
-  Pygments.highlight(code, :lexer =&gt; "text")
+<p>```ruby
+def code_highlight(code, language)
+  if Pygments::Lexer.find(language)</p>
+
+<pre><code>Pygments.highlight(code, :lexer =&gt; language)
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>Pygments.highlight(code, :lexer =&gt; "text")
+</code></pre>
+
+<p>  end
 end
-</code></p>
+```</p>
 
 <h2>Benchmark</h2>
 
