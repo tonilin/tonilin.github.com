@@ -9,7 +9,9 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="Ruby TDD is dead. Long live testing RailsConf 2014 got underway earlier this week and as always some interesting stuff has come out of the keynotes, &hellip;">
+  <meta name="description" content="最近公司的新產品 Torchpad 剛上線，一開始效能都很好， 可是在文章在 render markdown 的時候非常慢，在觀察之後，發現只有在有 fenced code 的頁面才會特別慢， 在仔細看，原來是使用者沒有輸入正確的語言格式(誤把檔案名稱當語言)： 1
+2
+3 ```app/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,7 +35,9 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/" />
-<meta property="og:description" content="Ruby TDD is dead. Long live testing RailsConf 2014 got underway earlier this week and as always some interesting stuff has come out of the keynotes, particularly DHH’s statements on the weakness of &hellip;" />
+<meta property="og:description" content="最近公司的新產品 Torchpad 剛上線，一開始效能都很好， 可是在文章在 render markdown 的時候非常慢，在觀察之後，發現只有在有 fenced code 的頁面才會特別慢， 在仔細看，原來是使用者沒有輸入正確的語言格式(誤把檔案名稱當語言)： 1
+2
+3 ```app/assets/javascripts/angular/app.js app = angular.module &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -83,6 +87,74 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-08T15:38:00+08:00" pubdate data-updated="true">Jul 8<span>th</span>, 2014</time>
+        
+           | <a href="/blog/2014/07/08/pygments-rb-performance/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2014/07/08/pygments-rb-performance/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近<a href="http://osolve.com">公司</a>的新產品 <a href="https://torchpad.com/">Torchpad</a> 剛上線，一開始效能都很好，</p>
+
+<p>可是在文章在 render markdown 的時候非常慢，在觀察之後，發現只有在有 fenced code 的頁面才會特別慢，</p>
+
+<p>在仔細看，原來是使用者沒有輸入正確的語言格式(誤把檔案名稱當語言)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ```app/assets/javascripts/angular/app.js
+</span><span class='line'>    app = angular.module("app", [])
+</span><span class='line'>  ```</span></code></pre></td></tr></table></div></figure>
+
+
+<p>正確的寫法應該是</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ```javascript app/assets/javascripts/angular/app.js
+</span><span class='line'>    app = angular.module("app", [])
+</span><span class='line'>  ```</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第一種錯誤的寫法會讓回應時間多了 200ms，如果一個頁面裡面有 5 個這種寫錯的 fenced code，就至少會慢 1000ms，而且使用者一定會有出錯的時候。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/08/pygments-rb-performance/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -824,62 +896,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/13/201312-link-collection/">201312 連結收集</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-13T06:20:00+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/01/13/201312-link-collection/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2014/01/13/201312-link-collection/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Ruby</h2>
-
-<p><a href="https://github.com/schneems/sprockets_better_errors">Sprockets Better Errors</a></p>
-
-<blockquote><p>Errors, more of them, and better. For sprockets, specifically sprockets-rails.</p></blockquote>
-
-<p><a href="http://rubylove.io/ruby/core/2013/12/14/a-deeper-look-at-rubys-enumerable-1/">A Deeper Look at Ruby&rsquo;s Enumerable</a></p>
-
-<blockquote><p>Ruby&rsquo;s Enumerable module gives you a way of iterating over collections in a lazy manner, loading only what you need, when you need it. But it gives us so much more than that.</p></blockquote>
-
-<p><a href="https://github.com/jonbuda/miro">Miro</a></p>
-
-<blockquote><p>A Ruby gem to help extract the dominant colors from an image.</p></blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/01/13/201312-link-collection/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -895,6 +911,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a>
       </li>
     
@@ -908,10 +928,6 @@
     
       <li class="post">
         <a href="/blog/2014/03/21/201403-link-collection/">201403 連結收集</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content=" ">
+  <meta name="description" content="最近把 Blog 搬家到 Logdown，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,7 +33,7 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/3/" />
-<meta property="og:description" content=" " />
+<meta property="og:description" content=" 最近把 Blog 搬家到 Logdown，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 Octopress一模一樣。 " />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -83,6 +83,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/30/moved-to-logdown/">搬家到 Logdown</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-30T16:04:00+08:00" pubdate data-updated="true">Aug 30<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/08/30/moved-to-logdown/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/08/30/moved-to-logdown/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="http://user-image.logdown.io/user/7/blog/530/post/98550/kTe0CHbHQc2vguBwp23F_logo-full.jpg" alt="logo-full.jpg"></p>
+
+<p>最近把 Blog 搬家到 <a href="http://logdown.com">Logdown</a>，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 Octopress一模一樣。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/30/moved-to-logdown/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -504,75 +550,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/26/virtualbox-sendfile/">VirtualBox Apache Sendfile</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-26T19:30:00+08:00" pubdate data-updated="true">Jan 26<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/01/26/virtualbox-sendfile/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2013/01/26/virtualbox-sendfile/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
-但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。</p>
-
-<p>這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
-發現是 Apache 的 sendfile 在做怪，這是一個利用 Kernel 的 sendfile 來加速靜態檔案發送的功能。</p>
-
-<p>但是 sendfile 在目錄是網路掛載的情況下會出問題，所以在開發環境，把這個功能關掉，才不會出現檔案沒更新的錯誤。</p>
-
-<p>打開 <strong>httpd.conf</strong>，找到 EnableSendfile ，並設成 off：</p>
-
-<figure class='code'><figcaption><span>httpd.conf </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='apacheconf'><span class='line'><span class="c">#</span>
-</span><span class='line'><span class="c"># EnableSendfile: Control whether the sendfile kernel support is</span>
-</span><span class='line'><span class="c"># used to deliver files (assuming that the OS supports it).</span>
-</span><span class='line'><span class="c"># The default is on; turn this off if you serve from NFS-mounted</span>
-</span><span class='line'><span class="c"># filesystems. Please see</span>
-</span><span class='line'><span class="c"># http://httpd.apache.org/docs/2.2/mod/core.html#enablesendfile</span>
-</span><span class='line'><span class="c">#</span>
-</span><span class='line'><span class="nb">EnableSendfile</span> <span class="k">off</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>更多有關 Apache Sendfile 可以參考：<a href="http://httpd.apache.org/docs/2.0/mod/core.html#enablesendfile">Apache Documentation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -590,6 +567,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a>
       </li>
     
@@ -603,10 +584,6 @@
     
       <li class="post">
         <a href="/blog/2014/03/21/201403-link-collection/">201403 連結收集</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/02/12/201402-link-collection/">201402 連結收集</a>
       </li>
     
   </ul>

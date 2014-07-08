@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Rails | 蟑螂窩]]></title>
+  <title><![CDATA[Category: Rails, | 蟑螂窩]]></title>
   <link href="http://blog.roachking.net/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-05-22T16:45:25+08:00</updated>
+  <updated>2014-07-08T16:01:15+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -14,84 +14,185 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Rails 4.1.0 Invalid Locale 問題]]></title>
-    <link href="http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle/"/>
-    <updated>2014-04-12T21:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2014/04/12/rails-4-1-0-invalid-locacle</id>
-    <content type="html"><![CDATA[<p>最近 Rails 4.1.0 release，在升級的時候發生了一個錯誤:</p>
+    <title type="html"><![CDATA[Pygments.rb 效能調校]]></title>
+    <link href="http://blog.roachking.net/blog/2014/07/08/pygments-rb-performance/"/>
+    <updated>2014-07-08T15:38:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/07/08/pygments-rb-performance</id>
+    <content type="html"><![CDATA[<p>最近<a href="http://osolve.com">公司</a>的新產品 <a href="https://torchpad.com/">Torchpad</a> 剛上線，一開始效能都很好，</p>
 
-<p><code>bash
-:zh is not a valid locale
+<p>可是在文章在 render markdown 的時候非常慢，在觀察之後，發現只有在有 fenced code 的頁面才會特別慢，</p>
+
+<p>在仔細看，原來是使用者沒有輸入正確的語言格式(誤把檔案名稱當語言)：</p>
+
+<p><code>plain
+ </code>app/assets/javascripts/angular/app.js</p>
+
+<pre><code>app = angular.module("app", [])
+</code></pre>
+
+<p>  <code>
 </code></p>
 
-<p>application.rb 的 code 佷簡單：</p>
+<p>正確的寫法應該是</p>
 
-<p>```ruby
-module Demo
-  class Application &lt; Rails::Application</p>
+<p><code>plain
+ </code>javascript app/assets/javascripts/angular/app.js</p>
 
-<pre><code>config.i18n.default_locale = :"zh-TW"
+<pre><code>app = angular.module("app", [])
 </code></pre>
 
-<p>  end
-end
-```</p>
+<p>  <code>
+</code></p>
 
-<p>以前不會出錯，為什麼現在會呢？於是 Google 了一下，發現 Rails 4.1.0 會將 <code>I18n.config.enforce_available_locales</code> 預設為 <code>true</code></p>
+<p>第一種錯誤的寫法會讓回應時間多了 200ms，如果一個頁面裡面有 5 個這種寫錯的 fenced code，就至少會慢 1000ms，而且使用者一定會有出錯的時候。</p>
 
-<p>在 <code>enforce_available_locales</code> 為 <code>true</code> 的情況下，只要將 <code>locale</code> 設為不包含在 <code>available_locales</code> 內的值，就會報錯。</p>
+<!--more-->
 
-<p>解法佷簡單就直接在 <code>application.rb</code> 裡面把 enforce_available_locales 改為 false：</p>
 
-<p>```ruby
-module Demo
-  class Application &lt; Rails::Application</p>
-
-<pre><code>config.i18n.enforce_available_locales = false
-config.i18n.default_locale = :"zh-TW"
-</code></pre>
-
-<p>  end
-end
-```</p>
-
-<p>如果想用 enforce_available_locales 但又不希望報錯呢？試著加入 available_locales 看看：</p>
+<p>來看看 Pygments.rb Highlight 的 code，非常簡單，正確的語言進去就直接 render 出來，錯誤的會 raise exception，把 lexer 用 text 傳進去，確保不支援的語言也會顯示出來。</p>
 
 <p>```ruby
-module Demo
-  class Application &lt; Rails::Application</p>
+def code_highlight(code, language)</p>
 
-<pre><code>config.i18n.available_locales = [:"zh-TW"]
-config.i18n.default_locale = :"zh-TW"
+<pre><code>Pygments.highlight(code, :lexer =&gt; language, options: {linespans: 'line'})
 </code></pre>
 
-<p>  end
-end
+<p>  rescue => e</p>
+
+<pre><code>Pygments.highlight(code, :lexer =&gt; "text", options: {linespans: 'line'})
+</code></pre>
+
+<p>end
 ```</p>
 
-<p>依然還是會出現一樣的錯誤 <code>:zh is not a valid locale</code>，奇怪，我設定的是 <code>:"zh-TW"</code>，怎麼會報 <code>:zh</code> 不允許呢？
-找了很久，發現在 <code>production.rb</code> 裡面有一行 i18n fallback：</p>
+<p>速度既然是慢在不支援的語言噴錯以後 rescue 非常慢，現在要做的就是 Pygments 不支援的語言不要傳進去，於是去翻 Pygments.rb 的 code 發現一個方法，可以尋找 Pygments 支援的語言</p>
 
 <p><code>ruby
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found).
-  config.i18n.fallbacks = true
+Pygments::Lexer.find(language)
 </code></p>
 
-<p>把 i18n fallbacks 設為 <code>true</code>，在找不到 <code>:"zh-TW"</code> 的 locale 的時候，會接著尋找 <code>:zh</code>，<code>:zh</code> 找不到才會接著找 <code>:en</code>。</p>
+<p>試了一下這個 method，就算傳進錯誤的或不存在的語言，速度也非常快。</p>
 
-<p>於是解決方法就很清楚了，只要連 <code>:zh</code> 一起 available 就可以了：</p>
+<p>於是解決方法就出來了，只要先判斷再 Highlight 就好了：</p>
+
+<p><code>ruby
+if Pygments::Lexer.find(language)
+  Pygments.highlight(code, :lexer =&gt; language)
+else
+  Pygments.highlight(code, :lexer =&gt; "text")
+end
+</code></p>
+
+<h2>Benchmark</h2>
+
+<p>寫了一個簡單的 script 來測試一下兩種方法的速度</p>
 
 <p>```ruby
-module Demo
-  class Application &lt; Rails::Application</p>
+require &lsquo;pygments&rsquo;
+require &lsquo;benchmark&rsquo;</p>
 
-<pre><code>config.i18n.available_locales = [:"zh-TW", :zh]
-config.i18n.default_locale = :"zh-TW"
+<p>include Benchmark</p>
+
+<h1>number of iterations</h1>
+
+<p>num = 20</p>
+
+<p>code = &lsquo;app = angular.module(&ldquo;app&rdquo;, [])&rsquo;</p>
+
+<p>puts &ldquo;Benchmarking&hellip;.\n&rdquo;
+puts &ldquo;Iterations: &rdquo; + num.to_s + &ldquo;\n&rdquo;</p>
+
+<p>def highlight_fail_raise_exception(code, language)
+  Pygments.highlight(code, :lexer => language, options: {linespans: &lsquo;line&rsquo;})
+rescue => e
+  Pygments.highlight(code, :lexer => &ldquo;text&rdquo;, options: {linespans: &lsquo;line&rsquo;})
+end</p>
+
+<p>def highlight_fail_dont_raise_exception(code, language)
+  if Pygments::Lexer.find(language)</p>
+
+<pre><code>Pygments.highlight(code, :lexer =&gt; language)
+</code></pre>
+
+<p>  else</p>
+
+<pre><code>Pygments.highlight(code, :lexer =&gt; "text")
 </code></pre>
 
 <p>  end
+end</p>
+
+<p>Benchmark.bm(40) do |x|
+  x.report(&ldquo;Currect language before fixed&rdquo;)  do</p>
+
+<pre><code>for i in 1..num
+  highlight_fail_raise_exception(code, "javascript")
 end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Benchmark.bm(40) do |x|
+  x.report(&ldquo;Wrong language before fixed&rdquo;)  do</p>
+
+<pre><code>for i in 1..num
+  highlight_fail_raise_exception(code, "app/assets/javascripts/angular/app.js")
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Benchmark.bm(40) do |x|
+  x.report(&ldquo;Currect language after fixed&rdquo;)  do</p>
+
+<pre><code>for i in 1..num
+  highlight_fail_dont_raise_exception(code, "javascript")
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>Benchmark.bm(40) do |x|
+  x.report(&ldquo;Wrong language after fixed&rdquo;)  do</p>
+
+<pre><code>for i in 1..num
+  highlight_fail_dont_raise_exception(code, "app/assets/javascripts/angular/app.js")
+end
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>```</p>
+
+<p>可以看到差異是非常大的：</p>
+
+<p>```text
+Benchmarking&hellip;.
+Iterations: 20</p>
+
+<pre><code>                                           user     system      total        real
+</code></pre>
+
+<p>Currect language before fixed              0.010000   0.000000   0.010000 (  0.198326)</p>
+
+<pre><code>                                           user     system      total        real
+</code></pre>
+
+<p>Wrong language before fixed                0.020000   0.010000   3.030000 (  3.083720)</p>
+
+<pre><code>                                           user     system      total        real
+</code></pre>
+
+<p>Currect language after fixed               0.020000   0.000000   0.020000 (  0.059186)</p>
+
+<pre><code>                                           user     system      total        real
+</code></pre>
+
+<p>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.015615)
 ```</p>
 ]]></content>
   </entry>

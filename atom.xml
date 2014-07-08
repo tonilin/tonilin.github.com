@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-05-22T16:45:25+08:00</updated>
+  <updated>2014-07-08T16:01:15+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,6 +12,229 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Pygments.rb 效能調校]]></title>
+    <link href="http://blog.roachking.net/blog/2014/07/08/pygments-rb-performance/"/>
+    <updated>2014-07-08T15:38:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/07/08/pygments-rb-performance</id>
+    <content type="html"><![CDATA[<p>最近<a href="http://osolve.com">公司</a>的新產品 <a href="https://torchpad.com/">Torchpad</a> 剛上線，一開始效能都很好，</p>
+
+<p>可是在文章在 render markdown 的時候非常慢，在觀察之後，發現只有在有 fenced code 的頁面才會特別慢，</p>
+
+<p>在仔細看，原來是使用者沒有輸入正確的語言格式(誤把檔案名稱當語言)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ```app/assets/javascripts/angular/app.js
+</span><span class='line'>    app = angular.module("app", [])
+</span><span class='line'>  ```</span></code></pre></td></tr></table></div></figure>
+
+
+<p>正確的寫法應該是</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ```javascript app/assets/javascripts/angular/app.js
+</span><span class='line'>    app = angular.module("app", [])
+</span><span class='line'>  ```</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第一種錯誤的寫法會讓回應時間多了 200ms，如果一個頁面裡面有 5 個這種寫錯的 fenced code，就至少會慢 1000ms，而且使用者一定會有出錯的時候。</p>
+
+<!--more-->
+
+
+<p>來看看 Pygments.rb Highlight 的 code，非常簡單，正確的語言進去就直接 render 出來，錯誤的會 raise exception，把 lexer 用 text 傳進去，確保不支援的語言也會顯示出來。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">code_highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'>  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>速度既然是慢在不支援的語言噴錯以後 rescue 非常慢，現在要做的就是 Pygments 不支援的語言不要傳進去，於是去翻 Pygments.rb 的 code 發現一個方法，可以尋找 Pygments 支援的語言</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">Pygments</span><span class="p">:</span><span class="ss">:Lexer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>試了一下這個 method，就算傳進錯誤的或不存在的語言，速度也非常快。</p>
+
+<p>於是解決方法就出來了，只要先判斷再 Highlight 就好了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="ss">Pygments</span><span class="p">:</span><span class="ss">:Lexer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">)</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Benchmark</h2>
+
+<p>寫了一個簡單的 script 來測試一下兩種方法的速度</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;pygments&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;benchmark&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kp">include</span> <span class="no">Benchmark</span>
+</span><span class='line'><span class="c1"># number of iterations</span>
+</span><span class='line'><span class="n">num</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">code</span> <span class="o">=</span> <span class="s1">&#39;app = angular.module(&quot;app&quot;, [])&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Benchmarking....</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Iterations: &quot;</span> <span class="o">+</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">highlight_fail_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'><span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+</span><span class='line'>  <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="p">{</span><span class="ss">linespans</span><span class="p">:</span> <span class="s1">&#39;line&#39;</span><span class="p">})</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">highlight_fail_dont_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="ss">Pygments</span><span class="p">:</span><span class="ss">:Lexer</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="no">Pygments</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="ss">:lexer</span> <span class="o">=&gt;</span> <span class="s2">&quot;text&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;Currect language before fixed&quot;</span><span class="p">)</span>  <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.num</span>
+</span><span class='line'>      <span class="n">highlight_fail_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot;javascript&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;Wrong language before fixed&quot;</span><span class="p">)</span>  <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.num</span>
+</span><span class='line'>      <span class="n">highlight_fail_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot;app/assets/javascripts/angular/app.js&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;Currect language after fixed&quot;</span><span class="p">)</span>  <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.num</span>
+</span><span class='line'>      <span class="n">highlight_fail_dont_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot;javascript&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;Wrong language after fixed&quot;</span><span class="p">)</span>  <span class="k">do</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.num</span>
+</span><span class='line'>      <span class="n">highlight_fail_dont_raise_exception</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot;app/assets/javascripts/angular/app.js&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>可以看到差異是非常大的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>Benchmarking....
+</span><span class='line'>Iterations: 20
+</span><span class='line'>                                               user     system      total        real
+</span><span class='line'>Currect language before fixed              0.010000   0.000000   0.010000 (  0.198326)
+</span><span class='line'>                                               user     system      total        real
+</span><span class='line'>Wrong language before fixed                0.020000   0.010000   3.030000 (  3.083720)
+</span><span class='line'>                                               user     system      total        real
+</span><span class='line'>Currect language after fixed               0.020000   0.000000   0.020000 (  0.059186)
+</span><span class='line'>                                               user     system      total        real
+</span><span class='line'>Wrong language after fixed                 0.000000   0.010000   0.010000 (  0.015615)
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[201404 連結收集]]></title>
@@ -2190,78 +2413,6 @@
 
 
 <blockquote><p>write down a command-line to see the help text that matches each argument</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[搬家到 Logdown]]></title>
-    <link href="http://blog.roachking.net/blog/2013/08/30/moved-to-logdown/"/>
-    <updated>2013-08-30T16:04:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/08/30/moved-to-logdown</id>
-    <content type="html"><![CDATA[<p><img class="center" src="http://user-image.logdown.io/user/7/blog/530/post/98550/kTe0CHbHQc2vguBwp23F_logo-full.jpg" alt="logo-full.jpg"></p>
-
-<p>最近把 Blog 搬家到 <a href="http://logdown.com">Logdown</a>，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 Octopress一模一樣。</p>
-
-<!--more-->
-
-
-<h2>為什麼搬家</h2>
-
-<p>Octopress 雖然很好用，產生出來的 Blog 也非常令人滿意，但是每次寫個文章就得跑一堆指令：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;hello world&quot;</span><span class="o">]</span>
-</span><span class='line'>rake generate
-</span><span class='line'>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我只是想簡單得寫一篇文章阿！！而且因為安裝環境不方便，即使 source code 都放在 Github repo 上，換台電腦時，如果要開始寫文章，大概要花個半小時安裝環境吧&hellip;Orz</p>
-
-<p>Octopress 是使用 jekyll + compass 來產生 static files，檔案越多每次 generate 的速度就越慢，雖然我的文章沒有多到會讓我感覺很慢，但是感覺不是長久之計。</p>
-
-<h2>怎麼搬家</h2>
-
-<p>Octopress 搬家超級簡單，把所有 post 壓縮起來，就可以自動匯入了：</p>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/mOBu5nY5Qtuw2ARPwkhF_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.39.23.png" alt="螢幕快照 2013-08-30 下午11.39.23.png" /></p>
-
-<p>其他還支援 Wordpress、Tumblr、Blogger 和 Movable Type。</p>
-
-<h2>編輯器</h2>
-
-<p>超級好用 BJ4，請自行體驗，不用打 <code>rake preview</code>，按 <code>cmd + D</code> 就可以直接看到preview真棒！</p>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/ygmFtSuwQJW9MNpCWub8_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.42.28.png" alt="螢幕快照 2013-08-30 下午11.42.28.png" /></p>
-
-<h2>Custom theme</h2>
-
-<p>Logdown 內建 Theme 是使用 its-compiling，如果不喜歡也可以到後台換 Theme：</p>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/eBshQjydTCO64gTucslO_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.45.14.png" alt="螢幕快照 2013-08-30 下午11.45.14.png" /></p>
-
-<p>如果都不喜歡也可以自己編輯 Theme：</p>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/1yCBcIPTnmb2HkZX4tVA_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.48.24.png" alt="螢幕快照 2013-08-30 下午11.48.24.png" /></p>
-
-<h2>Custom Domain</h2>
-
-<p>可以自行設定 Custom Domain，算是滿重要的功能，如果自己沒有 Domain，也可以使用 your_name.logdown.com：</p>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98550/k8imH1RgRT6qKzW2wpu2_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-08-30%20%E4%B8%8B%E5%8D%8811.49.47.png" alt="螢幕快照 2013-08-30 下午11.49.47.png" /></p>
-
-<h2>Drag &amp; Drop upload Image</h2>
-
-<p>這個功能實在太棒了！！這篇文章的圖片都是這樣上傳的。以前用 octopress，或是其他 Blog 平台，上傳圖片簡直悲劇 Orz</p>
-
-<iframe width="600" height="500" src="//www.youtube.com/embed/DOOg-_KimWQ" frameborder="0" allowfullscreen></iframe>
-
-
-<h2>小結</h2>
-
-<p>最近除了做客戶的案子的時間以外，花了非常多時間做 Logdown，裡面用到的技術，有時候連我都不太相信是我自己寫的XD，多虧了 Ruby 有非常多好用的 Gem，不然如果用 PHP 我還真的不知道要寫到什麼時候。總之歡迎來試試 Logdown，這大概是我看過目前最適合專業人員寫 Blog 的平台了(好像有點老王賣瓜？)。</p>
 ]]></content>
   </entry>
   
