@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用 SVG 將圖片做成動畫 - 蟑螂窩</title>
+  <meta name="author" content="tonilin">
+
+  
+  <meta name="description" content="昨天朋友 Kay 幫我們團隊 oSolve 成員畫了一張人像插畫，覺得超像的！ 看了這張圖以後，覺得線條粗細一致而且線條幾乎都有分開，而且最近都在玩 SVG，突然靈機一閃，想把這張圖做成動畫，
+於是經過兩個小時的努力，就變成下面這樣了： See the Pen oSolve Team &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="蟑螂窩" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<meta property="og:title" content="使用 SVG 將圖片做成動畫" />
+<meta property="og:site_name" content="蟑螂窩" />
+<meta property="og:url" content="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/" />
+<meta property="og:description" content="昨天朋友 Kay 幫我們團隊 oSolve 成員畫了一張人像插畫，覺得超像的！ 看了這張圖以後，覺得線條粗細一致而且線條幾乎都有分開，而且最近都在玩 SVG，突然靈機一閃，想把這張圖做成動畫，
+於是經過兩個小時的努力，就變成下面這樣了： See the Pen oSolve Team Drawing Animation by tonilin (@tonilin) on CodePen. &hellip;" />
+
+  <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35905981-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">蟑螂窩</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.roachking.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/aboutme">About me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用 SVG 將圖片做成動畫</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-31T15:00:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>昨天朋友 Kay 幫我們團隊 <a href="http://osolve.com">oSolve</a> 成員畫了一張人像插畫，覺得超像的！</p>
+
+<p><img src="/upload/osolve-team-draw.png" alt="oSolve Team" /></p>
+
+<p>看了這張圖以後，覺得線條粗細一致而且線條幾乎都有分開，而且最近都在玩 SVG，突然靈機一閃，想把這張圖做成動畫，
+於是經過兩個小時的努力，就變成下面這樣了：</p>
+
+<p data-height="584" data-theme-id="9636" data-slug-hash="DsinJ" data-default-tab="result" data-user="tonilin" class='codepen'>See the Pen <a href='http://codepen.io/tonilin/pen/DsinJ/'>oSolve Team Drawing Animation</a> by tonilin (<a href='http://codepen.io/tonilin'>@tonilin</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+<p>下面簡單描述一下怎麼把一張非向量的圖做成這樣的效果</p>
+
+<!--more-->
+
+
+<h2>將 PNG 轉成 SVG</h2>
+
+<p>這邊我用到的方法是 <a href="http://potrace.sourceforge.net/">Potrace</a> 他可以將一般的 Bitmap 圖片轉成向量圖，但是 <a href="http://potrace.sourceforge.net/">Potrace</a>
+不支援 PNG，所以在做之前要先將 PNG 轉成 PNM 再處理。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert osolve_team.png osolve_team.pnm
+</span><span class='line'>potrace osolve_team.pnm -s -o osolve_team.svg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>出來的結果像這樣，可以看到跟原圖的相似度非常高：</p>
+
+<p><img src="/upload/osolve-team-draw-before_sketch.svg" alt="oSolve Team" /></p>
+
+<h2>使用 Sketch 整理圖層</h2>
+
+<p>因為 Potrace 產生出來的 SVG 並不會由畫畫的順序排列 Path，理想的情況是畫完一顆頭再畫另一顆，所以這邊把 SVG 做一點簡單的分類，
+三顆頭和下面的文字：</p>
+
+<p><img src="/upload/osolve-team-sketch-group.png" alt="Sketch Group" /></p>
+
+<p>另存新檔以後 Path 就會依照這個順序排列了。</p>
+
+<h2>使用 Javascript 計算 Stroke Dash 長度</h2>
+
+<p>這邊使用到 SVG Path 的動畫原理，詳細的原理可以參考 <a href="http://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works | CSS-Tricks</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">pathPrepare = </span><span class="nf">($el) -&gt;</span>
+</span><span class='line'>  <span class="nv">lineLength = </span><span class="nx">$el</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getTotalLength</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;stroke-dasharray&quot;</span><span class="p">,</span> <span class="nx">lineLength</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;stroke-dashoffset&quot;</span><span class="p">,</span> <span class="nx">lineLength</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'> <span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg path&quot;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">$this = </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">pathPrepare</span><span class="p">(</span><span class="nx">$this</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用 CSS Animation</h2>
+
+<p>使用 css animation 對 svg 做動畫的效果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="k">@keyframes</span> <span class="nt">dash</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nt">from</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">fill</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="nt">to</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">stroke</span><span class="o">-</span><span class="n">dashoffset</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">fill</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">svg</span><span class="nc">.animated</span> <span class="nt">path</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">animation</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="n">dash</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">stroke</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">stroke</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>應該會注意到我沒有上 animation time 和 animation delay，是因為寫在 scss compile 出來太龐大了，所以這邊會用 Javascript 來處理：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">delayTime = </span><span class="mi">0</span>
+</span><span class='line'>  <span class="nv">animationTime = </span><span class="mf">0.15</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg path&quot;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">$this = </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-delay&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">delayTime</span><span class="si">}</span><span class="s">s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-duration&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">animationTime</span><span class="si">}</span><span class="s">s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-fill-mode&quot;</span><span class="p">,</span> <span class="s">&quot;forwards&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">delayTime</span> <span class="o">+=</span> <span class="nx">animationTime</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>給 SVG animated 的 class</h2>
+
+<p>上面的 css 指定 <code>svg.animated</code> 下的 Path 才會有動畫效果，最後這邊只要加上 animated 的 class 就完成了！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;animated&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>成品</h2>
+
+<p>看起來效果還不錯！最近常常在玩 SVG，還滿有成就感的，最近 <a href="http://osolve.com">oSolve</a> 的新產品 <a href="http://worknowapp.com/">Worknow 打工趣</a> 的首頁也有用到
+SVG 來呈現動畫效果，有興趣也可以連過去看。</p>
+
+<p data-height="584" data-theme-id="9636" data-slug-hash="DsinJ" data-default-tab="result" data-user="tonilin" class='codepen'>See the Pen <a href='http://codepen.io/tonilin/pen/DsinJ/'>oSolve Team Drawing Animation</a> by tonilin (<a href='http://codepen.io/tonilin'>@tonilin</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">tonilin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-31T15:00:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/" data-via="" data-counturl="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/08/pygments-rb-performance/" title="Previous Post: Pygments.rb 效能調校">&laquo; Pygments.rb 效能調校</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/21/201404-link-collection/">201404 連結收集</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/12/rails-4-1-0-invalid-locacle/">Rails 4.1.0 Invalid Locale 問題</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/07/my-startup-osolve/">開始創業，名字叫 oSolve</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - tonilin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tonilin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/';
+        var disqus_url = 'http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

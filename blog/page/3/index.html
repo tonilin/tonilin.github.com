@@ -9,7 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="最近把 Blog 搬家到 Logdown，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 &hellip;">
+  <meta name="description" content="201309 連結收集 Rails FeatureFlags Manage (turn on/off) different features in your rails app. Doorkeeper Doorkeeper is an OAuth 2 provider for Rails. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -33,7 +33,7 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/3/" />
-<meta property="og:description" content=" 最近把 Blog 搬家到 Logdown，Logdown 是公司的產品，所以把 Blog 搬到這邊，實際體驗，才能即時發現一些使用者體驗的問題(其實是不想維護 Octopress..XDD)。也因為有 Custom Theme 的關係，所以 Blog 的外觀看起來跟原本的 Octopress一模一樣。 " />
+<meta property="og:description" content="201309 連結收集 Rails FeatureFlags Manage (turn on/off) different features in your rails app. Doorkeeper Doorkeeper is an OAuth 2 provider for Rails. https://github.com/applicake/doorkeeper Web Console &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -83,6 +83,73 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/01/link-collection/">201309 連結收集</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-01T06:05:00+08:00" pubdate data-updated="true">Sep 1<span>st</span>, 2013</time>
+        
+           | <a href="/blog/2013/09/01/link-collection/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/09/01/link-collection/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>201309 連結收集</p>
+
+<h1>Rails</h1>
+
+<ul>
+<li><a href="https://github.com/pandurang90/feature_flags">FeatureFlags</a></li>
+</ul>
+
+
+<blockquote><p>Manage (turn on/off) different features in your rails app.</p></blockquote>
+
+<ul>
+<li><a href="https://github.com/applicake/doorkeeper">Doorkeeper</a></li>
+</ul>
+
+
+<blockquote><p>Doorkeeper is an OAuth 2 provider for Rails. <a href="https://github.com/applicake/doorkeeper">https://github.com/applicake/doorkeeper</a></p></blockquote>
+
+<ul>
+<li><a href="https://github.com/rails/web-console">Web Console</a></li>
+</ul>
+
+
+<blockquote><p>Rails Console on the Browser.</p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/01/link-collection/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -493,63 +560,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/29/graceful-restart-apache/">優雅地重開 Apache</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-29T21:30:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/01/29/graceful-restart-apache/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd restart
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>這個指令會<em>立即</em>關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。</p>
-
-<p>比較少人知道還有一個 graceful 的指令：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd graceful
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>發出這個指令以後，每個子進程都會處理完目前的 request 後，再套用新的設定。在 production 伺服器更改設定，使用 graceful 才能避免造成使用者的困擾。</p>
-
-<p>參考資料：<a href="http://httpd.apache.org/docs/2.0/stopping.html#graceful">Apache Stopping and Restarting</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -567,6 +577,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a>
       </li>
     
@@ -580,10 +594,6 @@
     
       <li class="post">
         <a href="/blog/2014/04/07/my-startup-osolve/">開始創業，名字叫 oSolve</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/21/201403-link-collection/">201403 連結收集</a>
       </li>
     
   </ul>

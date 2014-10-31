@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2014-07-08T16:05:41+08:00</updated>
+  <updated>2014-10-31T12:22:44+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,6 +12,169 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用 SVG 將圖片做成動畫]]></title>
+    <link href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/"/>
+    <updated>2014-10-31T15:00:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation</id>
+    <content type="html"><![CDATA[<p>昨天朋友 Kay 幫我們團隊 <a href="http://osolve.com">oSolve</a> 成員畫了一張人像插畫，覺得超像的！</p>
+
+<p><img src="http://blog.roachking.net/upload/osolve-team-draw.png" alt="oSolve Team" /></p>
+
+<p>看了這張圖以後，覺得線條粗細一致而且線條幾乎都有分開，而且最近都在玩 SVG，突然靈機一閃，想把這張圖做成動畫，
+於是經過兩個小時的努力，就變成下面這樣了：</p>
+
+<p data-height="584" data-theme-id="9636" data-slug-hash="DsinJ" data-default-tab="result" data-user="tonilin" class='codepen'>See the Pen <a href='http://codepen.io/tonilin/pen/DsinJ/'>oSolve Team Drawing Animation</a> by tonilin (<a href='http://codepen.io/tonilin'>@tonilin</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+<p>下面簡單描述一下怎麼把一張非向量的圖做成這樣的效果</p>
+
+<!--more-->
+
+
+<h2>將 PNG 轉成 SVG</h2>
+
+<p>這邊我用到的方法是 <a href="http://potrace.sourceforge.net/">Potrace</a> 他可以將一般的 Bitmap 圖片轉成向量圖，但是 <a href="http://potrace.sourceforge.net/">Potrace</a>
+不支援 PNG，所以在做之前要先將 PNG 轉成 PNM 再處理。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>convert osolve_team.png osolve_team.pnm
+</span><span class='line'>potrace osolve_team.pnm -s -o osolve_team.svg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>出來的結果像這樣，可以看到跟原圖的相似度非常高：</p>
+
+<p><img src="http://blog.roachking.net/upload/osolve-team-draw-before_sketch.svg" alt="oSolve Team" /></p>
+
+<h2>使用 Sketch 整理圖層</h2>
+
+<p>因為 Potrace 產生出來的 SVG 並不會由畫畫的順序排列 Path，理想的情況是畫完一顆頭再畫另一顆，所以這邊把 SVG 做一點簡單的分類，
+三顆頭和下面的文字：</p>
+
+<p><img src="http://blog.roachking.net/upload/osolve-team-sketch-group.png" alt="Sketch Group" /></p>
+
+<p>另存新檔以後 Path 就會依照這個順序排列了。</p>
+
+<h2>使用 Javascript 計算 Stroke Dash 長度</h2>
+
+<p>這邊使用到 SVG Path 的動畫原理，詳細的原理可以參考 <a href="http://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works | CSS-Tricks</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nv">pathPrepare = </span><span class="nf">($el) -&gt;</span>
+</span><span class='line'>  <span class="nv">lineLength = </span><span class="nx">$el</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">getTotalLength</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;stroke-dasharray&quot;</span><span class="p">,</span> <span class="nx">lineLength</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">$el</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;stroke-dashoffset&quot;</span><span class="p">,</span> <span class="nx">lineLength</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'> <span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg path&quot;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">$this = </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">pathPrepare</span><span class="p">(</span><span class="nx">$this</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用 CSS Animation</h2>
+
+<p>使用 css animation 對 svg 做動畫的效果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="k">@keyframes</span> <span class="nt">dash</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nt">from</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">fill</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="nt">to</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">stroke</span><span class="o">-</span><span class="n">dashoffset</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">fill</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">svg</span><span class="nc">.animated</span> <span class="nt">path</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">animation</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="n">dash</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">stroke</span><span class="o">-</span><span class="k">width</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">stroke</span><span class="o">:</span> <span class="m">#000</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>應該會注意到我沒有上 animation time 和 animation delay，是因為寫在 scss compile 出來太龐大了，所以這邊會用 Javascript 來處理：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span> <span class="nf">-&gt;</span>
+</span><span class='line'>  <span class="nv">delayTime = </span><span class="mi">0</span>
+</span><span class='line'>  <span class="nv">animationTime = </span><span class="mf">0.15</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg path&quot;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nv">$this = </span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-delay&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">delayTime</span><span class="si">}</span><span class="s">s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-duration&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">animationTime</span><span class="si">}</span><span class="s">s&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="nx">$this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&quot;animation-fill-mode&quot;</span><span class="p">,</span> <span class="s">&quot;forwards&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">delayTime</span> <span class="o">+=</span> <span class="nx">animationTime</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>給 SVG animated 的 class</h2>
+
+<p>上面的 css 指定 <code>svg.animated</code> 下的 Path 才會有動畫效果，最後這邊只要加上 animated 的 class 就完成了！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="s">&quot;svg&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">,</span> <span class="s">&quot;animated&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>成品</h2>
+
+<p>看起來效果還不錯！最近常常在玩 SVG，還滿有成就感的，最近 <a href="http://osolve.com">oSolve</a> 的新產品 <a href="http://worknowapp.com/">Worknow 打工趣</a> 的首頁也有用到
+SVG 來呈現動畫效果，有興趣也可以連過去看。</p>
+
+<p data-height="584" data-theme-id="9636" data-slug-hash="DsinJ" data-default-tab="result" data-user="tonilin" class='codepen'>See the Pen <a href='http://codepen.io/tonilin/pen/DsinJ/'>oSolve Team Drawing Animation</a> by tonilin (<a href='http://codepen.io/tonilin'>@tonilin</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+
+
+<script async src="//codepen.io/assets/embed/ei.js"></script>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Pygments.rb 效能調校]]></title>
@@ -2204,219 +2367,6 @@
 <h2>小結</h2>
 
 <p>用了 Security 以後，就可以對網站不一樣的使用者，做不一樣的權限控管，未付費會員不能上傳檔案，因此就不產生 signature 給他，以及各種 User 檔案上傳大小限制之類的。不會因為是寫在 Javascript，而被輕鬆破解。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[201309 連結收集]]></title>
-    <link href="http://blog.roachking.net/blog/2013/09/01/link-collection/"/>
-    <updated>2013-09-01T06:05:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2013/09/01/link-collection</id>
-    <content type="html"><![CDATA[<p>201309 連結收集</p>
-
-<h1>Rails</h1>
-
-<ul>
-<li><a href="https://github.com/pandurang90/feature_flags">FeatureFlags</a></li>
-</ul>
-
-
-<blockquote><p>Manage (turn on/off) different features in your rails app.</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/applicake/doorkeeper">Doorkeeper</a></li>
-</ul>
-
-
-<blockquote><p>Doorkeeper is an OAuth 2 provider for Rails. <a href="https://github.com/applicake/doorkeeper">https://github.com/applicake/doorkeeper</a></p></blockquote>
-
-<ul>
-<li><a href="https://github.com/rails/web-console">Web Console</a></li>
-</ul>
-
-
-<blockquote><p>Rails Console on the Browser.</p></blockquote>
-
-<!-- more -->
-
-
-<h1>Web</h1>
-
-<ul>
-<li><a href="http://randomuser.me/">Random User Generator</a></li>
-</ul>
-
-
-<blockquote><p>Like Lorem Ipsum, but for people.</p></blockquote>
-
-<p><img src="http://user-image.logdown.io/user/7/blog/530/post/98589/oqFUEUBRlGY5Pe6xN35Z_Random_User_Generator.jpeg" alt="Random_User_Generator" /></p>
-
-<ul>
-<li><a href="http://browserdiet.com/">HOW TO LOSE WEIGHT in the browser</a></li>
-</ul>
-
-
-<blockquote><p>The definitive front-end performance guide
-<img src="http://user-image.logdown.io/user/7/blog/530/post/98589/q6vgrDuyRoOT19KacG2k_How_to_lose_weight__in_the_browser_.jpeg" alt="How_to_lose_weight__in_the_browser_.jpeg" /></p></blockquote>
-
-<p><a href="https://github.com/andreineculau/know-your-http-well">KNOW YOUR HTTP * WELL</a></p>
-
-<blockquote><p>HTTP headers, media-types, methods, relations and status codes, all summarized and linking to their specification.</p></blockquote>
-
-<h1>Javascript</h1>
-
-<ul>
-<li><a href="https://github.com/wagerfield/parallax">Parallax.js</a></li>
-</ul>
-
-
-<blockquote><p>Simple, lightweight parallax engine that reacts to the orientation of a smart device
-<img src="http://user-image.logdown.io/user/7/blog/530/post/98589/ToWEYISoQSGZciK3zu2Z_parallax.js.jpeg" alt="parallax.js.jpeg" /></p></blockquote>
-
-<ul>
-<li><a href="https://github.com/rstacruz/nprogress/">NProgress</a></li>
-</ul>
-
-
-<blockquote><p>Slim progress bars for Ajax&#8217;y applications. Inspired by Google, YouTube, and Medium.</p></blockquote>
-
-<ul>
-<li><p><a href="http://buildnewgames.com/webgl-threejs/">Creating a 3D Game With Three.js and WebGL</a></p></li>
-<li><p><a href="http://intentionjs.com/">intention.js</a></p></li>
-</ul>
-
-
-<blockquote><p>Intention.js offers a light-weight and clear way to dynamically restructure HTML in a responsive manner.</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/mduvall/grande.js">grande.js</a></li>
-</ul>
-
-
-<blockquote><p>This is a small Javascript library that implements features from Medium&rsquo;s editing experience.</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/brianreavis/sifter.js">sifter.js</a></li>
-</ul>
-
-
-<blockquote><p>A library for textually searching arrays and hashes of objects by property (or multiple properties). Designed specifically for autocomplete.</p></blockquote>
-
-<ul>
-<li><a href="http://lab.ejci.net/favico.js/">favico.js</a></li>
-</ul>
-
-
-<blockquote><p>Make a use of your favicon with badges, images or videos</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/eligrey/FileSaver.js">FileSaver.js</a></li>
-</ul>
-
-
-<blockquote><p>An HTML5 saveAs() FileSaver implementation</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/mozilla/togetherjs">TogetherJS</a></li>
-</ul>
-
-
-<blockquote><p>A service for your website that makes it surprisingly easy to collaborate in real-time.</p></blockquote>
-
-<ul>
-<li><a href="http://maroslaw.github.io/rainyday.js/">rainyday.js</a></li>
-</ul>
-
-
-<blockquote><p>a simple script for simulating raindrops falling on a glass surface</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/Leimi/drawingboard.js">drawingboard.js</a></li>
-</ul>
-
-
-<blockquote><p>A canvas based drawing app that you can integrate easily on your website</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/vdw/Tabslet">Tabslet</a></li>
-</ul>
-
-
-<blockquote><p>Yet another jQuery plugin for tabs with some extra features</p></blockquote>
-
-<ul>
-<li><a href="http://www.thepetedesign.com/demos/onepage_scroll_demo.html">One Page Scroll</a></li>
-</ul>
-
-
-<blockquote><p>Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin</p></blockquote>
-
-<h1>CSS</h1>
-
-<ul>
-<li><a href="http://rriepe.github.io/1pxdeep/">1pxdeep</a></li>
-</ul>
-
-
-<blockquote><p>Bootstrap theme featuring powerful color scheme controls and a flat design</p></blockquote>
-
-<ul>
-<li><a href="http://hellohappy.org/beautiful-web-type/">Beautiful web type</a></li>
-</ul>
-
-
-<blockquote><p>A showcase of the best typefaces from the Google web fonts directory.</p></blockquote>
-
-<ul>
-<li><a href="http://dabblet.com/gist/6046779">Loading animation with CSS</a></li>
-</ul>
-
-
-<blockquote><p>A brilliant CSS trick by Lea Verou for recreating the ContextAd loading animation.</p></blockquote>
-
-<ul>
-<li><a href="http://blog.typekit.com/2013/07/25/setting-subheads-with-css/">Setting subheads with CSS</a></li>
-</ul>
-
-
-<blockquote><p>Learn how to style beautiful subheads with CSS in this tutorial by Marko Dugonjić on Typekit.</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/IronSummitMedia/startbootstrap">Start Bootstrap</a></li>
-</ul>
-
-
-<blockquote><p>Better HTML Starter Templates for Twitter Bootstrap</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/jlukic/Semantic-UI">Semantic UI</a></li>
-</ul>
-
-
-<blockquote><p>Semantic empowers designers and developers by creating a shared vocabulary for UI.</p></blockquote>
-
-<ul>
-<li><a href="https://github.com/kennethcachia/Background-Check">BackgroundCheck</a></li>
-</ul>
-
-
-<blockquote><p>Automatically switch to a darker or a lighter version of an element depending on the brightness of images behind it.</p></blockquote>
-
-<ul>
-<li><a href="http://www.youtube.com/watch?v=KKM71-YeJp8">CSSconf.eu 2013 &ndash; Intro.css</a></li>
-</ul>
-
-
-<blockquote><p>Jed Schmidt will make you laugh with CSS. Check out this great and funny introduction of the CSSconf 2013.</p></blockquote>
-
-<h1>System</h1>
-
-<ul>
-<li><a href="http://explainshell.com/">ExplainShell.com</a></li>
-</ul>
-
-
-<blockquote><p>write down a command-line to see the help text that matches each argument</p></blockquote>
 ]]></content>
   </entry>
   

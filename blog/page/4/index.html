@@ -9,9 +9,8 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
-但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。 這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
-發現是 &hellip;">
+  <meta name="description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
+$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -35,9 +34,9 @@
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/4/" />
-<meta property="og:description" content="之前在 VirtualBox 的 Shared Folder 進行開發，在寫 PHP 的時候都沒問題，
-但是只要碰到靜態檔案，例如 Js 檔，明明修改了，看到的還是舊的版本。 這時候只要重開 Apache 就好了，但是每次這樣重開也不是辦法，於是 Google 一下是哪裡出了問題。
-發現是 Apache 的 sendfile 在做怪，這是一個利用 Kernel 的 sendfile &hellip;" />
+<meta property="og:description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
+$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。 比較少人知道還有一個 graceful 的指令： 1
+$ /etc/init.d/ &hellip;" />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -87,6 +86,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/29/graceful-restart-apache/">優雅地重開 Apache</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-29T21:30:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/01/29/graceful-restart-apache/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/01/29/graceful-restart-apache/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這個指令會<em>立即</em>關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。</p>
+
+<p>比較少人知道還有一個 graceful 的指令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>/etc/init.d/httpd graceful
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>發出這個指令以後，每個子進程都會處理完目前的 request 後，再套用新的設定。在 production 伺服器更改設定，使用 graceful 才能避免造成使用者的困擾。</p>
+
+<p>參考資料：<a href="http://httpd.apache.org/docs/2.0/stopping.html#graceful">Apache Stopping and Restarting</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -577,71 +633,6 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/09/error-reporting-e-all/">開發時 Error Reporting 永遠使用 E_ALL</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-09T19:00:00+08:00" pubdate data-updated="true">Nov 9<span>th</span>, 2012</time>
-        
-           | <a href="/blog/2012/11/09/error-reporting-e-all/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2012/11/09/error-reporting-e-all/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>PHP 允許開發者自行設定 Error Reporting <em>(錯誤報告)</em> 的 Level。有些開發者因為開發方便而設成 (E_ERROR |  E_PARSE)，
-故意去忽略 notices 和 warmings 的訊息。雖然這些訊息只是在提醒你，
-但也說明了你的程式不夠嚴謹。打開這些訊息，讓 Error Reporting 來告訴你哪些寫法是具有危險性的。</p>
-
-<p>將 Error Reporting 設成 E_ALL 有兩種方法，一種是從 php.ini 設置；
-而另外一種則是在 runtime 的時候加入一行：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="o">&lt;?</span>
-</span><span class='line'><span class="nb">error_reporting</span><span class="p">(</span> <span class="k">E_ALL</span> <span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果你的專案已經開發到一定程度，而且從來沒開過 E_ALL，那你可能會看到非常多的錯誤訊息，下面簡單介紹一些常見的錯誤：</p>
-
-<ul>
-<li>沒初始化的變數</li>
-<li>不存在的 key</li>
-<li>裸露的字串</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/09/error-reporting-e-all/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -659,6 +650,10 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/08/pygments-rb-performance/">Pygments.rb 效能調校</a>
       </li>
     
@@ -672,10 +667,6 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
     
       <li class="post">
         <a href="/blog/2014/04/07/my-startup-osolve/">開始創業，名字叫 oSolve</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/21/201403-link-collection/">201403 連結收集</a>
       </li>
     
   </ul>
