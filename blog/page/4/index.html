@@ -9,8 +9,7 @@
   <meta name="author" content="tonilin">
 
   
-  <meta name="description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
-$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 &hellip;">
+  <meta name="description" content="OptiPNG Official Site : http://optipng.sourceforge.net/ OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -34,9 +33,7 @@ $ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然�
 <meta property="og:title" content="蟑螂窩" />
 <meta property="og:site_name" content="蟑螂窩" />
 <meta property="og:url" content="http://blog.roachking.net/blog/page/4/" />
-<meta property="og:description" content="Apache 在更動設定檔以後，如果要套用新設定，一般都會下 restart 來重新啟動 Web server： 1
-$ /etc/init.d/httpd restart 這個指令會立即關掉所有的子進程，然後再重新讀取設定。但是在 production 伺服器，這樣可能會造成使用者的 request 被中斷。 比較少人知道還有一個 graceful 的指令： 1
-$ /etc/init.d/ &hellip;" />
+<meta property="og:description" content="OptiPNG Official Site : http://optipng.sourceforge.net/ OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。 " />
 
   <meta property="og:image" content="http://blog.roachking.net/upload/avatar.jpg" />
 
@@ -86,6 +83,52 @@ $ /etc/init.d/ &hellip;" />
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/30/optimization-with-optipng/">使用 OptiPNG 最佳化 PNG</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-30T14:30:00+08:00" pubdate data-updated="true">Jan 30<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/01/30/optimization-with-optipng/#disqus_thread"
+             data-disqus-identifier="http://blog.roachking.net/blog/2013/01/30/optimization-with-optipng/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OptiPNG Official Site : <a href="http://optipng.sourceforge.net/">http://optipng.sourceforge.net/</a></p>
+
+<p>OptiPNG 是一個能無損壓縮 PNG 的工具，也可以將非 PNG 的檔案 (BMP, GIF, PNM and TIFF) 轉換成壓縮過後的 PNG。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/01/30/optimization-with-optipng/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -583,56 +626,6 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/12/if-elsif-elsif-else/">恐怖的 Nesting if Statements</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-12T20:30:00+08:00" pubdate data-updated="true">Nov 12<span>th</span>, 2012</time>
-        
-           | <a href="/blog/2012/11/12/if-elsif-elsif-else/#disqus_thread"
-             data-disqus-identifier="http://blog.roachking.net/blog/2012/11/12/if-elsif-elsif-else/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在上一家公司裡，公司自行開發了一套 Framework，工程師都必須 Follow 這套 Framework 和設計標準，
-而這套 Framework 是由其中一個有十年經驗的工程師所開發。他跟我說這套程式碼的開發流程後，給了我一個 Sample Code，
-一看之下，讓我馬上決定離開這家公司。</p>
-
-<p>先不論這個 Framework 好不好用，光看裡面的 Coding Style，我就覺得無法從這家公司學到高深的技術了。
-在那個 Sample Code 中，我看到最噁心的東西就是，不斷的 if else if else，少則三四層，多則五六層。
-他跟我說程式碼可以維護是很重要的，結果我看到他的寫的東西卻是這樣&hellip;這種東西可以維護嗎(怒)？</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/11/12/if-elsif-elsif-else/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -650,6 +643,10 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/29/518-copied-worknowapp/">打工趣被 518 致(ㄔㄠ)敬(ㄒ一ˊ)了</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a>
       </li>
     
@@ -665,10 +662,6 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
         <a href="/blog/2014/04/12/rails-4-1-0-invalid-locacle/">Rails 4.1.0 Invalid Locale 問題</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/04/07/my-startup-osolve/">開始創業，名字叫 oSolve</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -682,7 +675,7 @@ Apache 2.2 、 PHP 5.4 、 Redis 和 MongoDB，設定檔也都要一樣，光想
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - tonilin -
+  Copyright &copy; 2015 - tonilin -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
