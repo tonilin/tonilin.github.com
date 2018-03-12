@@ -4,7 +4,7 @@
   <title><![CDATA[蟑螂窩]]></title>
   <link href="http://blog.roachking.net/atom.xml" rel="self"/>
   <link href="http://blog.roachking.net/"/>
-  <updated>2015-05-29T19:23:59+08:00</updated>
+  <updated>2018-03-12T18:00:13+08:00</updated>
   <id>http://blog.roachking.net/</id>
   <author>
     <name><![CDATA[tonilin]]></name>
@@ -12,119 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[打工趣被 518 致(ㄔㄠ)敬(ㄒ一ˊ)了]]></title>
-    <link href="http://blog.roachking.net/blog/2015/05/29/518-copied-worknowapp/"/>
-    <updated>2015-05-29T18:00:00+08:00</updated>
-    <id>http://blog.roachking.net/blog/2015/05/29/518-copied-worknowapp</id>
-    <content type="html"><![CDATA[<p><a href="https://worknowapp.com">打工趣</a>是我們團隊 <a href="http://osolve.com">oSolve</a> 花了很大的心血，研究出來適合打工族使用的 APP，並花了一個月開發和設計出來的。</p>
-
-<p>在營運四個月後，也得到不錯的成績，各個平台 DAU 加起來約 8000 人，[DAU/MAU] 約為 0.25。</p>
-
-<p>可是最近卻發現剛上架的 <code>518 找打工</code> 跟我們的 <code>打工趣</code> 相似度非常高，我想應該是被致(ㄔㄠ)敬(ㄒ一ˊ)了，下面來比較一下
- <code>打工趣</code> 和 <code>518 找工作</code> 的雷同之處：</p>
-
-<h2>主要顏色</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_main_color.png" alt="Main Color" /></p>
-
-<p>打工趣的顏色是 <code>#35bbcf</code>，518 找打工的顏色是 <code>#14CEC9</code>，
-用 <a href="http://colormine.org/delta-e-calculator/">Delta-E Calculator</a> 來計算兩個顏色的差異度，算出來的值是 <code>17.9105</code>，不管是眼睛看還是算出來的，
-都可以看得出來兩個顏色非常相近。</p>
-
-<!-- more -->
-
-
-<h2>工作列表頁面</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_job_list.png" alt="Job List" /></p>
-
-<ul>
-<li>切換地區位置</li>
-</ul>
-
-
-<p>為了讓使用者清楚得知道目前在看的是哪個地區，所以我們把地區切換按鈕放在左上角。同時找打工的使用者是不在乎你到底總共有多少筆資訊的，
-重點是&#8221;新&#8221;資訊有多少，因此我們決定不顯示總共多少筆資料。518 致敬了好的部份，也把我們覺得不好該捨棄的部份加上去了。</p>
-
-<ul>
-<li>時薪、地點位置</li>
-</ul>
-
-
-<p>除了工作內容以外，時薪和地點應該是使用者最在意的東西，所以標題下面馬上就接著時薪和地點。</p>
-
-<ul>
-<li>張貼時間</li>
-</ul>
-
-
-<p>使用者會在意的其中一個因素，就是這個工作是不是最近張貼的，很重要，但是使用者只會看一眼，確定這一頁是最近一兩個禮拜的職缺，
-所以放在右下角，才不會一直干擾使用者。</p>
-
-<ul>
-<li>收藏按鈕</li>
-</ul>
-
-
-<p>當初本來只用星星，但發現星星放在這裡很醜，後來決定使用書籤 + 星號，讓這裡不會太單調。</p>
-
-<ul>
-<li>顯示已讀未讀</li>
-</ul>
-
-
-<p>顯示已讀未讀是很重要的功能，可以節省找工作的時間，讓使用者知道上次看到哪裡，要從哪裡繼續看。
-當初有兩個選擇，一個是目前的設計，一個是標題變成灰色。標題變成灰色不是一個好設計，這會讓使用者曾經在意過的工作變得很不明顯，
-&ldquo;已額滿&rdquo; 的工作才應該是用灰色字，讓使用者自動略過。這部份 518 可真的是無下限的致敬。</p>
-
-<h2>登入提示</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_not_login_tip.png" alt="Login Tips" /></p>
-
-<p>不能完全致敬，所以把馬上改成立即</p>
-
-<h2>設定頁面</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_settings.png" alt="Settings" /></p>
-
-<ul>
-<li>「一般」和「一般」</li>
-<li>「建議與問題回報」和「問題與回報」</li>
-<li>「評價打工趣」和「評價518找工作」</li>
-<li>「分享打工趣給朋友」和「分享518找工作給朋友」</li>
-<li>「有新工作通知我」和「新工作通知我」</li>
-<li>「關於打工趣」和「關於518找工作」</li>
-<li>「帳號」和「帳號」</li>
-</ul>
-
-
-<h2>工作內容</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_job_content.png" alt="Job Content" /></p>
-
-<p>看到這個幾乎一模一樣的工作內容，真的心理五味雜陳啊～</p>
-
-<h2>履歷預覽功能</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_apply.png" alt="Resume Preview" /></p>
-
-<p>在送出前的履歷預覽功能，同樣有這個功能就算了，按鈕還一樣，只稍修改文案而已</p>
-
-<h2>新工作提示</h2>
-
-<p><img src="http://blog.roachking.net/upload/worknowapp_518_new_job.png" alt="Resume Preview" /></p>
-
-<p>新工作提示，形狀文案一模一樣</p>
-
-<h2>結論</h2>
-
-<p>打工市場和好的 UI 在台灣被漸漸重視是非常好的事情，但是這樣的致敬行為讓人覺得設計非常不被尊重。這麼大的公司致敬
-一個不到五人的團隊，真的是見識到了 518 的下限。不過我們相信，好的東西才有致(ㄔㄠ)敬(ㄒ一ˊ)的價值，你可以偷走我們的外殼，
-可是沒辦法複製我們的靈魂，一個沒有靈魂的產品就只是個空殼而已。</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用 SVG 將圖片做成動畫]]></title>
@@ -2293,6 +2180,193 @@ SVG 來呈現動畫效果，有興趣也可以連過去看。</p>
 
 
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Filepicker.io Security in Ruby]]></title>
+    <link href="http://blog.roachking.net/blog/2013/09/04/filepickerio-security-in-ruby/"/>
+    <updated>2013-09-04T12:40:00+08:00</updated>
+    <id>http://blog.roachking.net/blog/2013/09/04/filepickerio-security-in-ruby</id>
+    <content type="html"><![CDATA[<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/hHoFBaZCSyOVjjw8KDF9_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-09-04%20%E4%B8%8B%E5%8D%887.46.01.png" alt="螢幕快照 2013-09-04 下午7.46.01.png" /></p>
+
+<p>Filepicker 是一個非常好用的 File upload service，它可以讓你用簡單的 Javascript，就能做出超好用的圖片上傳，Backend 完全不用寫 Code，就可以讓使用者把圖片傳到 S3 上，詳細的介紹可以參考<a href="https://www.inkfilepicker.com/">官網</a>，這篇主要介紹 Filepicker 安全性問題。</p>
+
+<!--more-->
+
+
+<h2>簡單的 Pick &amp; Store</h2>
+
+<p>Filepicker 只要簡單的一小段 code，就可以讓使用者挑選檔案，並傳到 S3：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">1024</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但如果稍微想一下，就會發現 maxSize 和 path 都寫在前端，那如果稍微懂點 Javascript 的使用者，把這兩個變數塞別的數值進去，那他就可以傳任意大小的檔案到任意的路徑。</p>
+
+<h2>Filepicker 安全機制</h2>
+
+<p>Filepicker 提供一個 Security 機制，可以避免這個問題，流程如下：</p>
+
+<ol>
+<li>跟 Filepicker 申請一個 <code>App Secret</code></li>
+<li>在 Server Backend 定義 <code>policy</code>，並用 Base64 加密。</li>
+<li>在 Server Backend 使用 <code>App Secret</code> 加密 <code>policy</code>，產生出 <code>signature</code></li>
+<li>Javascript 在呼叫 API 的時候，送出 <code>policy</code> 和 <code>signature</code> 做驗證。</li>
+</ol>
+
+
+<p>但是官網提供的 <a href="https://developers.inkfilepicker.com/docs/security/">Security文件</a> 是用 python 做範例，這邊我們用 ruby 來一步一步教學。</p>
+
+<h2>申請 <code>App Secret</code></h2>
+
+<p>到官網後台的左邊選單 <code>App Secret</code> 處，就可以申請一個 Secret：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/bPjkFPwXSXyI77n8vDU6_Ink_File_Picker___Developer_Portal_-_logdown_rocodev.com.jpeg" alt="Ink_File_Picker___Developer_Portal_-_logdown_rocodev.com.jpeg" /></p>
+
+<p>注意，上面的 <code>Use Security</code> 勾選以後，前端送出的 request 就全部都要送 policy 和 signature，不然會失敗。</p>
+
+<h2>定義 <code>policy</code></h2>
+
+<p>Policy 就是定義使用者可以用哪些功能、上傳多大的檔案、上傳路徑為何 &hellip;，詳細的 options 可以參考官網文件。</p>
+
+<p>用 Ruby 先定義簡單的 policy:</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">policy</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;expiry&quot;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span>  <span class="o">+</span> <span class="mi">3</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span>   <span class="c1"># 這組 Policy產生出來的 signature，只能在三天內使用</span>
+</span><span class='line'>  <span class="s2">&quot;maxSize&quot;</span> <span class="o">=&gt;</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="c1"># 10mb         # 最大只能上傳 10mb</span>
+</span><span class='line'>  <span class="s2">&quot;call&quot;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;pick&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="o">]</span><span class="p">,</span>              <span class="c1"># 只能使用pick , store</span>
+</span><span class='line'>  <span class="s2">&quot;path&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;.*&quot;</span>                                <span class="c1"># Path 的 Regular Expression</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著用 Base64 幫 policy 加密：</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">json_policy</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'><span class="n">encoded_policy</span> <span class="o">=</span> <span class="no">Base64</span><span class="o">.</span><span class="n">urlsafe_encode64</span><span class="p">(</span><span class="n">json_policy</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>產生 signature</h2>
+
+<p>有了 encoded_policy 和 app secret 就能產生 signature</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">app_secret</span> <span class="o">=</span> <span class="s2">&quot;your secret&quot;</span>
+</span><span class='line'><span class="n">signature</span> <span class="o">=</span> <span class="ss">OpenSSL</span><span class="p">:</span><span class="ss">:HMAC</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="n">file_picker_secret</span><span class="p">,</span> <span class="n">encoded_policy</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Filepicker 會檢查加密後的 policy 和 Signature 是否一致，而且只有我們和 Filepicker 才知道 <code>App Secret</code> 是什麼，第三方如果沒有 App Secret 是沒辦法產生出 Signature 的。</p>
+
+<h2>使用 Security 機制</h2>
+
+<p>接著就可以把產生出來的 signature 和 encoded_policy 塞進 Javascript：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">policy</span><span class="o">:</span> <span class="nx">encoded_policy</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">signature</span><span class="o">:</span> <span class="nx">signature</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>簡單測試</h2>
+
+<p>我們把 Server side Policy 的 maxSize 設成 1kb：</p>
+
+<figure class='code'><figcaption><span>Filepicker.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">policy</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;expiry&quot;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span>  <span class="o">+</span> <span class="mi">3</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">.</span><span class="n">to_i</span><span class="p">,</span>
+</span><span class='line'>  <span class="s2">&quot;maxSize&quot;</span> <span class="o">=&gt;</span> <span class="mi">1024</span><span class="p">,</span> <span class="c1"># 1kb</span>
+</span><span class='line'>  <span class="s2">&quot;call&quot;</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;pick&quot;</span><span class="p">,</span> <span class="s2">&quot;store&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 Javascript 那邊假裝惡意使用者，把 maxSize 設成 10mb：</p>
+
+<figure class='code'><figcaption><span>filepicker.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">filepicker</span><span class="p">.</span><span class="nx">pickAndStore</span><span class="p">({</span>
+</span><span class='line'>  <span class="nx">maxSize</span><span class="o">:</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// 10mb,</span>
+</span><span class='line'>  <span class="nx">policy</span><span class="o">:</span> <span class="nx">encoded_policy</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">signature</span><span class="o">:</span> <span class="nx">signature</span>
+</span><span class='line'><span class="p">},{</span>
+</span><span class='line'>  <span class="nx">access</span><span class="o">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;S3&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span>
+</span><span class='line'><span class="p">},</span><span class="kd">function</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">InkBlobs</span><span class="p">));</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接著上傳一個超過 1kb 的檔案，可以看到錯誤訊息：</p>
+
+<p><img src="http://user-image.logdown.io/user/7/blog/530/post/100056/zT9LEJmESQmqBhhwz02p_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202013-09-04%20%E4%B8%8B%E5%8D%888.28.57.png" alt="螢幕快照 2013-09-04 下午8.28.57.png" /></p>
+
+<h2>小結</h2>
+
+<p>用了 Security 以後，就可以對網站不一樣的使用者，做不一樣的權限控管，未付費會員不能上傳檔案，因此就不產生 signature 給他，以及各種 User 檔案上傳大小限制之類的。不會因為是寫在 Javascript，而被輕鬆破解。</p>
 ]]></content>
   </entry>
   
